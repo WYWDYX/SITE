@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File to GitHub</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Upload File to GitHub</h1>
+    <form onsubmit="return uploadFile(event)">
+        <input type="file" name="file" accept=".txt">
+        <br>
+        <input type="submit" value="Upload">
+    </form>
+    <script>
+        const REPO_OWNER = "<WYWDYX>";
+        const REPO_NAME = "<SITE>";
+        const BRANCH_NAME = "master"; // or use the branch name you want to commit to
+
+        function uploadFile(event) {
+            event.preventDefault();
+
+            const file = document.getElementsByName("file")[0].files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const content = event.target.result;
+                const path = file.name;
+                const message = `Add file $${file.name} via API`;
+
+                // 1. Get the latest commit sha of the branch
+                getLatestCommitSha()
+                    .then(sha => {
+                        // 2. Get the content of the file
+                        getFileContent(path, sha)
+                            .then(contentData => {
+                                // 3. Make the commit
+                                makeCommit(contentData, path, content, message, sha);
+                            })
+                            .catch(error => {
+                                if (error.response && error.response.status === 404) {
+                                    // File doesn't exist, create a new file instead
+                                    createFile(path, content, message, sha);
+                                } else {
+                                    console.error(error);
+                                }
+                            });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            };
+            reader.onerror = function() {
+                console.error("Unable to read file");
+            };
+        }
+
+        function getLatestCommitSha() {
+            const url = `https://api.github.com/repos/$${REPO_OWNER}/$${REPO_NAME}/git/refs/heads/$${BRANCH_NAME}`;
+            return axios.get(url).then(response => response.data.object.sha);
+        }
+
+        function getFileContent(path, sha) {
+            const url = `https://api.github.com/repos/$${REPO_OWNER}/$${REPO_NAME}/contents/$${path}?ref=$${sha}`;
+            return axios.get(url).then(response => response.data);
+        }
+
+        function createFile(path, content, message, sha) {
+            const url = `https://api.github.com/repos/$${REPO_OWNER}/$${REPO_NAME}/contents/$${path}`;
+            const data = {
+                message: message,
+                content: btoa(content) // encode to base64
+            };
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            if (sha) {
+                data.sha = sha;
+            }
+            axios.put(url, data, config)
+                .then(response => {
+                    alert("File uploaded successfully");
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        function makeCommit(contentData, path, content, message, sha) {
+            const url = `https://api.github.com/repos/$${REPO_OWNER}/$${REPO_NAME}/git/commits`;
+            const config = {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            };
+            const data = {
+                message: message,
+                author: {
+                    name: REPO_OWNER,
+                    email: "<YOUR_EMAIL_ADDRESS>"
+                },
+                parents: [sha],
+                tree: contentData.tree.sha,
+                changes: [
+                    {
+                        path: path,
+                        mode: "100644",
+                        type: "blob",
+                        content: content
+                    }
+                ]
+            };
+            axios.post(url, data, config)
+                .then(response => {
+                    const commitSha = response.data.sha;
+                    updateBranch(commitSha);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        function updateBranch(commitSha) {
+            const url = `https://api.github.com/repos/$${REPO_OWNER}/$${REPO_NAME}/git/refs/heads/$${BRANCH_NAME}`;
+            const data = {
+                sha: commitSha
+            };
+            axios.patch(url, data)
+                .then(response => {
+                    alert("File uploaded successfully");
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+    </script>
+</body>
+</html>
