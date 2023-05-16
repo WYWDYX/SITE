@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'ZCOOL XiaoWei';
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background-color: transparent;
+  padding: 20px 10%;
+  color: #333333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  position: relative;
+  color: #333333;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a {
+  position: relative;
+  color: #333333;
+  text-decoration: none;
+}
+
+nav a::before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 4px;
+  background: linear-gradient(90deg, #742BFC 0%, #FF6A88 100%);
+  bottom: -10px;
+  border-radius: 4px;
+  transition: all 0.4s cubic-bezier(0.82, 0.02, 0.13, 1.26);
+  left: 0;
+}
+
+nav a:hover::before {
+  width: 100%;
+  left: 0;
+}
+
+main {
+  padding: 20px 10%;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #333333;
+  text-align: center;
+}
+
+.hero {
+  background-color: #E4F3FF;
+  padding: 60px 10%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-text {
+  max-width: 500px;
+}
+
+#myContainer {
+  width: 400px;
+  height: 500px;
+  background-color: transparent;
+  position: relative;
+}
+
+.hero-text h1 {
+  font-size: 50px;
+  font-weight: 400;
+  color: #333333;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  text-shadow: 2px 2px Lightblue;
+}
+
+.hero-text p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.services {
+  background-color: #F5F5F5;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.services-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service {
+  max-width: 350px;
+  text-align: center;
+  padding: 40px 40px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  margin: 20px;
+  border-radius: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.service svg {
+  margin-bottom: 20px;
+}
+
+.service h3 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.service p {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.service:hover {
+  transform: scale(1.2);
+}
+
+.about {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-container {
+  max-width: 900px;
+  display: flex;
+  flex-direction: row-items: center;
+}
+
+.about-text {
+  max-width: 500px;
+  padding: 60px 20px;
+}
+
+.about-text p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #666666;
+  margin-bottom: 20px;
+}
+
+.about-img {
+  width: 240px;
+  height: 240px;
+  padding: 60px 20px;
+}
+
+.about-img svg {
+  border-radius: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.contact {
+  background-color: #F5F5F5;
+  border-radius: 20px; 
+  padding: 20px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333333;
+  font-weight: 400;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 20px;
+  width: 100%;
+  border: 1px solid #CCCCCC;
+  outline:none;
+}
+
+form input:focus,
+form textarea:focus {
+  outline-color: #1E88E5;
+}
+
+form textarea {
+  height: 100px;
+}
+
+form input[type="submit"] {
+  display: block;
+  background-color: #0071E3;
+  color: #FFFFFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 16px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  margin: 0 auto;
+}
+
+form input[type="submit"]:active {
+  background-color: #0068D1;
+  color: #FFFFFF;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transform: scale(1.02);
+}
+
+footer {
+  color: #333;
+  text-align: center;
+  padding: 20px;
+}
