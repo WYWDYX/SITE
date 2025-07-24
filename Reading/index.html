@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读 - 沉浸式阅读体验</title>
+    <link rel="icon" type="image/svg" href="/Assets/Images/About Us - Reading.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/Assets/css/Reading.css">
+</head>
+
+<body>
+    <!-- 背景动画 -->
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <!-- 头部导航 -->
+    <div class="head">
+        <div class="logo">
+            <img src="/Assets/Images/Logo - Reading.webp" alt="阅读图标">
+            <div class="logo-text">阅读</div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link">首页</a>
+            <a href="#books" class="nav-link">书籍库</a>
+            <a href="#features" class="nav-link">功能</a>
+            <a href="#reader" class="nav-link">阅读器</a>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 欢迎部分 -->
+        <section class="hero fade-in">
+            <div class="h1-container">
+                <div id="h1">
+                    <p>阅读</p>
+                    <div class="h1">
+                        <h1>用于长文和书籍阅读</h1>
+                    </div>
+                </div>
+                <img src="/Assets/Images/About Us - Reading.webp" alt="Logo">
+            </div>
+            <div class="head-btn">
+                <a href="#reader" class="btn btn-primary">
+                    <span class="material-icons">auto_stories</span>开始阅读
+                </a>
+                <a href="#books" class="btn">
+                    <span class="material-icons">collections_bookmark</span>浏览书库
+                </a>
+            </div>
+        </section>
+
+        <!-- 特色功能 -->
+        <section class="glass-container fade-in delay-1" id="features">
+            <div class="glass-surface">
+                <h2 class="section-title">核心功能</h2>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon material-icons">tune</div>
+                        <h3 class="feature-title">个性化阅读</h3>
+                        <p class="feature-desc">自定义字体、大小、主题和布局，打造最舒适的阅读环境</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">bookmark</div>
+                        <h3 class="feature-title">智能书签</h3>
+                        <p class="feature-desc">自动保存阅读进度，随时随地继续上次的阅读</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">dark_mode</div>
+                        <h3 class="feature-title">夜间模式</h3>
+                        <p class="feature-desc">保护眼睛的夜间阅读模式，让您在黑暗中也能舒适阅读</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">sync_alt</div>
+                        <h3 class="feature-title">多设备同步</h3>
+                        <p class="feature-desc">在手机、平板和电脑间无缝切换阅读进度</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 书籍推荐 -->
+        <section class="glass-container fade-in delay-2" id="books">
+            <div class="glass-surface">
+                <h2 class="section-title">热门书籍</h2>
+                <div class="book-grid">
+                    <!-- 书籍1 -->
+                    <div class="book-card fade-in delay-1">
+                        <div class="book-cover">
+                            <img src="/Assets/Text/诡秘之主/BookCover.webp" alt="诡秘之主">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">诡秘之主</h3>
+                            <p class="book-author">爱潜水的乌贼</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <!-- 书籍2 -->
+                    <div class="book-card fade-in delay-2">
+                        <div class="book-cover">
+                            <img src="/Assets/Text/三体/BookCover.webp" alt="三体">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">三体</h3>
+                            <p class="book-author">刘慈欣</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <!-- 书籍3 -->
+                    <div class="book-card fade-in delay-3">
+                        <div class="book-cover">
+                            <img src="/Assets/Text/诗云/BookCover.webp" alt="诗云">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">诗云</h3>
+                            <p class="book-author">刘慈欣</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <!-- 书籍4 -->
+                    <div class="book-card fade-in delay-1">
+                        <div class="book-cover">
+                            <img src="/Assets/Text/江国督の私密/BookCover.jpg" alt="江国督の私密">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">江国督の私密</h3>
+                            <p class="book-author">WYWDYX</p>
+                            <a href="#" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 阅读器预览 -->
+        <section class="glass-container fade-in delay-3" id="reader">
+            <div class="glass-surface">
+                <h2 class="section-title">阅读器体验</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-icons">auto_stories</span>
+                        《诡秘之主》第一章 序列
+                    </div>
+                    <div class="card-body">
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">
+                            痛！好痛！头好痛！光怪陆离满是低语的梦境迅速支离破碎，熟睡中的周明瑞只觉脑袋抽痛异常，仿佛被人用棒子狠狠抡了一下，不，更像是遭尖锐的物品刺入太阳穴并伴随有搅动！
+                        </p>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">
+                            嘶……迷迷糊糊间，周明瑞想要翻身，想要捂头，却发现自己完全无法动弹，身体似乎失去了控制。看来我还没有真醒，还在梦里……等下说不定还会出现鬼压床的感觉……他根据自身经验做出判断，努力地想要睁眼。
+                        </p>
+                        <p style="text-indent: 2em;">
+                            精神异常集中，过去的记忆碎片呈现出来，大学毕业后奔波于人才市场和面试场所的场景，父母欣慰又自豪的表情，拿着录用通知兴高采烈跑回家中的经历，以及之后工作中积累的点点滴滴，全都清晰外露，如同放电影。
+                        </p>
+
+                        <div style="margin-top: 2rem; display: flex; justify-content: center;">
+                            <a href="/Reading/Reader.html?referrer=诡秘之主&fileCount=1406&fontSize=24&fontFamily=PingFangSC-Semibold" class="btn btn-primary">
+                                <span class="material-icons">visibility</span>体验完整阅读器
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="fade-in delay-3">
+        <p>© 2025 阅读 - 沉浸式阅读体验平台</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#" class="btn">
+                <img class="My-Profile-Photo" src="/Assets/Images/WD - 3D_Link.jpg" alt="My-Profile-Photo"> WYWDYX
+            </a>
+            <a href="#" class="btn">
+                <span class="material-icons">feedback</span> 问题反馈
+            </a>
+        </p>
+    </footer>
+
+    <script src="/Assets/Js/Reading.js"></script>
+</body>
+
+</html>

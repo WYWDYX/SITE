@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 10000 10000">
+    <rect
+        x="0"
+        y="0"
+        width="10000"
+        height="10000"
+        fill="#1E88E5" />
+    <path
+        d="M 3000,7000 L 3000,3000 L 7000,3000"
+        stroke="#ffffff"
+        stroke-width="1000"
+        stroke-linecap="round" />
+    <path
+        d="M 3000,3000 L 5000,3000 L 5000,5000 L 3000,5000 Z"
+        fill="#ffffff" />
+    <path
+        d="M 4500,3000 L 5500,3000 L 5500,4000 L 4500,4000 Z"
+        fill="#1E88E5" />
+    <line
+        x1="5000"
+        y1="5000"
+        x2="7000"
+        y2="7000"
+        stroke="#ffffff"
+        stroke-width="1000"
+        stroke-linecap="round" />
+    <path
+        d="M 7000,7000 L 5000,7000 L 5000,5000 L 7000,5000"
+        stroke="#ffffff"
+        stroke-width="1000"
+        stroke-linecap="round" />
+    <path
+        d="M 5000,5500 L 6000,5500 L 6000,4500 L 5000,4500 Z"
+        fill="#1E88E5" />
+</svg>
+
+<!-- © 2023 吴栋。保留所有权利。本作品受中华人民共和国著作权法及国际著作权法保护。 -->
+<!--  -->
+<!-- 未经版权所有人的事先书面授权，任何人不得以任何方式使用本作品，包括但不限于复制、转载、修改、发布、发行、展示或演示该作品。 -->
+<!--  -->
+<!-- 任何未经授权的使用行为均构成对版权所有人的侵犯，版权所有人将保留依法追究其法律责任的权利。 -->
+<!--  -->
+<!-- GitHub账号: https://github.com/WYWDYX -->
+<!--  -->
+<!-- BiliBili帐号: https://space.bilibili.com/1220763338 -->
