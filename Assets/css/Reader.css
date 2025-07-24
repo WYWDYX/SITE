@@ -35,8 +35,8 @@ body {
 }
 
 ::selection {
-  color: #1F4296;
-  background-color: #FBEB3D;
+    color: #1F4296;
+    background-color: #FBEB3D;
 }
 
 .bg {
@@ -114,7 +114,7 @@ body {
     border-radius: 2px;
     padding: 2px;
     font-family: inherit;
-}        
+}
 
 .nav-link {
     color: var(--text-primary);
@@ -214,12 +214,12 @@ body {
         padding: 1rem;
         gap: 1rem;
     }
-    
+
     .nav-links {
         width: 100%;
         justify-content: center;
     }
-    
+
     #txtContent {
         padding: 1.5rem;
     }
@@ -230,16 +230,16 @@ body {
         flex-wrap: wrap;
         gap: 0.5rem;
     }
-    
+
     .nav-link {
         padding: 0.4rem 0.8rem;
         font-size: 0.9rem;
     }
-    
+
     #txtContent h2 {
         font-size: 1.8rem;
     }
-    
+
     #txtContent p {
         font-size: 1rem;
     }
@@ -260,10 +260,10 @@ body {
 
 @keyframes slide {
     0% {
-transform: translateX(-25%);
+        transform: translateX(-25%);
     }
 
     100% {
-transform: translateX(25%);
+        transform: translateX(25%);
     }
 }
