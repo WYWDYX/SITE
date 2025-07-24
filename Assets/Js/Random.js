@@ -1,7 +1,7 @@
 const websites = [
     "https://wywdyx.github.io/Resource-Sharing/",
     "https://wywdyx.github.io/Player/",
-    "https://wywdyx.github.io/Reading/",
+    "Reading/",
     "https://wywdyx.github.io/Repository-Public/"
 ];
 
