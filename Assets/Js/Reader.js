@@ -26,7 +26,7 @@ function loadFont(fontName) {
     // 创建字体样式
     const fontFace = new FontFace(
         fontName,
-        `url(.../Assets/Font/${fontName}.ttf) format('truetype')`
+        `url(../Font/${fontName}.ttf) format('truetype')`
     );
 
     // 加载字体
@@ -140,7 +140,7 @@ function loadText(fileName) {
     xhr.onerror = function() {
         document.getElementById('txtContent').innerHTML = `<p id="warning-1">网络连接断开 (๑╹っ╹๑)</p>`;
     };
-    xhr.open('GET', `.../Assets/Text/${directoryName}/${fileName}`);
+    xhr.open('GET', `../Text/${directoryName}/${fileName}`);
     xhr.send();
 }
 
