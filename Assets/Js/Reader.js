@@ -134,7 +134,7 @@ function loadText(fileName) {
         } else {
             document.getElementById('txtContent').innerHTML = `
       <p id="warning-1">无法加载 (๑╹っ╹๑):${xhr.statusText}</p>
-      <p id="warning-2">向站长反馈:PGWD_YX@iCloud.com</p>`;
+      <a href="https://github.com/WYWDYX/SITE/issues" class="feedback-issue">反馈</a>`;
         }
     };
     xhr.onerror = function() {
