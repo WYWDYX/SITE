@@ -273,7 +273,7 @@ button {
     font-weight: 700;
     position: relative;
     padding: 0.5rem 0;
-    margin-left: calc(50% - 1em);
+    margin-left: calc(100% - 4em);
 }
 
 .feedback-issue::after {

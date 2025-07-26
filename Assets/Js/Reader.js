@@ -281,14 +281,8 @@ function showError(title, detail, fileName) {
                 <p>页码: ${readerState.currentPage}/${readerState.totalPages}</p>
             </div>
             <a href="${issueUrl}" class="feedback-issue" target="_blank">反馈问题</a>
-            <button onclick="retryLoad()">重试</button>
         </div>
     `;
-}
-
-// 重试加载
-function retryLoad() {
-    readerState.loadCurrentPage();
 }
 
 // ==================== 初始化页面导航 ====================
@@ -351,25 +345,15 @@ pageNumberInput.addEventListener('keydown', function(event) {
 // 跳转按钮点击处理
 goButton.addEventListener('click', function() {
     normalizeInputValue(pageNumberInput);
-    
-    // 显示加载提示
-    showLoadingIndicator();
-    
     readerState.goToPage(parseInt(pageNumberInput.value));
 });
 
 // 上一页/下一页按钮事件绑定
 prevButton.addEventListener('click', function() {
-    // 显示加载提示
-    showLoadingIndicator();
-    
     readerState.prevPage();
 });
 
 nextButton.addEventListener('click', function() {
-    // 显示加载提示
-    showLoadingIndicator();
-    
     readerState.nextPage();
 });
 
