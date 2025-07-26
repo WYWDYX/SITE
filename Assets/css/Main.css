@@ -1,3 +1,4 @@
+/*已针对移动端浏览器（以及桌面端的WebKit/Blink内核浏览器）移除-webkit-tap-highlight-color*/
 :root {
     --primary: #6750A4;
     --on-primary: #FFFFFF;
@@ -28,6 +29,14 @@ body {
     color: #3C3C43;
     background: #f5f7ff;
     min-height: 100vh;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
 }
 
 .bg {
