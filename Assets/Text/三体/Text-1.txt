@@ -1,5 +1,5 @@
 <h2>﻿三体系列时间线</h2>
-</p><p style="color: #000;font-size: 0.5em;text-indent: 0;text-align: right">《三体》源文件并没有明确的章节结构，无法按章节拆分，你正在阅读按行拆分的《三体》<span style="display: inline-block;width: 1.3em;height: 1.3em;border-radius: 50%;background: #FF0000;border: 1px solid #ccc;text-align: center;line-height: 1.3em;color: #FFF;font-size: 1.1em;text-indent: 0">!</span></p><p>
+</p><p style="color: #000;font-size: 0.5em;text-indent: 0;text-align: right;user-select: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;">《三体》源文件并没有明确的章节结构，无法按章节拆分，你正在阅读按行拆分的《三体》<span style="display: inline-block;width: 1.3em;height: 1.3em;border-radius: 50%;background: #FF0000;border: 1px solid #ccc;text-align: center;line-height: 1.3em;color: #FFF;font-size: 1.1em;text-indent: 0">!</span></p><p>
 <h2>魔法时代</h2>
 　　1453年5月03日16时 高维碎片接触地球 
 　　1453年5月28日21时 碎片完全离开地球 
