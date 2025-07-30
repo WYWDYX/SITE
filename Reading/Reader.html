@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读器</title>
+    <link rel="icon" type="image/svg" href="../Assets/Images/About Us - Reading.webp">
+    <link rel="stylesheet" href="../Assets/css/Reader.css">
+</head>
+
+<body>
+    <!-- 背景动画 -->
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <!-- 头部导航 -->
+    <div class="head">
+        <a href="./" class="logo">
+            <img src="../Assets/Images/Logo - Reading.webp" alt="阅读图标">
+            <div class="logo-text">阅读器</div>
+        </a>
+        <div class="nav-links">
+            <a href="#" class="nav-link" id="prevButton">上一页</a>
+            章节: <input type="text" id="pageNumberInput" placeholder="1" value="1">
+            <a href="#" class="nav-link" id="goButton">前往</a>
+            <a href="#" class="nav-link" id="nextButton">下一页</a>
+        </div>
+    </div>
+
+    <!-- 主内容区域 -->
+    <div class="page-main">
+        <div id="txtContent">
+            <!-- 内容将由JavaScript填充 -->
+        </div>
+    </div>
+
+    <script src="../Assets/Js/Reader.js"></script>
+</body>
+
+</html>

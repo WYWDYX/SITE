@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读 - 沉浸式阅读体验</title>
+    <link rel="icon" type="image/svg" href="../Assets/Images/About Us - Reading.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../Assets/css/Reading.css">
+</head>
+
+<body id="body">
+    <!-- 背景动画 -->
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+
+    <!-- 头部导航 -->
+    <div class="head">
+        <div class="logo">
+            <img src="../Assets/Images/Logo - Reading.webp" alt="阅读图标">
+            <div class="logo-text">阅读</div>
+        </div>
+        <div class="nav-links">
+            <a href="#body" class="nav-link">首页</a>
+            <a href="#books" class="nav-link">书籍库</a>
+            <a href="#features" class="nav-link">功能</a>
+            <a href="#reader" class="nav-link">阅读器</a>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 欢迎部分 -->
+        <section class="hero fade-in">
+            <div class="h1-container">
+                <div id="h1">
+                    <p>阅读</p>
+                    <div class="h1">
+                        <h1>用于长文和书籍阅读</h1>
+                    </div>
+                </div>
+                <img src="../Assets/Images/About Us - Reading.webp" alt="Logo">
+            </div>
+            <div class="head-btn">
+                <a href="#reader" class="btn btn-primary">
+                    <span class="material-icons">auto_stories</span>开始阅读
+                </a>
+                <a href="#books" class="btn">
+                    <span class="material-icons">collections_bookmark</span>浏览书库
+                </a>
+            </div>
+        </section>
+
+        <!-- 特色功能 -->
+        <section class="glass-container fade-in delay-1" id="features">
+            <div class="glass-surface">
+                <h2 class="section-title">核心功能</h2>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon material-icons">tune</div>
+                        <h3 class="feature-title">个性化阅读</h3>
+                        <p class="feature-desc">自定义字体和字体大小，打造最舒适的阅读环境</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">devices</div>
+                        <h3 class="feature-title">响应式设计</h3>
+                        <p class="feature-desc">在移动端设备和桌面端设备上都有良好的界面显示效果</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">palette</div>
+                        <h3 class="feature-title">明黄色的色调</h3>
+                        <p class="feature-desc">更加让人舒适的页面颜色，让您能够舒适地阅读</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon material-icons">save</div>
+                        <h3 class="feature-title">当前进度记录</h3>
+                        <p class="feature-desc">记录进度，每次打开阅读器时能继续之前的进度</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 书籍推荐 -->
+        <section class="glass-container fade-in delay-2" id="books">
+            <div class="glass-surface">
+                <h2 class="section-title">热门书籍</h2>
+                <div class="book-grid">
+                    <div class="book-card fade-in delay-1">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/诡秘之主/BookCover.webp" alt="诡秘之主">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">诡秘之主</h3>
+                            <p class="book-author">爱潜水的乌贼</p>
+                            <a href="../Reading/Reader.html?referrer=诡秘之主&fileCount=1404&fontSize=24&fontFamily=方正悠宋GBK507R" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in delay-2">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/宿命之环/BookCover.jpg" alt="宿命之环">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">宿命之环</h3>
+                            <p class="book-author">爱潜水的乌贼</p>
+                            <a href="../Reading/Reader.html?referrer=宿命之环&fileCount=927&fontSize=24&fontFamily=方正悠宋GBK507R" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in delay-3">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/空洞骑士－游荡者日记/BookCover.webp" alt="空洞骑士－游荡者日记">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">空洞骑士－游荡者日记</h3>
+                            <p class="book-author">Team Cherry</p>
+                            <a href="../Reading/Reader.html?referrer=空洞骑士－游荡者日记&fileCount=17&fontSize=10" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in delay-4">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/三体/BookCover.webp" alt="三体">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">三体</h3>
+                            <p class="book-author">刘慈欣</p>
+                            <a href="../Reading/Reader.html?referrer=三体&fileCount=124&fontSize=24&fontFamily=方正悠宋GBK507R" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in delay-5">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/诗云/BookCover.webp" alt="诗云">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">诗云</h3>
+                            <p class="book-author">刘慈欣</p>
+                            <a href="../Reading/Reader.html?referrer=诗云&fileCount=6&fontSize=24&fontFamily=方正悠宋GBK507R" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+
+                    <div class="book-card fade-in delay-0" id="JGD" style="display: none">
+                        <div class="book-cover">
+                            <img src="../Assets/Text/江国督の私密/BookCover.jpg" alt="江国督の私密">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">江国督の私密</h3>
+                            <p class="book-author">WYWDYX</p>
+                            <a href="../Reading/Reader.html?referrer=江国督の私密&fileCount=1&fontSize=24&fontFamily=SmileySans" class="btn btn-primary" style="margin-top: 0.8rem;">开始阅读</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 阅读器预览 -->
+        <section class="glass-container fade-in delay-3" id="reader">
+            <div class="glass-surface">
+                <h2 class="section-title">阅读器体验</h2>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="material-icons">auto_stories</span>
+                        《诡秘之主》第一章 绯红
+                    </div>
+                    <div class="card-body" id="reader-card">
+                        <h4>第一章 绯红</h4>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">痛！</p>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">好痛！</p>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">头好痛！</p>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">光怪陆离满是低语的梦境迅速支离破碎，熟睡中的周明瑞只觉脑袋抽痛异常，仿佛被人用棒子狠狠抡了一下，不，更像是遭尖锐的物品刺入太阳穴并伴随有搅动！</p>
+                        <p style="text-indent: 2em; margin-bottom: 1.5rem;">嘶……迷迷糊糊间，周明瑞想要翻身，想要捂头，却发现自己完全无法动弹，身体似乎失去了控制。</p>
+                        <p style="text-indent: 2em;">看来我还没有真醒，还在梦里……等下说不定还会出现自以为已经醒了，实际依然在睡的情况……对类似遭遇不算陌生的周明瑞竭力集中意志，以彻底摆脱黑暗和迷幻的桎梏。</p>
+                        <div style="margin-top: 2rem; display: flex; justify-content: center;">
+                            <a href="../Reading/Reader.html?referrer=诡秘之主&fileCount=1404&fontSize=24&fontFamily=方正悠宋GBK507R" class="btn btn-primary">
+                                <span class="material-icons">visibility</span>体验完整阅读器
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="fade-in delay-3">
+        <p>© 2025 阅读 - 沉浸式阅读体验平台</p>
+        <p style="margin-top: 0.5rem;">
+            <a href="#" class="btn">
+                <img class="My-Profile-Photo" src="../Assets/Images/WD - 3D_Link.jpg" alt="My-Profile-Photo"> WYWDYX
+            </a>
+            <a href="#" class="btn">
+                <span class="material-icons">feedback</span> 问题反馈
+            </a>
+        </p>
+    </footer>
+
+    <script src="../Assets/Js/Reading.js"></script>
+    <script src="../Assets/Js/Jgd.js"></script>
+</body>
+
+</html>

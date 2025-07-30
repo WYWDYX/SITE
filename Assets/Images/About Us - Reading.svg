@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+    viewBox="7250 4190 10000 10000"
+    width="400">
+    <rect
+        x="7250"
+        y="4190"
+        width="10000"
+        height="10000"
+        fill="none"
+        stroke="#000000" />
+    <path
+        d="M7 14V10L11 8L12 6H15V10S16 10 16 11S15 14 15 14L12 12L11 14L7 14ZM11 5.5A3 3 0 1 0 11 11.5Z"
+        fill="#ffffff"
+        stroke="#000000"
+        stroke-width="0.2"
+        transform="scale(1021)" />
+    <path
+        d="M17 14V10L13 8L12 6H9V10S8 10 8 11S9 14 9 14L12 12L13 14L17 14ZM13 5.5A3 3 0 1 0 13 11.5Z"
+        fill="#ffffff"
+        stroke="#000000"
+        stroke-width="0.2"
+        transform="scale(1021)" />
+    <line
+        x1="12"
+        y1="6"
+        x2="12"
+        y2="14"
+        stroke="#000000"
+        stroke-width="0.2"
+        transform="scale(1021)" />
+</svg>

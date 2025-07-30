@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主网站</title>
+    <link rel="icon" type="image/svg" href="Assets/Images/Logo - Square.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="Assets/css/Main.css" />
+</head>
+
+<body>
+    <!-- 主页面 -->
+    <div id="main-page">
+        <div class="head">
+            <a href="#main-page" class="logo">
+                <img src="Assets/Images/Logo - Square.webp" alt="Logo">
+                <p style="color: #3C3C43;margin: 0;font-weight: bold;">主网站</p>
+            </a>
+            <img class="My-Profile-Photo" src="Assets/Images/WD - 3D_Link.jpg" alt="My-Profile-Photo">
+        </div>
+
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+
+        <div class="container">
+            <header class="fade-in">
+                <div class="h1-container">
+                    <div id="h1">
+                        <p>主网站</p>
+                        <div class="h1">
+                            <h1>负责链接我的各个网页</h1>
+                        </div>
+                    </div>
+                    <img src="Assets/Images/Logo - Square.webp" alt="Logo">
+                </div>
+                <p> · WYWDYX · </p>
+            </header>
+
+            <main class="glass-container fade-in delay-1">
+                <div class="glass-surface" style="padding: 2rem;">
+                    <section class="fade-in delay-1">
+                        <h2>没有想法？随机抽取网页</h2>
+                        <p>点击下方按钮将会从网页列表中随机抽取一个并跳转。抽取过程使用 Math.random() 实现。</p>
+
+                        <div style="margin: 1.5rem 0;">
+                            <button class="btn btn-primary" onclick="randomJump()">
+                                <span class="material-icons">shuffle</span> 随机抽取网页
+                            </button>
+                            <a href="#usage" class="btn">
+                                <span class="material-icons">list</span> 网页列表
+                            </a>
+                        </div>
+                    </section>
+
+                    <div class="glass-surface" style="padding: 2rem;background: rgba(255, 255, 255, 0.75);box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);">
+                        <section class="fade-in delay-1.5">
+                            <p style="font-size: 2.5rem;text-align: center;color: var(--primary-dark);font-weight: 600;margin: 1.5rem 0 1rem;position: relative;padding-left: 0;">特别推荐</p>
+                            <div class="h1-container">
+                                <div id="h1">
+                                    <p>阅读</p>
+                                    <div class="h1" style="background-image: -webkit-linear-gradient(left, #FBEB3D, #FFA500 25%, #FBEB3D 50%, #FFA500 75%, #FBEB3D)">
+                                        <h1>用于长文和书籍阅读</h1>
+                                    </div>
+                                </div>
+                                <img src="Assets/Images/About Us - Reading.webp" alt="Logo">
+                            </div>
+
+                            <div style="margin: 1.5rem 0;display: flex;justify-content: center;align-items: center">
+                                <a class="btn btn-primary-R Reading-a" href="Reading/">
+                                    <span class="material-icons">auto_stories</span> 前往阅读
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+
+                    <section class="fade-in delay-2" id="features">
+                        <h2>各网页功能</h2>
+
+                        <div class="card-grid">
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-icons">folder_shared</span> 资源共享
+                                </div>
+                                <div class="card-body">
+                                    <p>用于分享资源、资料文件、链接等，方便整理和访问。</p>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-icons">movie</span> 视频播放
+                                </div>
+                                <div class="card-body">
+                                    <p>播放《国督酱》，页面以播放器为主体，左上角有标题。</p>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-icons">menu_book</span> 阅读网页
+                                </div>
+                                <div class="card-body">
+                                    <p>用于长文和书籍阅读，适配移动与桌面端，现代且优雅。</p>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <span class="material-icons">games</span> 仿Xbox网页
+                                </div>
+                                <div class="card-body">
+                                    <p>复刻Xbox Game样式的网站展示页面（照抄的，仅桌面端）。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="fade-in delay-2" id="usage">
+                        <h2>网页列表</h2>
+                        <p>复制URL</p>
+
+                        <div class="glass-surface" style="padding: 1.5rem; margin: 1.5rem 0;">
+                            <p style="margin-bottom: 0">1.资源共享：</p>
+                            <pre>https://wywdyx.github.io/Resource-Sharing/</pre>
+
+                            <p style="margin-bottom: 0">2.视频播放：</p>
+                            <pre>https://wywdyx.github.io/Player/</pre>
+
+                            <p style="margin-bottom: 0">3.阅读网页：</p>
+                            <pre>https://wywdyx.github.io/SITE/Reading/</pre>
+
+                            <p style="margin-bottom: 0">4.仿Xbox网页：</p>
+                            <pre>https://wywdyx.github.io/Repository-Public/</pre>
+                        </div>
+
+                        <h3>源码地址</h3>
+                        <p>GitHub仓库地址</p>
+                        <div class="glass-surface" style="padding: 1.5rem; margin: 1.5rem 0;">
+                            <p style="margin-bottom: 0">1.资源共享：</p>
+                            <pre><code>https://github.com/WYWDYX/Resource-Sharing/</code></pre>
+
+                            <p style="margin-bottom: 0">2.视频播放：</p>
+                            <pre><code>https://github.com/WYWDYX/Player/</code></pre>
+
+                            <p style="margin-bottom: 0">3.阅读网页：</p>
+                            <pre><code>https://github.com/WYWDYX/SITE/Reading/</code></pre>
+
+                            <p style="margin-bottom: 0">4.仿Xbox网页：</p>
+                            <pre><code>https://github.com/WYWDYX/Repository-Public/</code></pre>
+                        </div>
+                    </section>
+
+                    <section class="fade-in delay-3" id="icons">
+                        <h2>前往网站</h2>
+                        <p>网站直链无需跳转</p>
+
+                        <div class="icon-grid">
+                            <div class="icon-item">
+                                <div class="icon-preview">
+                                    <a href="https://wywdyx.github.io/Resource-Sharing/">
+                                        <img src="Assets/Images/About Us - Frameless.webp" alt="资源共享图标">
+                                    </a>
+                                </div>
+                                <div>资源共享</div>
+                            </div>
+
+                            <div class="icon-item">
+                                <div class="icon-preview">
+                                    <a href="https://wywdyx.github.io/Player/">
+                                        <img src="Assets/Images/Logo - Square.webp" alt="视频播放图标">
+                                    </a>
+                                </div>
+                                <div>视频播放</div>
+                            </div>
+
+                            <div class="icon-item">
+                                <div class="icon-preview">
+                                    <a class="Reading-a" href="Reading/">
+                                        <img src="Assets/Images/About Us - Reading.webp" alt="阅读图标">
+                                    </a>
+                                </div>
+                                <div>阅读网页</div>
+                            </div>
+
+                            <div class="icon-item">
+                                <div class="icon-preview">
+                                    <a href="https://wywdyx.github.io/Repository-Public/">
+                                        <img src="Assets/Images/Logo - Square.webp" alt="仿Xbox图标">
+                                    </a>
+                                </div>
+                                <div>仿Xbox网页</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="fade-in delay-3">
+                        <h2>连通性检查</h2>
+                        <div class="tech-features">
+                            <ul id="connectivity-list">
+                                <!-- JS动态生成 -->
+                            </ul>
+                            <div class="tech-icon">
+                                <div class="glass-surface">
+                                    <span class="material-icons" style="margin-right: 0">wifi_tethering</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+
+            <footer class="fade-in delay-3" style="text-align: center; padding: 2rem 0; color: rgba(255, 255, 255, 0.7);">
+                <p id="debug" style="user-select: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none">© 2025 WYWDYX · 主网站</p>
+                <p style="margin-top: 0.5rem;">
+                    <a href="https://github.com/WYWDYX" class="btn" style="background: transparent;">
+                        <img style="width: 24px;border-radius: 50%;margin-right: 0.3rem" src="Assets/Images/WD - 3D_Link.jpg" alt="My-Profile-Photo"> GitHub主页
+                    </a>
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="Assets/Js/Random.js"></script>
+    <script src="Assets/Js/Connectivity.js"></script>
+    <script src="Assets/Js/Init.js"></script>
+    <script src="Assets/Js/Jgd.js"></script>    
+</body>
+</body>
+
+</html>
