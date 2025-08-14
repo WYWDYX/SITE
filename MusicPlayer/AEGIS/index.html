@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +38,14 @@
         ::selection {
             color: var(--pure-white);
             background-color: var(--primary-red);
+        }
+        
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        button {
+            -webkit-tap-highlight-color: transparent;
         }
         
         /* 页面结构 - 全flex布局 */
@@ -320,10 +329,11 @@
         }
     </style>
 </head>
+
 <body>
     <div class="page-container">
         <header class="top-section"></header>
-        
+
         <main class="middle-section">
             <div class="content-container">
                 <div class="text-content">
@@ -331,25 +341,25 @@
                     <div class="subtitle">ORIGINAI</div>
                     <div class="author">SOUNDTRACK</div>
                 </div>
-                
+
                 <div class="character-image" aria-hidden="true">
                     <img src="../../Assets/Images/AEGIS.png" alt="AEGIS">
                 </div>
-                
+
                 <h2 class="large-text" aria-label="A E G I S">AEGIS</h2>
-                
+
                 <button class="play-button" id="playButton">
                     <span class="play-icon">▶</span>
                 </button>
-                
+
                 <div class="lyrics-container" id="lyricsContainer"></div>
-                
+
                 <audio id="audioElement" preload="auto">
                     <source src="../../Assets/Music/Memories of You -Living with Determination Arrangement- - ATLUS Sound Team.m4a" type="audio/mpeg">
                 </audio>
             </div>
         </main>
-        
+
         <footer class="bottom-section">
             <div class="footer-text">wywdyx</div>
         </footer>
@@ -360,7 +370,7 @@
         const LYRICS = [
             [0.00, "你的记忆"]
         ];
-
+        
         // DOM元素
         const audioElement = document.getElementById('audioElement');
         const playButton = document.getElementById('playButton');
@@ -490,4 +500,5 @@
         });
     </script>
 </body>
+
 </html>
