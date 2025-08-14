@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PERSONA3 RELOAD</title>
+    <style>
+        /* 全局变量与重置 */
+        :root {
+            --primary-red: #e60000;
+            --accent-red: #ff2c2c;
+            --dark-black: #111;
+            --pure-white: #fff;
+            --text-gray: #333;
+            --inactive-opacity: 0.6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        
+        html, body {
+            height: 100%;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, 
+                         Arial, "Noto Sans", "PingFang SC", "Hiragino Sans GB", 
+                         "Microsoft YaHei", sans-serif;
+            color: var(--dark-black);
+            background: var(--pure-white);
+            overflow: hidden;
+            line-height: 1.5;
+        }
+        
+        ::selection {
+            color: var(--pure-white);
+            background-color: var(--primary-red);
+        }
+        
+        /* 页面结构 - 全flex布局 */
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        
+        .top-section {
+            background: var(--primary-red);
+            height: 10vh;
+            flex-shrink: 0;
+        }
+        
+        .middle-section {
+            background: var(--pure-white);
+            flex-grow: 1;
+            position: relative;
+            min-height: 0;
+        }
+        
+        .bottom-section {
+            background: var(--primary-red);
+            height: 10vh;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 中间内容区域 */
+        .content-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: min(1280px, 92vw);
+            height: 100%;
+            margin: 0 auto;
+            padding: clamp(16px, 4vw, 40px) 0;
+        }
+        
+        .text-content {
+            max-width: 48ch;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            font-family: "IBM3270";
+            flex: 1;
+        }
+        
+        .main-title {
+            margin: 0 0 0.35em 0;
+            line-height: 1.02;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            font-size: clamp(28px, 6vw, 64px);
+            color: #e41c22;
+        }
+        
+        .subtitle {
+            margin: 0.2em 0;
+            font-size: clamp(16px, 3.3vw, 28px);
+            font-weight: 700;
+            color: var(--dark-black);
+            font-family: "Ndot";
+        }
+        
+        .author {
+            margin: 0.2em 0 0 0;
+            font-size: clamp(16px, 3vw, 26px);
+            font-weight: 900;
+            color: var(--dark-black);
+            letter-spacing: 0.06em;
+            font-family: "Ndot";
+        }
+        
+        /* 人物图像 */
+        .character-image {
+            flex-shrink: 0;
+            max-width: min(42vw, 520px);
+            width: clamp(160px, 40vw, 520px);
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.7s ease;
+            margin-top: auto;
+        }
+        
+        .character-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 中央大字 */
+        .large-text {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: 0.02em;
+            font-size: clamp(72px, 22vw, 240px);
+            color: var(--pure-white);
+            mix-blend-mode: difference;
+            opacity: 0;
+            transition: opacity 0.9s ease 0.15s;
+            pointer-events: none;
+            z-index: 1;
+            white-space: nowrap;
+        }
+        
+        /* 底部标记 */
+        .footer-text {
+            color: var(--pure-white);
+            font-weight: 900;
+            letter-spacing: 0.06em;
+            font-size: clamp(20px, 6vw, 42px);
+            position: relative;
+            z-index: 1;
+            font-family: "Danita";
+        }
+        
+        /* 播放按钮 */
+        .play-button {
+            position: absolute;
+            bottom: 12vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-red);
+            color: var(--pure-white);
+            font-size: 2em;
+            line-height: 2em;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            z-index: 10;
+        }
+        
+        .play-button:hover {
+            transform: translateX(-50%) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            background: var(--accent-red);
+        }
+        
+        /* 歌词容器 - 打字机效果 */
+        .lyrics-container {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: clamp(18px, 3.5vw, 32px);
+            font-weight: 700;
+            text-align: center;
+            z-index: 5;
+            max-height: 40%;
+            overflow: hidden;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .lyrics-line {
+            display: none;
+            margin: 8px 0;
+            padding: 5px 15px;
+        }
+        
+        .lyrics-line.active {
+            display: block;
+        }
+        
+        .character {
+            opacity: 0;
+            display: inline-block;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .character.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .lyrics-line.active .character.visible {
+            color: var(--primary-red);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        /* 加载动画 */
+        .loaded .text-content {
+            opacity: 1;
+        }
+        
+        .loaded .character-image {
+            opacity: 1;
+        }
+        
+        .loaded .large-text {
+            opacity: 1;
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 0;
+            }
+            
+            .text-content {
+                align-self: flex-start;
+            }
+            
+            .character-image {
+                align-self: flex-end;
+            }            
+            
+            .main-title {
+                font-size: 5rem;
+            }
+            
+            .subtitle {
+                font-size: 2rem;
+            }
+            
+            .author {
+                font-size: 2rem;
+            }                                    
+            
+            .character-image img {
+                height: 60vh;
+                max-width: none;
+            }
+            
+            .lyrics-container {
+                bottom: 20%;
+                left: 5%;
+                top: auto;
+                overflow: visible;
+                font-size: 1.2rem;
+            }
+            
+            .lyrics-line {
+                width: 2em;
+            }
+            
+            .play-button {
+                bottom: 10vh;
+                width: 70px;
+                height: 70px;
+            }
+        }
+        
+        /* 字体定义 */
+        @font-face {
+            font-family: 'Danita';
+            src: url('../../Assets/Font/Danita.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'IBM3270';
+            src: url('../../Assets/Font/IBM-3270.ttf') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Ndot';
+            src: url('../../Assets/Font/Ndot-77-JP-Extended-Regular.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <header class="top-section"></header>
+        
+        <main class="middle-section">
+            <div class="content-container">
+                <div class="text-content">
+                    <h1 class="main-title">PERSONA3<br>RELOAD</h1>
+                    <div class="subtitle">ORIGINAI</div>
+                    <div class="author">SOUNDTRACK</div>
+                </div>
+                
+                <div class="character-image" aria-hidden="true">
+                    <img src="../../Assets/Images/AEGIS.png" alt="AEGIS">
+                </div>
+                
+                <h2 class="large-text" aria-label="A E G I S">AEGIS</h2>
+                
+                <button class="play-button" id="playButton">
+                    <span class="play-icon">▶</span>
+                </button>
+                
+                <div class="lyrics-container" id="lyricsContainer"></div>
+                
+                <audio id="audioElement" preload="auto">
+                    <source src="../../Assets/Music/Memories of You -Living with Determination Arrangement- - ATLUS Sound Team.m4a" type="audio/mpeg">
+                </audio>
+            </div>
+        </main>
+        
+        <footer class="bottom-section">
+            <div class="footer-text">wywdyx</div>
+        </footer>
+    </div>
+
+    <script>
+        // 歌词数据
+        const LYRICS = [
+            [0.00, "你的记忆"]
+        ];
+
+        // DOM元素
+        const audioElement = document.getElementById('audioElement');
+        const playButton = document.getElementById('playButton');
+        const lyricsContainer = document.getElementById('lyricsContainer');
+        const playIcon = playButton.querySelector('.play-icon');
+        
+        // 初始化歌词
+        function initializeLyrics() {
+            LYRICS.forEach(([time, text]) => {
+                const lineElement = document.createElement('div');
+                lineElement.className = 'lyrics-line';
+                lineElement.dataset.time = time;
+                
+                // 将每个字符拆分为单独的span
+                text.split('').forEach(char => {
+                    const charElement = document.createElement('span');
+                    charElement.className = 'character';
+                    charElement.textContent = char;
+                    lineElement.appendChild(charElement);
+                });
+                
+                lyricsContainer.appendChild(lineElement);
+            });
+        }
+        
+        // 当前歌词状态
+        let currentLineIndex = -1;
+        let charIndex = 0;
+        let charInterval = null;
+        
+        // 显示当前歌词
+        function showCurrentLyrics(index) {
+            // 重置所有歌词行
+            document.querySelectorAll('.lyrics-line').forEach(line => {
+                line.classList.remove('active');
+                line.querySelectorAll('.character').forEach(char => {
+                    char.classList.remove('visible');
+                });
+            });
+            
+            if (index >= 0 && index < LYRICS.length) {
+                const currentLine = document.querySelector(`.lyrics-line[data-time="${LYRICS[index][0]}"]`);
+                if (currentLine) {
+                    currentLine.classList.add('active');
+                    currentLineIndex = index;
+                    charIndex = 0;
+                    
+                    // 清除之前的定时器
+                    if (charInterval) clearInterval(charInterval);
+                    
+                    // 逐字显示
+                    const characters = currentLine.querySelectorAll('.character');
+                    charInterval = setInterval(() => {
+                        if (charIndex < characters.length) {
+                            characters[charIndex].classList.add('visible');
+                            charIndex++;
+                        } else {
+                            clearInterval(charInterval);
+                        }
+                    }, 100); // 控制打字速度
+                }
+            }
+        }
+        
+        // 更新歌词
+        function updateLyrics() {
+            if (audioElement.paused) return;
+            
+            const currentTime = audioElement.currentTime;
+            const lyricsLines = document.querySelectorAll('.lyrics-line');
+            
+            // 查找当前歌词行
+            let newIndex = -1;
+            for (let i = 0; i < LYRICS.length; i++) {
+                if (currentTime >= LYRICS[i][0]) {
+                    newIndex = i;
+                } else {
+                    break;
+                }
+            }
+            
+            // 如果歌词行变化则更新
+            if (newIndex !== currentLineIndex) {
+                showCurrentLyrics(newIndex);
+            }
+            
+            requestAnimationFrame(updateLyrics);
+        }
+        
+        // 播放按钮事件
+        playButton.addEventListener('click', () => {
+            if (audioElement.paused) {
+                audioElement.play()
+                    .then(() => {
+                        playIcon.textContent = '❚❚';
+                        updateLyrics();
+                    })
+                    .catch(error => {
+                        console.error("播放失败:", error);
+                    });
+            } else {
+                audioElement.pause();
+                playIcon.textContent = '▶';
+                if (charInterval) clearInterval(charInterval);
+            }
+        });
+        
+        // 音频结束事件
+        audioElement.addEventListener('ended', () => {
+            playIcon.textContent = '▶';
+            if (charInterval) clearInterval(charInterval);
+            
+            // 重置歌词
+            document.querySelectorAll('.lyrics-line').forEach(line => {
+                line.classList.remove('active');
+                line.querySelectorAll('.character').forEach(char => {
+                    char.classList.remove('visible');
+                });
+            });
+            currentLineIndex = -1;
+        });
+        
+        // 页面加载完成
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+            initializeLyrics();
+        });
+    </script>
+</body>
+</html>
