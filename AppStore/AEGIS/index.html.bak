@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS 应用详情页</title>
+    <link rel="icon" type="image/svg" href="../../Assets/Images/Logo - Square_Red.svg">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0d10">
+    <style>
+        * {scroll-behavior: smooth;}
+        body {
+          margin: 0;
+          font-family: 'Noto Sans SC', sans-serif;
+          color: #222;
+          background: linear-gradient(180deg, #f7f7f7, #e8ecf0);
+        }
+        ::selection {
+            color: white;
+            background-color: red;
+        }
+        a {
+            -webkit-tap-highlight-color: transparent;
+            text-decoration: none;
+        }
+        
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }        
+        header {
+          background: #ffffff;
+          border-bottom: 3px solid #000;
+          position: sticky;
+          top: 0;
+          z-index: 30;
+        }
+        header .container {
+          max-width: 1200px;
+          margin: auto;
+          padding: 0 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 60px;
+        }
+        header nav {
+          white-space: nowrap;
+        }
+        header nav a {
+          margin: 0 0.5rem;
+          color: #333;
+          font-weight: bold;
+          text-decoration: none;
+          border-bottom: 2px solid transparent;
+          transition: border-color 0.3s;
+        }
+        header nav a:hover {
+          border-color: #000;
+        }
+        .btn-primary {
+          background: #000;
+          border: 2px solid #000;
+          color: white;
+          padding: 0.5rem 1.5rem;
+          cursor: pointer;
+          font-weight: bold;
+          text-transform: uppercase;
+          transition: background 0.2s, color 0.2s;
+          white-space: nowrap;
+        }
+        .btn-primary:hover {
+          background: white;
+          color: black;
+        }
+        #btn-primary-red {
+          background: #F00;
+          border: 2px solid #000;
+          color: #FFF;
+        }
+        #btn-primary-red:hover {
+          background: #FFF;
+          color: #F00;
+        }
+        .section {
+          max-width: 1200px;
+          margin: auto;
+          padding: 2rem 1rem;
+        }
+        .hero {
+          display: flex;
+          gap: 1.5rem;
+          flex-wrap: wrap;
+          align-items: flex-start;
+        }
+        .hero img {
+          border: 3px solid #000;
+          flex-shrink: 0;
+        }
+        .tag {
+          display: inline-block;
+          background: #000;
+          color: white;
+          padding: 0.25rem 0.75rem;
+          font-size: 0.8rem;
+          margin-right: 0.5rem;
+          font-weight: bold;
+        }
+        .section_title {
+          display: flex;
+          width: 100%;
+        }
+        h1 {
+          font-family: 'IBM3270', sans-serif;
+          font-size: 2em;
+          font-weight: 700;
+          margin: 0.5rem 0;
+          border-left: 5px solid #F00;
+          padding-left: 0.5rem;
+          width: 100%;
+        }
+        .card-grid {
+          display: grid;
+          gap: 1.5rem;
+        }
+        @media (min-width: 768px) {
+          .card-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+        .card {
+          background: #fff;
+          padding: 1rem;
+          border: 3px solid #000;
+          transition: transform 0.2s;
+          font-weight: 200;
+        }
+        .card:hover {
+          transform: translateY(-4px);
+        }
+        picture img {
+          display: block;
+          width: 100%;
+          height: auto;
+          border: 3px solid #000;
+        }
+        #Screenshot {display: none;}
+        @media (min-width: 768px) {#Screenshot {display: block;}}        
+        footer {
+          border-top: 3px solid #000;
+          text-align: center;
+          padding: 0.5rem;
+          font-size: 1.2rem;
+          color: #333;
+          background: #f0f0f0;
+          font-family: IBM3270;
+        }
+        @font-face {
+          font-family: 'IBM3270';
+          src: url('../../Assets/Font/IBM-3270.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Ndot';
+          src: url('../../Assets/Font/Ndot-77-JP-Extended-Regular.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Orbitron';
+          src: url('../../Assets/Font/Orbitron.ttf') format('truetype');
+        }
+        @font-face {
+          font-family: 'Material Symbols Outlined';
+          font-style: normal;
+          font-weight: 400;
+          src: url(../../Assets/Font/MaterialIconsOutlined-Regular.woff2) format('woff2');
+        }
+        .material-symbols-outlined {
+          font-family: 'Material Symbols Outlined';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 1.5em;
+          line-height: 1;
+          margin-right: 0.7rem;
+          border: 2px solid #000;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+        /* ========= 颜色变量（明亮模式默认） ========= */
+        :root {
+          /* 浏览器在计算表单/滚动条等内建控件时也按双方案渲染 */
+          color-scheme: light dark;
+        
+          /* 基础色板（仅颜色，不改尺寸/排版/布局） */
+          --bg-grad-start: #f7f7f7;
+          --bg-grad-end:   #e8ecf0;
+          --text:          #222222;
+          --muted:         #555555;
+          --card-bg:       #ffffff;
+          --border:        #000000;
+          --header-bg:     #ffffff;
+          --link:          #333333;
+          --tag-bg:        #000000;
+          --tag-text:      #ffffff;
+          --primary-bg:    #000000;
+          --primary-text:  #ffffff;
+          --primary-hover-bg: #ffffff;
+          --primary-hover-text:#000000;
+          --accent:        #ff0000;   /* 你页面里的红色主强调 */
+          --footer-bg:     #f0f0f0;
+          --footer-text:   #333333;
+          --selection-fg:  #ffffff;
+          --selection-bg:  red;
+        }
+        
+        /* ========= 暗色模式覆盖（自动跟随系统） ========= */
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --bg-grad-start: #0f1115;
+            --bg-grad-end:   #0b0d10;
+            --text:          #e5e7eb;
+            --muted:         #b0b5bd;
+            --card-bg:       #111318;
+            --border:        #e5e7eb;
+            --header-bg:     #0f1115;
+            --link:          #e5e7eb;
+            --tag-bg:        #e5e7eb;
+            --tag-text:      #111318;
+            --primary-bg:    #e5e7eb;
+            --primary-text:  #111318;
+            --primary-hover-bg: transparent;
+            --primary-hover-text: #e5e7eb;
+            --accent:        #ff4040;     /* 暗色里稍微亮一点的红 */
+            --footer-bg:     #0f1115;
+            --footer-text:   #e5e7eb;
+            --selection-fg:  #111318;
+            --selection-bg:  #ff7070;
+          }
+        }
+        
+        /* ========= 用变量覆盖你现有颜色（不改变布局/尺寸） ========= */
+        
+        /* 页面背景与文本 */
+        body {
+          color: var(--text) !important;
+          background: linear-gradient(180deg, var(--bg-grad-start), var(--bg-grad-end)) !important;
+        }
+        
+        /* 选区颜色 */
+        ::selection {
+          color: var(--selection-fg) !important;
+          background-color: var(--selection-bg) !important;
+        }
+        
+        /* 头部 */
+        header {
+          background: var(--header-bg) !important;
+          border-bottom-color: var(--border) !important;
+        }
+        header nav a {
+          color: var(--link) !important;
+        }
+        header nav a:hover {
+          border-color: var(--border) !important;
+        }
+        
+        /* 主按钮（保持你原有的尺寸/边框样式） */
+        .btn-primary {
+          background: var(--primary-bg) !important;
+          border-color: var(--border) !important;
+          color: var(--primary-text) !important;
+        }
+        .btn-primary:hover {
+          background: var(--primary-hover-bg) !important;
+          color: var(--primary-hover-text) !important;
+        }
+        
+        /* 红色下载按钮的前景/悬停 */
+        #btn-primary-red {
+          background: var(--accent) !important;
+          border-color: var(--border) !important;
+          color: #fff !important;
+        }
+        #btn-primary-red:hover {
+          background: var(--primary-hover-bg) !important;
+          color: var(--accent) !important;
+        }
+        
+        /* 标签 */
+        .tag {
+          background: var(--tag-bg) !important;
+          color: var(--tag-text) !important;
+        }
+        
+        /* 标题左边的红色条保持用强调色 */
+        h1 {
+          color: var(--text) !important;
+          border-left-color: var(--accent) !important;
+        }
+        
+        /* 卡片、图片边框、图标描边等仅改颜色 */
+        .card {
+          background: var(--card-bg) !important;
+          border-color: var(--border) !important;
+          color: var(--text) !important;
+        }
+        .hero img,
+        picture img {
+          border-color: var(--border) !important;
+        }
+        
+        /* 页脚 */
+        footer {
+          background: var(--footer-bg) !important;
+          color: var(--footer-text) !important;
+          border-top-color: var(--border) !important;
+        }
+        
+        /* Material Symbols 的描边与颜色 */
+        .material-symbols-outlined {
+          color: var(--text) !important;
+          border-color: var(--border) !important;
+        }
+        
+        /* 链接高可读性 */
+        a {
+          color: var(--link) !important;
+        }
+        
+        /* ===== 处理你页面里写死的内联浅色（不改结构，仅覆盖颜色） ===== */
+        /* 例如 <p style="color:#555"> 这类写法在暗色会太淡，用属性选择器强制提升 */
+        *[style*="color:#555"] { color: var(--muted) !important; }
+        *[style*="color: #555"] { color: var(--muted) !important; }
+        *[style*="color:#333"] { color: var(--text)  !important; }
+        *[style*="color: #333"] { color: var(--text)  !important; }
+        *[style*="border-left:5px solid #000"] { border-left-color: var(--border) !important; }
+        
+        /* ===== 硬朗机械感动画 ===== */
+        
+        /* 页面进入时的自上而下“滑入” */
+        header {
+            animation: headerDrop 0.6s ease-out forwards;
+        }
+        @keyframes headerDrop {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        /* section 区块硬朗出现 */
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: sectionRise 0.5s ease-out forwards;
+        }
+        .section:nth-of-type(1) { animation-delay: 0.3s; }
+        .section:nth-of-type(2) { animation-delay: 0.5s; }
+        .section:nth-of-type(3) { animation-delay: 0.7s; }
+        .section:nth-of-type(4) { animation-delay: 0.9s; }
+        
+        @keyframes sectionRise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 卡片悬停时带点硬朗的“轻敲”效果 */
+        .card {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
+        }
+        .card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 4px 0 var(--border);
+        }
+        
+        /* 标签从左向右的冲击显现 */
+        .tag {
+            opacity: 0;
+            transform: translateX(-15px);
+            animation: tagSlide 0.3s ease-out forwards;
+        }
+        .tag:nth-child(1) { animation-delay: 0.4s; }
+        .tag:nth-child(2) { animation-delay: 0.55s; }
+        .tag:nth-child(3) { animation-delay: 0.7s; }
+        @keyframes tagSlide {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* 图标进入时带弹性 */
+        .material-symbols-outlined {
+            animation: iconPop 0.4s cubic-bezier(0.25, 1.3, 0.5, 1) forwards;
+            transform: scale(0);
+        }
+        @keyframes iconPop {
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        /* 按钮点击时有硬朗“压下去” */
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: inset 0 0 0 var(--border);
+        }        
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <span style="font-family: 'Orbitron', sans-serif; font-weight: bold;">WYWDYX <span style="color: #FF0000;text-shadow: 0 0 5px #ff4040,
+              0 0 10px #ff4040;">STORE</span></span>
+            <nav class="hidden md:flex">
+                <a href="#features">特点</a>
+                <a href="#screens">截图</a>
+                <a href="#info">信息</a>
+            </nav>
+            <a href="../../Assets/Apk/AEGIS_1.0.0.apk" class="btn-primary">下载</a>
+        </div>
+    </header>
+
+    <section class="section hero">
+        <div class="section_title">
+            <img src="../../Assets/Images/Logo - Square_Red.svg" alt="AEGIS Icon" width="96" height="96">
+            <h1>AEGIS</h1>
+        </div>
+        <div>
+            <div>
+                <span class="tag">音乐</span>
+                <span class="tag">展示</span>
+                <span class="tag">P3R</span>
+            </div>
+            <p style="color:#555; font-size:0.9rem; font-weight: 300;"><span style="font-size: 1em;line-height: 1;margin-right: 0;border: 0 solid #000;" class="material-symbols-outlined">beenhere</span> 开源免费 · 隐私友好 · 无数据采集</p>
+            <div style="margin-top:1rem; display:flex; gap:1rem;">
+                <a href="../../Assets/Apk/AEGIS_1.0.0.apk" class="btn-primary" id="btn-primary-red">下载</a>
+                <button class="btn-primary" style="background:white; color:black;">分享</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section card-grid">
+        <div class="card">
+            <h3><span class="material-symbols-outlined">album</span> 专曲呈现</h3>
+            <p>专为歌曲《Memories of You -Living with Determination Arrangement》打造，提供歌词卡片、封面视图与循环播放。</p>
+        </div>
+        <div class="card">
+            <h3><span class="material-symbols-outlined">devices</span> 双端优化</h3>
+            <p>高度响应式的布局，同时兼容平板与手机。</p>
+        </div>
+        <div class="card">
+            <h3><span class="material-symbols-outlined">bring_your_own_ip</span> 离线就绪</h3>
+            <p>轻量前端，资源集中化处理，支持离线使用。</p>
+        </div>
+    </section>
+
+    <section id="screens" class="section">
+        <h2 style="font-weight:bold; margin-bottom:1rem; border-left:5px solid #000; padding-left:0.5rem;">截图</h2>
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div>
+                <picture>
+                    <source media="(min-width: 768px)" srcset="tabletScreenshot.jpg">
+                    <img src="../../Assets/Images/phoneScreenshot.jpg" alt="应用截图">
+                </picture>
+            </div>
+            <div id="Screenshot">
+                <picture>
+                    <source media="(min-width: 768px)" srcset="tabletScreenshot.jpg">
+                    <img src="../../Assets/Images/phoneScreenshot.jpg" alt="应用截图">
+                </picture>
+            </div>            
+        </div>
+    </section>
+
+    <section id="info" class="section card-grid">
+        <div class="card">
+            <h3><span class="material-symbols-outlined">info</span>关于应用</h3>
+            <p>关键词：女神异闻录3重制版、AEGIS、Memories of You -Living with Determination Arrangement。</p>
+            <p>用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。</p>
+        </div>
+        <div class="card">
+            <h3><span class="material-symbols-outlined">disc_full</span>曲目与版本</h3>
+            <ul style="padding-left:1.2rem; color:#555;">
+                <li>Memories of You -Living with Determination Arrangement</li>
+                <li>Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 255 kb/s</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3><span class="material-symbols-outlined">apk_document</span>应用信息</h3>
+            <p>版本：1.0.0</p>
+            <p>大小：10.07M</p>
+            <p>兼容：移动端/平板端</p>
+            <p>技术：HTML · CSS · JS</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 <span style="color: #FF0000;text-shadow: 0 0 5px #ff4040,
+              0 0 10px #ff4040;">wywdyx</span></p>
+    </footer>
+</body>
+
+</html>
