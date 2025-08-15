@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-family: 'Noto Sans SC', sans-serif;
     color: #222;
-    background: linear-gradient(180deg, #f7f7f7, #e8ecf0);
+    background: linear-gradient(180deg, #FFFFFF, #FFFFFF);
 }
 
 ::selection {
@@ -24,7 +24,7 @@ button {
 }
 
 header {
-    background: #ffffff;
+    background: #FFFFFF;
     border-bottom: 3px solid #000;
     position: sticky;
     top: 0;
@@ -141,7 +141,7 @@ h1 {
 }
 
 .card {
-    background: #fff;
+    background: #FFF;
     padding: 1rem;
     border: 3px solid #000;
     transition: transform 0.2s;
@@ -175,7 +175,7 @@ footer {
     padding: 0.5rem;
     font-size: 1.2rem;
     color: #333;
-    background: #f0f0f0;
+    background: #FFFFFF;
     font-family: IBM3270;
 }
 
@@ -225,25 +225,25 @@ footer {
     color-scheme: light dark;
 
     /* 基础色板（仅颜色，不改尺寸/排版/布局） */
-    --bg-grad-start: #f7f7f7;
-    --bg-grad-end: #e8ecf0;
+    --bg-grad-start: #FFFFFF;
+    --bg-grad-end: #FFFFFF;
     --text: #222222;
     --muted: #555555;
-    --card-bg: #ffffff;
+    --card-bg: #FFFFFF;
     --border: #000000;
-    --header-bg: #ffffff;
+    --header-bg: #FFFFFF;
     --link: #333333;
     --tag-bg: #000000;
-    --tag-text: #ffffff;
+    --tag-text: #FFFFFF;
     --primary-bg: #000000;
-    --primary-text: #ffffff;
-    --primary-hover-bg: #ffffff;
+    --primary-text: #FFFFFF;
+    --primary-hover-bg: #FFFFFF;
     --primary-hover-text: #000000;
     --accent: #ff0000;
     /* 你页面里的红色主强调 */
-    --footer-bg: #f0f0f0;
+    --footer-bg: #FFFFFF;
     --footer-text: #333333;
-    --selection-fg: #ffffff;
+    --selection-fg: #FFFFFF;
     --selection-bg: red;
 }
 
@@ -252,22 +252,22 @@ footer {
     :root {
         --bg-grad-start: #0f1115;
         --bg-grad-end: #0b0d10;
-        --text: #e5e7eb;
-        --muted: #b0b5bd;
+        --text: #FFFFFF;
+        --muted: #FFFFFF;
         --card-bg: #111318;
-        --border: #e5e7eb;
+        --border: #FFFFFF;
         --header-bg: #0f1115;
-        --link: #e5e7eb;
-        --tag-bg: #e5e7eb;
+        --link: #FFFFFF;
+        --tag-bg: #FFFFFF;
         --tag-text: #111318;
-        --primary-bg: #e5e7eb;
+        --primary-bg: #FFFFFF;
         --primary-text: #111318;
         --primary-hover-bg: transparent;
-        --primary-hover-text: #e5e7eb;
+        --primary-hover-text: #FFFFFF;
         --accent: #ff4040;
         /* 暗色里稍微亮一点的红 */
         --footer-bg: #0f1115;
-        --footer-text: #e5e7eb;
+        --footer-text: #FFFFFF;
         --selection-fg: #111318;
         --selection-bg: #ff7070;
     }
@@ -317,7 +317,7 @@ header nav a:hover {
 #btn-primary-red {
     background: var(--accent) !important;
     border-color: var(--border) !important;
-    color: #fff !important;
+    color: #FFF !important;
 }
 
 #btn-primary-red:hover {
