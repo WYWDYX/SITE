@@ -399,7 +399,7 @@ footer {
 .copy-toast {
     position: fixed;
     bottom: 20px;
-    right: 10%;
+    right: 20px;
     transform: translateY(20px);
     background: var(--color-accent);
     color: #FFF;
