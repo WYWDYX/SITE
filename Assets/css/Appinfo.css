@@ -100,6 +100,7 @@ header nav a {
     /* 为伪元素定位 */
     margin: 0 .5rem;
     font-weight: 700;
+    font-family: "Noto Sans SC", sans-serif;
     padding-bottom: 4px;
     /* 给横条留位置 */
 }
@@ -128,6 +129,7 @@ header nav a:hover::after {
     padding: .5rem 1.5rem;
     cursor: pointer;
     font-weight: 700;
+    font-family: "Noto Sans SC", serif;
     text-transform: uppercase;
     transition: all .2s;
     white-space: nowrap;
@@ -215,6 +217,7 @@ h1 {
     font-weight: 200;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     transition: all .15s cubic-bezier(.4, 0, .2, 1);
+    font-family: "Noto Sans SC", sans-serif;
 }
 
 .card:hover {
