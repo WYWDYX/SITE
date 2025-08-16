@@ -385,13 +385,12 @@ footer {
 
 .copy-toast {
     position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%) translateY(20px);
+    bottom: 20px;
+    right: 10%;
+    transform: translateY(20px);
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: #FFF;
     padding: 10px 20px;
-    border-radius: 8px;
     font-size: 0.9rem;
     opacity: 0;
     transition: all 0.3s ease;
@@ -406,7 +405,7 @@ footer {
 
 .copy-toast.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 
