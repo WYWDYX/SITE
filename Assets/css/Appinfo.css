@@ -1,3 +1,49 @@
+/* ===== 颜色变量系统 ===== */
+:root {
+    --color-bg: #FFF;
+    --color-text: #222;
+    --color-border: #000;
+    --color-accent: #F00;
+
+    --color-header-bg: #FFF;
+    --color-card-bg: #FFF;
+    --color-footer-bg: #FFF;
+    --color-tag-bg: #000;
+    --color-tag-text: #FFF;
+
+    --color-btn-bg: #000;
+    --color-btn-text: #FFF;
+    --color-btn-hover-bg: #FFF;
+    --color-btn-hover-text: #000;
+
+    --color-selection-fg: #FFF;
+    --color-selection-bg: red;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-bg: #0f1115;
+        --color-text: #FFF;
+        --color-border: #FFF;
+        --color-accent: #ff4040;
+
+        --color-header-bg: #0f1115;
+        --color-card-bg: #111318;
+        --color-footer-bg: #0f1115;
+        --color-tag-bg: #FFF;
+        --color-tag-text: #111318;
+
+        --color-btn-bg: #FFF;
+        --color-btn-text: #111318;
+        --color-btn-hover-bg: transparent;
+        --color-btn-hover-text: #FFF;
+
+        --color-selection-fg: #111318;
+        --color-selection-bg: #ff7070;
+    }
+}
+
+/* ===== 基础样式 ===== */
 * {
     scroll-behavior: smooth;
 }
@@ -5,30 +51,34 @@
 body {
     margin: 0;
     font-family: 'Noto Sans SC', sans-serif;
-    color: #222;
-    background: linear-gradient(180deg, #FFFFFF, #FFFFFF);
+    color: var(--color-text);
+    background: var(--color-bg);
 }
 
 ::selection {
-    color: white;
-    background-color: red;
+    color: var(--color-selection-fg);
+    background: var(--color-selection-bg);
 }
 
-a {
-    -webkit-tap-highlight-color: transparent;
-    text-decoration: none;
-}
-
+a,
 button {
     -webkit-tap-highlight-color: transparent;
 }
 
+a {
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+/* ===== 布局组件 ===== */
 header {
-    background: #FFFFFF;
-    border-bottom: 3px solid #000;
     position: sticky;
     top: 0;
     z-index: 30;
+    background: var(--color-header-bg);
+    border-bottom: 3px solid var(--color-border);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: headerDrop .6s ease-out forwards;
 }
 
 header .container {
@@ -46,46 +96,67 @@ header nav {
 }
 
 header nav a {
-    margin: 0 0.5rem;
-    color: #333;
-    font-weight: bold;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s;
+    position: relative;
+    /* 为伪元素定位 */
+    margin: 0 .5rem;
+    font-weight: 700;
+    padding-bottom: 4px;
+    /* 给横条留位置 */
 }
 
-header nav a:hover {
-    border-color: #000;
+header nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--color-border);
+    transition: width 0.3s ease;
 }
 
+header nav a:hover::after {
+    width: 100%;
+}
+
+
+/* 按钮样式 */
 .btn-primary {
-    background: #000;
-    border: 2px solid #000;
-    color: white;
-    padding: 0.5rem 1.5rem;
+    background: var(--color-btn-bg);
+    border: 2px solid var(--color-border);
+    color: var(--color-btn-text);
+    padding: .5rem 1.5rem;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
-    transition: background 0.2s, color 0.2s;
+    transition: all .2s;
     white-space: nowrap;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary:hover {
-    background: white;
-    color: black;
+    background: var(--color-btn-hover-bg);
+    color: var(--color-btn-hover-text);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(2px);
 }
 
 #btn-primary-red {
-    background: #F00;
-    border: 2px solid #000;
+    background: var(--color-accent);
     color: #FFF;
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
 }
 
 #btn-primary-red:hover {
     background: #FFF;
-    color: #F00;
+    color: var(--color-accent);
+    box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
 }
 
+/* 内容区域 */
 .section {
     max-width: 1200px;
     margin: auto;
@@ -100,18 +171,21 @@ header nav a:hover {
 }
 
 .hero img {
-    border: 3px solid #000;
+    border: 3px solid var(--color-border);
     flex-shrink: 0;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* 卡片和标签 */
 .tag {
     display: inline-block;
-    background: #000;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    font-size: 0.8rem;
-    margin-right: 0.5rem;
-    font-weight: bold;
+    background: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    padding: .25rem .75rem;
+    font-size: .8rem;
+    margin-right: .5rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .section_title {
@@ -123,9 +197,9 @@ h1 {
     font-family: 'IBM3270', sans-serif;
     font-size: 2em;
     font-weight: 700;
-    margin: 0.5rem 0;
-    border-left: 5px solid #F00;
-    padding-left: 0.5rem;
+    margin: .5rem 0;
+    border-left: 5px solid var(--color-accent);
+    padding-left: .5rem;
     width: 100%;
 }
 
@@ -134,51 +208,39 @@ h1 {
     gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
-    .card-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
 .card {
-    background: #FFF;
+    background: var(--color-card-bg);
     padding: 1rem;
-    border: 3px solid #000;
-    transition: transform 0.2s;
+    border: 3px solid var(--color-border);
     font-weight: 200;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all .15s cubic-bezier(.4, 0, .2, 1);
 }
 
 .card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 picture img {
     display: block;
     width: 100%;
     height: auto;
-    border: 3px solid #000;
-}
-
-#Screenshot {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    #Screenshot {
-        display: block;
-    }
+    border: 3px solid var(--color-border);
 }
 
 footer {
-    border-top: 3px solid #000;
+    border-top: 3px solid var(--color-border);
     text-align: center;
-    padding: 0.5rem;
+    padding: .5rem;
     font-size: 1.2rem;
-    color: #333;
-    background: #FFFFFF;
+    color: var(--color-text);
+    background: var(--color-footer-bg);
     font-family: IBM3270;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.2);
 }
 
+/* ===== 字体定义 ===== */
 @font-face {
     font-family: 'IBM3270';
     src: url('../../Assets/Font/IBM-3270.ttf') format('truetype');
@@ -203,230 +265,29 @@ footer {
 
 .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
     font-size: 1.5em;
     line-height: 1;
-    margin-right: 0.7rem;
-    border: 2px solid #000;
-    letter-spacing: normal;
-    text-transform: none;
+    margin-right: .7rem;
+    border: 2px solid var(--color-border);
     display: inline-block;
     white-space: nowrap;
     word-wrap: normal;
-    direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
 }
 
-/* ========= 颜色变量（明亮模式默认） ========= */
-:root {
-    /* 浏览器在计算表单/滚动条等内建控件时也按双方案渲染 */
-    color-scheme: light dark;
-
-    /* 基础色板（仅颜色，不改尺寸/排版/布局） */
-    --bg-grad-start: #FFFFFF;
-    --bg-grad-end: #FFFFFF;
-    --text: #222222;
-    --muted: #555555;
-    --card-bg: #FFFFFF;
-    --border: #000000;
-    --header-bg: #FFFFFF;
-    --link: #333333;
-    --tag-bg: #000000;
-    --tag-text: #FFFFFF;
-    --primary-bg: #000000;
-    --primary-text: #FFFFFF;
-    --primary-hover-bg: #FFFFFF;
-    --primary-hover-text: #000000;
-    --accent: #ff0000;
-    /* 你页面里的红色主强调 */
-    --footer-bg: #FFFFFF;
-    --footer-text: #333333;
-    --selection-fg: #FFFFFF;
-    --selection-bg: red;
-}
-
-/* ========= 暗色模式覆盖（自动跟随系统） ========= */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-grad-start: #0f1115;
-        --bg-grad-end: #0b0d10;
-        --text: #FFFFFF;
-        --muted: #FFFFFF;
-        --card-bg: #111318;
-        --border: #FFFFFF;
-        --header-bg: #0f1115;
-        --link: #FFFFFF;
-        --tag-bg: #FFFFFF;
-        --tag-text: #111318;
-        --primary-bg: #FFFFFF;
-        --primary-text: #111318;
-        --primary-hover-bg: transparent;
-        --primary-hover-text: #FFFFFF;
-        --accent: #ff4040;
-        /* 暗色里稍微亮一点的红 */
-        --footer-bg: #0f1115;
-        --footer-text: #FFFFFF;
-        --selection-fg: #111318;
-        --selection-bg: #ff7070;
-    }
-}
-
-/* ========= 用变量覆盖你现有颜色（不改变布局/尺寸） ========= */
-
-/* 页面背景与文本 */
-body {
-    color: var(--text) !important;
-    background: linear-gradient(180deg, var(--bg-grad-start), var(--bg-grad-end)) !important;
-}
-
-/* 选区颜色 */
-::selection {
-    color: var(--selection-fg) !important;
-    background-color: var(--selection-bg) !important;
-}
-
-/* 头部 */
-header {
-    background: var(--header-bg) !important;
-    border-bottom-color: var(--border) !important;
-}
-
-header nav a {
-    color: var(--link) !important;
-}
-
-header nav a:hover {
-    border-color: var(--border) !important;
-}
-
-/* 主按钮（保持你原有的尺寸/边框样式） */
-.btn-primary {
-    background: var(--primary-bg) !important;
-    border-color: var(--border) !important;
-    color: var(--primary-text) !important;
-}
-
-.btn-primary:hover {
-    background: var(--primary-hover-bg) !important;
-    color: var(--primary-hover-text) !important;
-}
-
-/* 红色下载按钮的前景/悬停 */
-#btn-primary-red {
-    background: var(--accent) !important;
-    border-color: var(--border) !important;
-    color: #FFF !important;
-}
-
-#btn-primary-red:hover {
-    background: var(--primary-hover-bg) !important;
-    color: var(--accent) !important;
-}
-
-/* 标签 */
-.tag {
-    background: var(--tag-bg) !important;
-    color: var(--tag-text) !important;
-}
-
-/* 标题左边的红色条保持用强调色 */
-h1 {
-    color: var(--text) !important;
-    border-left-color: var(--accent) !important;
-}
-
-/* 卡片、图片边框、图标描边等仅改颜色 */
-.card {
-    background: var(--card-bg) !important;
-    border-color: var(--border) !important;
-    color: var(--text) !important;
-}
-
-.hero img,
-picture img {
-    border-color: var(--border) !important;
-}
-
-/* 页脚 */
-footer {
-    background: var(--footer-bg) !important;
-    color: var(--footer-text) !important;
-    border-top-color: var(--border) !important;
-}
-
-/* Material Symbols 的描边与颜色 */
-.material-symbols-outlined {
-    color: var(--text) !important;
-    border-color: var(--border) !important;
-}
-
-/* 链接高可读性 */
-a {
-    color: var(--link) !important;
-}
-
-/* ===== 处理你页面里写死的内联浅色（不改结构，仅覆盖颜色） ===== */
-/* 例如 <p style="color:#555"> 这类写法在暗色会太淡，用属性选择器强制提升 */
-*[style*="color:#555"] {
-    color: var(--muted) !important;
-}
-
-*[style*="color: #555"] {
-    color: var(--muted) !important;
-}
-
-*[style*="color:#333"] {
-    color: var(--text) !important;
-}
-
-*[style*="color: #333"] {
-    color: var(--text) !important;
-}
-
-*[style*="border-left:5px solid #000"] {
-    border-left-color: var(--border) !important;
-}
-
-/* ===== 硬朗机械感动画 ===== */
-
-/* 页面进入时的自上而下“滑入” */
-header {
-    animation: headerDrop 0.6s ease-out forwards;
-}
-
+/* ===== 动画系统 ===== */
 @keyframes headerDrop {
     from {
         transform: translateY(-100%);
+        box-shadow: none;
     }
 
     to {
         transform: translateY(0);
     }
-}
-
-/* section 区块硬朗出现 */
-.section {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: sectionRise 0.5s ease-out forwards;
-}
-
-.section:nth-of-type(1) {
-    animation-delay: 0.3s;
-}
-
-.section:nth-of-type(2) {
-    animation-delay: 0.5s;
-}
-
-.section:nth-of-type(3) {
-    animation-delay: 0.7s;
-}
-
-.section:nth-of-type(4) {
-    animation-delay: 0.9s;
 }
 
 @keyframes sectionRise {
@@ -436,35 +297,6 @@ header {
     }
 }
 
-/* 卡片悬停时带点硬朗的“轻敲”效果 */
-.card {
-    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s;
-}
-
-.card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 4px 0 var(--border);
-}
-
-/* 标签从左向右的冲击显现 */
-.tag {
-    opacity: 0;
-    transform: translateX(-15px);
-    animation: tagSlide 0.3s ease-out forwards;
-}
-
-.tag:nth-child(1) {
-    animation-delay: 0.4s;
-}
-
-.tag:nth-child(2) {
-    animation-delay: 0.55s;
-}
-
-.tag:nth-child(3) {
-    animation-delay: 0.7s;
-}
-
 @keyframes tagSlide {
     to {
         opacity: 1;
@@ -472,20 +304,186 @@ header {
     }
 }
 
-/* 图标进入时带弹性 */
-.material-symbols-outlined {
-    animation: iconPop 0.4s cubic-bezier(0.25, 1.3, 0.5, 1) forwards;
-    transform: scale(0);
-}
-
 @keyframes iconPop {
     to {
         transform: scale(1);
+        opacity: 1;
     }
 }
 
-/* 按钮点击时有硬朗“压下去” */
-.btn-primary:active {
-    transform: translateY(2px);
-    box-shadow: inset 0 0 0 var(--border);
+/* ===== 滚动进入动画 ===== */
+.scroll-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.scroll-show {
+    animation: sectionRise 0.6s ease-out forwards;
+}
+
+.tag-hidden {
+    opacity: 0;
+    transform: translateX(-15px);
+}
+
+.tag-show {
+    animation: tagSlide 0.4s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+.icon-hidden {
+    transform: scale(0);
+    opacity: 0;
+}
+
+.icon-show {
+    animation: iconPop 0.4s cubic-bezier(.25, 1.3, .5, 1) forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+/* ===== 页面加载动画 ===== */
+#page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--color-accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+    .loader {
+        border: 5px solid rgba(255, 255, 255, 0.1);
+        border-top-color: var(--color-accent);
+    }
+}
+
+.copy-toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.copy-toast.error {
+    background: #ff4d4d;
+    /* 错误提示为红色 */
+}
+
+.copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+
+/* ===== 暗色模式阴影调整 ===== */
+@media (prefers-color-scheme: dark) {
+    header {
+        box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+    }
+
+    .card {
+        box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
+    }
+
+    .card:hover {
+        box-shadow: 0 15px 30px rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-primary {
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+    }
+
+    #btn-primary-red {
+        box-shadow: 0 5px 15px rgba(255, 64, 64, 0.4);
+    }
+
+    #btn-primary-red:hover {
+        box-shadow: 0 10px 25px rgba(255, 64, 64, 0.5);
+    }
+
+    .tag {
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .hero img {
+        box-shadow: 0 12px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    footer {
+        box-shadow: 0 -10px 25px rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* ===== 响应式设计 ===== */
+#Screenshot {
+    display: none;
+}
+
+@media (min-width:768px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #Screenshot {
+        display: block;
+    }
+}
+
+/* ===== 内联样式覆盖 ===== */
+*[style*="color:#555"],
+*[style*="color: #555"] {
+    color: var(--color-text) !important;
+}
+
+*[style*="color:#333"],
+*[style*="color: #333"] {
+    color: var(--color-text) !important;
+}
+
+*[style*="border-left:5px solid #000"] {
+    border-left-color: var(--color-border) !important;
+}
+
+:root,
+[data-theme="dark"] {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
