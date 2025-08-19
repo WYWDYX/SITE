@@ -252,6 +252,7 @@ h1 {
 .card.info {
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
     border: 0 solid var(--color-border);
+    background: transparent;
 }
 
 .card.info:hover {
