@@ -169,14 +169,24 @@ header nav a:hover::after {
     padding: 2rem 1rem;
 }
 
-.hero {
+#screens {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 1rem;
+}
+
+#Screenshot {
+    display: none;
+}
+
+.main {
     display: flex;
     gap: 1.5rem;
     flex-wrap: wrap;
     align-items: flex-start;
 }
 
-.hero img {
+.main img {
     border: 3px solid var(--color-border);
     flex-shrink: 0;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
@@ -218,6 +228,12 @@ h1 {
     gap: 1.5rem;
 }
 
+#about {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
 .card {
     background: var(--color-card-bg);
     padding: 1rem;
@@ -231,6 +247,16 @@ h1 {
 .card:hover {
     transform: translateY(-8px) scale(1.03);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card.info {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    border: 0 solid var(--color-border);
+}
+
+.card.info:hover {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
 
 picture img {
@@ -249,29 +275,6 @@ footer {
     background: var(--color-footer-bg);
     font-family: IBM3270;
     box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* ===== 字体定义 ===== */
-@font-face {
-    font-family: 'IBM3270';
-    src: url('../../Assets/Font/IBM-3270.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Ndot';
-    src: url('../../Assets/Font/Ndot-77-JP-Extended-Regular.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Orbitron';
-    src: url('../../Assets/Font/Orbitron.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'Material Symbols Outlined';
-    font-style: normal;
-    font-weight: 400;
-    src: url(../../Assets/Font/MaterialIconsOutlined-Regular.woff2) format('woff2');
 }
 
 .material-symbols-outlined {
@@ -389,13 +392,6 @@ footer {
     visibility: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
-    .loader {
-        border: 5px solid rgba(255, 255, 255, 0.1);
-        border-top-color: var(--color-accent);
-    }
-}
-
 .copy-toast {
     position: fixed;
     bottom: 20px;
@@ -412,8 +408,8 @@ footer {
 }
 
 .copy-toast.error {
-    background: #ff4d4d;
-    /* 错误提示为红色 */
+    background: #FFF;
+    color: var(--color-accent);
 }
 
 .copy-toast.show {
@@ -463,21 +459,50 @@ footer {
     footer {
         box-shadow: 0 -10px 25px rgba(255, 255, 255, 0.15);
     }
+    
+    .loader {
+        border: 5px solid rgba(255, 255, 255, 0.1);
+        border-top-color: var(--color-accent);
+    }
 }
 
 /* ===== 响应式设计 ===== */
-#Screenshot {
-    display: none;
-}
 
 @media (min-width:768px) {
     .card-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 
+    #info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     #Screenshot {
         display: block;
     }
+}
+
+/* ===== 字体定义 ===== */
+@font-face {
+    font-family: 'IBM3270';
+    src: url('../../Assets/Font/IBM-3270.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Ndot';
+    src: url('../../Assets/Font/Ndot-77-JP-Extended-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    src: url('../../Assets/Font/Orbitron.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../Assets/Font/MaterialIconsOutlined-Regular.woff2) format('woff2');
 }
 
 /* ===== 内联样式覆盖 ===== */
