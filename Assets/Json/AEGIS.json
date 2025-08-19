@@ -1,0 +1,99 @@
+{
+    "cssVariables": {
+        "light": {
+            "--color-bg": "#FFF",
+            "--color-text": "#222",
+            "--color-border": "#000",
+            "--color-accent": "#F00",
+            "--color-header-bg": "#FFF",
+            "--color-card-bg": "#FFF",
+            "--color-footer-bg": "#FFF",
+            "--color-tag-bg": "#000",
+            "--color-tag-text": "#FFF",
+            "--color-btn-bg": "#000",
+            "--color-btn-text": "#FFF",
+            "--color-btn-hover-bg": "#FFF",
+            "--color-btn-hover-text": "#000",
+            "--color-selection-fg": "#FFF",
+            "--color-selection-bg": "red"
+        },
+        "dark": {
+            "--color-bg": "#0f1115",
+            "--color-text": "#FFF",
+            "--color-border": "#FFF",
+            "--color-accent": "#ff4040",
+            "--color-header-bg": "#0f1115",
+            "--color-card-bg": "#111318",
+            "--color-footer-bg": "#0f1115",
+            "--color-tag-bg": "#FFF",
+            "--color-tag-text": "#111318",
+            "--color-btn-bg": "#FFF",
+            "--color-btn-text": "#111318",
+            "--color-btn-hover-bg": "transparent",
+            "--color-btn-hover-text": "#FFF",
+            "--color-selection-fg": "#111318",
+            "--color-selection-bg": "#ff7070"
+        }
+    },
+    "app": {
+        "name": "AEGIS",
+        "icon": "../Assets/Images/Logo - Square_Red.svg",
+        "tags": [
+            "音乐",
+            "展示",
+            "P3R"
+        ],
+        "description": "beenhere",
+        "description-text": "开源免费 · 隐私友好 · 无数据采集",
+        "downloadUrl": "../Assets/Apk/AEGIS_5.0.0.apk"
+    },
+    "screenshots": {
+        "phoneSrc": "../Assets/Images/phoneScreenshot.jpg",
+        "tabletSrc": "../Assets/Images/tabletScreenshot.jpg",
+        "alt": "应用截图"
+    },
+    "about": {
+        "title": "关于应用",
+        "content": [
+            "关键词：女神异闻录3重制版、AEGIS、Memories of You -Living with Determination Arrangement。",
+            "用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。"
+        ]
+    },
+    "features": [
+        {
+            "icon": "album",
+            "title": "专曲呈现",
+            "description": "专为歌曲《Memories of You -Living with Determination Arrangement》打造，提供歌词卡片、封面视图与循环播放。"
+        },
+        {
+            "icon": "devices",
+            "title": "双端优化",
+            "description": "高度响应式的布局，同时兼容平板与手机。"
+        },
+        {
+            "icon": "bring_your_own_ip",
+            "title": "离线就绪",
+            "description": "轻量前端，资源集中化处理，支持离线使用。"
+        }
+    ],
+    "info": {
+        "appInfo": {
+            "title": "应用信息",
+            "icon": "apk_document",
+            "name": "AEGIS",
+            "version": "5.0.0",
+            "size": "10.16M",
+            "compatibility": "移动端/平板端",
+            "developer": "WYWDYX"
+        },
+        "trackInfo": {
+            "title": "曲目详细信息",
+            "icon": "disc_full",
+            "name": "Memories of You -Living with Determination Arrangement",
+            "format": "AAC-LC (MP4A)",
+            "sampleRate": "44.1 kHz",
+            "channel": "立体声",
+            "bitRate": "255 kbps"
+        }
+    }
+}

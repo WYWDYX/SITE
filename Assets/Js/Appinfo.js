@@ -1,3 +1,202 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 获取URL中的app参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const appName = urlParams.get('app') || 'config';
+
+    // 构建JSON路径
+    const jsonPath = `../Assets/Json/${appName}.json`;
+    loadAppConfig(jsonPath);
+});
+
+function loadAppConfig(jsonUrl) {
+    // 1. 加载JSON文件
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+            // 2. 处理CSS变量
+            if (data.cssVariables) {
+                applyCssVariables(data.cssVariables);
+            }
+
+            // 3. 更新页面内容
+            updatePageContent(data);
+        })
+        .catch(error => {
+            console.error('加载JSON配置失败:', error);
+        });
+}
+
+function applyCssVariables(cssVariables) {
+    // 创建样式元素
+    const style = document.createElement('style');
+    style.id = 'dynamic-css-variables';
+
+    // 构建CSS内容
+    let cssContent = ':root {';
+    for (const [variable, value] of Object.entries(cssVariables.light)) {
+        cssContent += `${variable}: ${value};`;
+    }
+    cssContent += '}';
+
+    cssContent += '@media (prefers-color-scheme: dark) {:root {';
+    for (const [variable, value] of Object.entries(cssVariables.dark)) {
+        cssContent += `${variable}: ${value};`;
+    }
+    cssContent += '}}';
+
+    // 应用样式
+    style.textContent = cssContent;
+    document.head.appendChild(style);
+}
+
+function updatePageContent(data) {
+    const app = data.app || {};
+    const screenshots = data.screenshots || {};
+    const about = data.about || {};
+    const features = data.features || [];
+    const info = data.info || {};
+
+    // 更新应用信息
+    document.title = `${app.name} 应用详情页`;
+    document.querySelector('link[rel="icon"]').href = app.icon;
+    document.querySelector('.section_title img').src = app.icon;
+    document.querySelector('.section_title h1').textContent = app.name;
+
+    // 更新标签
+    const tagsContainer = document.querySelector('div[style*="user-select: none"]');
+    tagsContainer.innerHTML = '';
+    if (app.tags) {
+        app.tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.textContent = tag;
+            tagsContainer.appendChild(tagElement);
+        });
+    }
+
+    // 更新描述
+    const description = document.querySelector('#description');
+    const descriptionText = document.querySelector('#description-text');
+    if (description && descriptionText) {
+        description.textContent = app.description;
+        descriptionText.textContent = app['description-text'];
+    }
+
+    // 更新下载链接
+    const downloadLinks = document.querySelectorAll('a[href*=".apk"]');
+    downloadLinks.forEach(link => {
+        link.href = app.downloadUrl;
+    });
+
+    // 更新截图
+    const screenshotsElements = document.querySelectorAll('picture');
+    screenshotsElements.forEach(picture => {
+        const img = picture.querySelector('img');
+        const source = picture.querySelector('source');
+
+        if (img) {
+            img.src = screenshots.phoneSrc;
+            img.alt = screenshots.alt;
+        }
+
+        if (source) {
+            source.srcset = screenshots.tabletSrc;
+        }
+    });
+
+    // 更新关于部分
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+        aboutSection.querySelector('h2').textContent = about.title || '关于应用';
+
+        const aboutContent = aboutSection.querySelector('div');
+        if (aboutContent && about.content) {
+            aboutContent.innerHTML = about.content.map(p => `<p>${p}</p>`).join('');
+        }
+    }
+
+    // 更新功能特性
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+        const featureCards = featuresSection.querySelectorAll('.card');
+        featureCards.forEach((card, index) => {
+            if (features[index]) {
+                // 获取现有元素
+                const icon = card.querySelector('.material-symbols-outlined');
+                const title = card.querySelector('h3');
+                const description = card.querySelector('p');
+
+                // 更新图标（保留原始元素）
+                if (icon) {
+                    icon.textContent = features[index].icon; // 只修改文本内容
+                } else {
+                    // 如果不存在图标则创建
+                    const newIcon = document.createElement('span');
+                    newIcon.className = 'material-symbols-outlined';
+                    newIcon.textContent = features[index].icon;
+                    title.insertBefore(newIcon, title.firstChild);
+                }
+
+                // 更新标题文本（不破坏DOM结构）
+                const titleTextNodes = Array.from(title.childNodes).filter(
+                    node => node.nodeType === Node.TEXT_NODE
+                );
+
+                if (titleTextNodes.length > 0) {
+                    // 更新现有文本节点
+                    titleTextNodes[0].textContent = ` ${features[index].title}`;
+                } else {
+                    // 添加新文本节点
+                    title.appendChild(document.createTextNode(` ${features[index].title}`));
+                }
+
+                // 更新描述
+                if (description) description.textContent = features[index].description;
+            }
+        });
+    }
+
+    // 更新应用信息
+    const appInfoCard = document.querySelector('.card.info:first-child');
+    if (appInfoCard && info.appInfo) {
+        // 更新应用信息图标
+        const appIcon = appInfoCard.querySelector('h3 .material-symbols-outlined');
+        if (appIcon) {
+            appIcon.textContent = info.appInfo.icon;
+        }
+
+        // 更新应用信息文本内容
+        const paragraphs = appInfoCard.querySelectorAll('p');
+        if (paragraphs.length >= 5) {
+            paragraphs[0].textContent = info.appInfo.title;
+            paragraphs[1].textContent = `版本：${info.appInfo.version}`;
+            paragraphs[2].textContent = `大小：${info.appInfo.size}`;
+            paragraphs[3].textContent = `兼容：${info.appInfo.compatibility}`;
+            paragraphs[4].textContent = `开发：${info.appInfo.developer}`;
+        }
+    }
+
+    // 更新曲目信息
+    const trackInfoCard = document.querySelector('.card.info:last-child');
+    if (trackInfoCard && info.trackInfo) {
+        // 更新曲目信息图标
+        const trackIcon = trackInfoCard.querySelector('h3 .material-symbols-outlined');
+        if (trackIcon) {
+            trackIcon.textContent = info.trackInfo.icon;
+        }
+
+        // 更新曲目信息文本内容
+        const paragraphs = trackInfoCard.querySelectorAll('p');
+        if (paragraphs.length >= 5) {
+            paragraphs[0].textContent = info.trackInfo.title;
+            paragraphs[1].textContent = `编码格式：${info.trackInfo.format}`;
+            paragraphs[2].textContent = `采样率：${info.trackInfo.sampleRate}`;
+            paragraphs[3].textContent = `声道：${info.trackInfo.channel}`;
+            paragraphs[4].textContent = `码率：${info.trackInfo.bitRate}`;
+        }
+    }
+}
+
 // ==================== 页面加载动画 ====================
 window.addEventListener('load', () => {
     const loader = document.getElementById('page-loader');

@@ -1,0 +1,49 @@
+{
+    "app": {
+        "name": "404－ URL参数不存在",
+        "icon": "../Assets/Images/Logo - Square.svg",
+        "tags": [
+            "错误"
+        ],
+        "description": "error",
+        "description-text": "严重错误，URL参数不存在",
+        "downloadUrl": "#"
+    },
+    "screenshots": {
+        "phoneSrc": "../Assets/Images/Logo - Square.svg",
+        "tabletSrc": "../Assets/Images/Logo - Square.svg",
+        "alt": "Logo"
+    },
+    "about": {
+        "title": "404－URL参数不存在",
+        "content": [
+            "您可以尝试检查您是否在获取链接的时候删除了链接上的URL参数。"
+        ]
+    },
+    "features": [
+        {
+            "icon": "error",
+            "title": "404"
+        },
+        {
+            "icon": "error",
+            "title": "404"
+        },
+        {
+            "icon": "error",
+            "title": "404"
+        }
+    ],
+    "info": {
+        "appInfo": {
+            "title": "404",
+            "icon": "error",
+            "name": "404"
+        },
+        "trackInfo": {
+            "title": "404",
+            "icon": "error",
+            "name": "404"
+        }
+    }
+}
