@@ -157,18 +157,20 @@ function updatePageContent(data) {
     }
 
     // 更新应用信息
-    const appInfoCard = document.querySelector('.card.info:first-child');
+    const appInfoCard = document.querySelector('.card.info.app-c');
     if (appInfoCard && info.appInfo) {
         // 更新应用信息图标
-        const appIcon = appInfoCard.querySelector('h3 .material-symbols-outlined');
-        if (appIcon) {
-            appIcon.textContent = info.appInfo.icon;
+        const appInfoCardIcon = appInfoCard.querySelector('h3 .material-symbols-outlined');
+        const appInfoCardTitle = appInfoCard.querySelector('h3 #info-h3-text-app');
+        if (appInfoCardIcon && appInfoCardTitle) {
+            appInfoCardIcon.textContent = info.appInfo.icon;
+            appInfoCardTitle.textContent = info.appInfo.title;
         }
 
         // 更新应用信息文本内容
         const paragraphs = appInfoCard.querySelectorAll('p');
         if (paragraphs.length >= 5) {
-            paragraphs[0].textContent = info.appInfo.title;
+            paragraphs[0].textContent = info.appInfo.name;
             paragraphs[1].textContent = `版本：${info.appInfo.version}`;
             paragraphs[2].textContent = `大小：${info.appInfo.size}`;
             paragraphs[3].textContent = `兼容：${info.appInfo.compatibility}`;
@@ -177,18 +179,20 @@ function updatePageContent(data) {
     }
 
     // 更新曲目信息
-    const trackInfoCard = document.querySelector('.card.info:last-child');
+    const trackInfoCard = document.querySelector('.card.info.disc-c');
     if (trackInfoCard && info.trackInfo) {
         // 更新曲目信息图标
-        const trackIcon = trackInfoCard.querySelector('h3 .material-symbols-outlined');
-        if (trackIcon) {
-            trackIcon.textContent = info.trackInfo.icon;
+        const trackInfoCardIcon = trackInfoCard.querySelector('h3 .material-symbols-outlined');
+        const trackInfoCardTitle = trackInfoCard.querySelector('h3 #info-h3-text-disc');
+        if (trackInfoCardIcon && trackInfoCardTitle) {
+            trackInfoCardIcon.textContent = info.trackInfo.icon;
+            trackInfoCardTitle.textContent = info.trackInfo.title;
         }
 
         // 更新曲目信息文本内容
         const paragraphs = trackInfoCard.querySelectorAll('p');
         if (paragraphs.length >= 5) {
-            paragraphs[0].textContent = info.trackInfo.title;
+            paragraphs[0].textContent = info.trackInfo.name;
             paragraphs[1].textContent = `编码格式：${info.trackInfo.format}`;
             paragraphs[2].textContent = `采样率：${info.trackInfo.sampleRate}`;
             paragraphs[3].textContent = `声道：${info.trackInfo.channel}`;
