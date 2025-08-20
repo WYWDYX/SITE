@@ -5,25 +5,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 构建JSON路径
     const jsonPath = `../Assets/Json/${appName}.json`;
-    loadAppConfig(jsonPath);
+    
+    // 创建页面加载完成的Promise
+    const pageLoaded = new Promise(resolve => {
+        if (document.readyState === 'complete') {
+            resolve();
+        } else {
+            window.addEventListener('load', resolve);
+        }
+    });
+    
+    // 创建内容加载完成的Promise
+    const contentLoaded = loadAppConfig(jsonPath);
+    
+    // 等待两者都完成后隐藏加载动画
+    Promise.all([pageLoaded, contentLoaded])
+        .then(() => {
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+        })
+        .catch(error => {
+            console.error('加载过程中出错:', error);
+            const loader = document.getElementById('page-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+        });
 });
 
 function loadAppConfig(jsonUrl) {
-    // 1. 加载JSON文件
-    fetch(jsonUrl)
-        .then(response => response.json())
-        .then(data => {
-            // 2. 处理CSS变量
-            if (data.cssVariables) {
-                applyCssVariables(data.cssVariables);
-            }
+    return new Promise((resolve, reject) => {
+        // 1. 加载JSON文件
+        fetch(jsonUrl)
+            .then(response => response.json())
+            .then(data => {
+                // 2. 处理CSS变量
+                if (data.cssVariables) {
+                    applyCssVariables(data.cssVariables);
+                }
 
-            // 3. 更新页面内容
-            updatePageContent(data);
-        })
-        .catch(error => {
-            console.error('加载JSON配置失败:', error);
-        });
+                // 3. 更新页面内容
+                updatePageContent(data);
+                resolve(); // 内容更新完成
+            })
+            .catch(error => {
+                console.error('加载JSON配置失败:', error);
+                reject(error);
+            });
+    });
 }
 
 function applyCssVariables(cssVariables) {
