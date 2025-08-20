@@ -1,4 +1,44 @@
 {
+    "cssVariables": {
+        "light": {
+            "--color-bg": "#FFF",
+            "--color-text": "#222",
+            "--color-border": "#000",
+            "--color-accent": "#00F",
+            "--color-header-bg": "#FFF",
+            "--color-card-bg": "#FFF",
+            "--color-footer-bg": "#FFF",
+            "--color-tag-bg": "#000",
+            "--color-tag-text": "#FFF",
+            "--color-btn-bg": "#000",
+            "--color-btn-text": "#FFF",
+            "--color-btn-hover-bg": "#FFF",
+            "--color-btn-hover-text": "#000",
+            "--color-selection-fg": "#FFF",
+            "--color-selection-bg": "#00F",
+            "--color-glow-text": "#00F",
+            "--color-glow-light": "#4040FF"
+        },
+        "dark": {
+            "--color-bg": "#0F1115",
+            "--color-text": "#FFF",
+            "--color-border": "#FFF",
+            "--color-accent": "#1E88E5",
+            "--color-header-bg": "#0F1115",
+            "--color-card-bg": "#111318",
+            "--color-footer-bg": "#0F1115",
+            "--color-tag-bg": "#FFF",
+            "--color-tag-text": "#111318",
+            "--color-btn-bg": "#FFF",
+            "--color-btn-text": "#111318",
+            "--color-btn-hover-bg": "transparent",
+            "--color-btn-hover-text": "#FFF",
+            "--color-selection-fg": "#111318",
+            "--color-selection-bg": "#1E88E5",
+            "--color-glow-text": "#00F",
+            "--color-glow-light": "#4040FF"
+        }
+    },
     "app": {
         "name": "404－ URL参数不存在",
         "icon": "../Assets/Images/Logo - Square.svg",

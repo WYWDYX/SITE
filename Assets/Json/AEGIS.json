@@ -18,13 +18,13 @@
             "--color-selection-bg": "#F00"
         },
         "dark": {
-            "--color-bg": "#0f1115",
+            "--color-bg": "#0F1115",
             "--color-text": "#FFF",
             "--color-border": "#FFF",
-            "--color-accent": "#ff4040",
-            "--color-header-bg": "#0f1115",
+            "--color-accent": "#FF4040",
+            "--color-header-bg": "#0F1115",
             "--color-card-bg": "#111318",
-            "--color-footer-bg": "#0f1115",
+            "--color-footer-bg": "#0F1115",
             "--color-tag-bg": "#FFF",
             "--color-tag-text": "#111318",
             "--color-btn-bg": "#FFF",
@@ -32,7 +32,7 @@
             "--color-btn-hover-bg": "transparent",
             "--color-btn-hover-text": "#FFF",
             "--color-selection-fg": "#111318",
-            "--color-selection-bg": "#ff7070"
+            "--color-selection-bg": "#FF7070"
         }
     },
     "app": {
