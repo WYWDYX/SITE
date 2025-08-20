@@ -4,7 +4,7 @@
             "--color-bg": "#FFF",
             "--color-text": "#222",
             "--color-border": "#000",
-            "--color-accent": "#00F",
+            "--color-accent": "#1E88E5",
             "--color-header-bg": "#FFF",
             "--color-card-bg": "#FFF",
             "--color-footer-bg": "#FFF",
@@ -15,9 +15,9 @@
             "--color-btn-hover-bg": "#FFF",
             "--color-btn-hover-text": "#000",
             "--color-selection-fg": "#FFF",
-            "--color-selection-bg": "#00F",
-            "--color-glow-text": "#00F",
-            "--color-glow-light": "#4040FF"
+            "--color-selection-bg": "#1E88E5",
+            "--color-glow-text": "#1E88E5",
+            "--color-glow-light": "#4A95E5"
         },
         "dark": {
             "--color-bg": "#0F1115",
@@ -35,8 +35,8 @@
             "--color-btn-hover-text": "#FFF",
             "--color-selection-fg": "#111318",
             "--color-selection-bg": "#1E88E5",
-            "--color-glow-text": "#00F",
-            "--color-glow-light": "#4040FF"
+            "--color-glow-text": "#1E88E5",
+            "--color-glow-light": "#4A95E5"
         }
     },
     "app": {
