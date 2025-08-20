@@ -15,7 +15,7 @@
             "--color-btn-hover-bg": "#FFF",
             "--color-btn-hover-text": "#000",
             "--color-selection-fg": "#FFF",
-            "--color-selection-bg": "red"
+            "--color-selection-bg": "#F00"
         },
         "dark": {
             "--color-bg": "#0f1115",
