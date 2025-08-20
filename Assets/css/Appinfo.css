@@ -509,7 +509,7 @@ footer {
     font-family: 'Material Symbols Outlined';
     font-style: normal;
     font-weight: 400;
-    src: url(../../Assets/Font/MaterialIconsOutlined-Regular.woff2) format('woff2');
+    src: url('../../Assets/Font/MaterialIconsOutlined-Regular.woff2') format('woff2');
 }
 
 /* ===== 内联样式覆盖 ===== */
