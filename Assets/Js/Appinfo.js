@@ -36,7 +36,7 @@ const errorMessages = {
     400: {
         title: "400",
         subtitle: "无效的应用ID",
-        solution: "请<span>稍后重试</span>或<span>联系技术支持</span>处理服务器问题。"
+        solution: "请<span>确认您的ID无误</span>或<span>联系技术支持</span>处理。"
     },
     0: {
         title: "0",
