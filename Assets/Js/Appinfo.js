@@ -19,7 +19,10 @@ const CSS_CLASSES = {
     TAG_HIDDEN: 'tag-hidden',
     TAG_SHOW: 'tag-show',
     ICON_HIDDEN: 'icon-hidden',
-    ICON_SHOW: 'icon-show'
+    ICON_SHOW: 'icon-show',
+    SCROLL_HIDE: 'scroll-hide',
+    TAG_HIDE: 'tag-hide',
+    ICON_HIDE: 'icon-hide'
 };
 
 const errorMessages = {
@@ -258,66 +261,93 @@ function updatePageContent(data) {
 
 // 加载配置函数
 async function loadAppConfig(jsonUrl) {
-  try {
-    const response = await fetch(jsonUrl);
-    if (!response.ok) {
-      const error = new Error(`HTTP error! status: ${response.status}`);
-      error.status = response.status;
-      throw error;
+    try {
+        const response = await fetch(jsonUrl);
+        if (!response.ok) {
+            const error = new Error(`HTTP error! status: ${response.status}`);
+            error.status = response.status;
+            throw error;
+        }
+
+        const data = await response.json();
+
+        if (data.cssVariables) {
+            applyCssVariables(data.cssVariables);
+        }
+
+        updatePageContent(data);
+    } catch (error) {
+        console.error('加载JSON配置失败:', error);
+
+        // 确定错误代码
+        let errorCode = error.status || 0;
+        if (error instanceof SyntaxError) errorCode = 400;
+
+        // 获取错误信息（如果没有匹配的代码，使用默认错误）
+        const errorInfo = errorMessages[errorCode] || {
+            title: "ERR",
+            subtitle: "未知错误",
+            solution: "请<span>查看控制台日志</span>获取详细信息，或<span>联系技术支持</span>。"
+        };
+
+        // 更新错误信息
+        document.getElementById('error-title').textContent = errorInfo.title;
+        document.getElementById('error-subtitle').textContent = errorInfo.subtitle;
+        document.getElementById('error-solution').innerHTML = errorInfo.solution;
+
+        // 显示错误面板
+        document.getElementById('error').style.display = '';
+
+        throw error;
     }
-    
-    const data = await response.json();
-    
-    if (data.cssVariables) {
-      applyCssVariables(data.cssVariables);
-    }
-    
-    updatePageContent(data);
-  } catch (error) {
-    console.error('加载JSON配置失败:', error);
-    
-    // 确定错误代码
-    let errorCode = error.status || 0;
-    if (error instanceof SyntaxError) errorCode = 400;
-    
-    // 获取错误信息（如果没有匹配的代码，使用默认错误）
-    const errorInfo = errorMessages[errorCode] || {
-      title: "ERR",
-      subtitle: "未知错误",
-      solution: "请<span>查看控制台日志</span>获取详细信息，或<span>联系技术支持</span>。"
-    };
-    
-    // 更新错误信息
-    document.getElementById('error-title').textContent = errorInfo.title;
-    document.getElementById('error-subtitle').textContent = errorInfo.subtitle;
-    document.getElementById('error-solution').innerHTML = errorInfo.solution;
-    
-    // 显示错误面板
-    document.getElementById('error').style.display = '';
-    
-    throw error;
-  }
 }
 
-// IntersectionObserver回调
+// 取消元素上所有正在进行的 Web Animations（更稳）
+function cancelAllAnimations(el) {
+    if (typeof el.getAnimations === 'function') {
+        el.getAnimations().forEach(a => {
+            try {
+                a.cancel();
+            } catch (_) {}
+        });
+    }
+}
+
+// 强制重启某个动画类：先移除两种态，再强制重排，再添加
+function restartAnim(el, addCls, removeCls) {
+    el.classList.remove(addCls, removeCls);
+    cancelAllAnimations(el); // 解决某些浏览器对同名动画复用的问题
+    void el.offsetWidth; // 强制重排，刷新样式
+    el.classList.add(addCls);
+}
+
+// IntersectionObserver 回调（可反复触发）
 function handleIntersection(entries, headerHeight) {
     entries.forEach(entry => {
+        const el = entry.target;
+
         if (entry.isIntersecting) {
-            if (entry.target.classList.contains(CSS_CLASSES.SCROLL_HIDDEN)) {
-                entry.target.classList.add(CSS_CLASSES.SCROLL_SHOW);
+            // 进入视口：播放“出现”动画，并确保移除反向类
+            if (el.classList.contains(CSS_CLASSES.SCROLL_HIDDEN)) {
+                restartAnim(el, CSS_CLASSES.SCROLL_SHOW, CSS_CLASSES.SCROLL_HIDE);
             }
-            if (entry.target.classList.contains(CSS_CLASSES.TAG_HIDDEN)) {
-                entry.target.classList.add(CSS_CLASSES.TAG_SHOW);
+            if (el.classList.contains(CSS_CLASSES.TAG_HIDDEN)) {
+                restartAnim(el, CSS_CLASSES.TAG_SHOW, CSS_CLASSES.TAG_HIDE);
             }
-            if (entry.target.classList.contains(CSS_CLASSES.ICON_HIDDEN)) {
-                entry.target.classList.add(CSS_CLASSES.ICON_SHOW);
+            if (el.classList.contains(CSS_CLASSES.ICON_HIDDEN)) {
+                restartAnim(el, CSS_CLASSES.ICON_SHOW, CSS_CLASSES.ICON_HIDE);
             }
         } else {
-            entry.target.classList.remove(
-                CSS_CLASSES.SCROLL_SHOW,
-                CSS_CLASSES.TAG_SHOW,
-                CSS_CLASSES.ICON_SHOW
-            );
+            // 离开视口：播放“消失”动画，并确保移除正向类
+            if (el.classList.contains(CSS_CLASSES.SCROLL_SHOW)) {
+                restartAnim(el, CSS_CLASSES.SCROLL_HIDE, CSS_CLASSES.SCROLL_SHOW);
+            }
+            if (el.classList.contains(CSS_CLASSES.TAG_SHOW)) {
+                restartAnim(el, CSS_CLASSES.TAG_HIDE, CSS_CLASSES.TAG_SHOW);
+            }
+            if (el.classList.contains(CSS_CLASSES.ICON_SHOW)) {
+                restartAnim(el, CSS_CLASSES.ICON_HIDE, CSS_CLASSES.ICON_SHOW);
+            }
         }
     });
 }
@@ -414,8 +444,8 @@ function init() {
         document.getElementById('error').style.display = '';
         const ErrorAction = document.querySelector('a.error-action');
         if (ErrorAction) {
-          ErrorAction.setAttribute('href', '?app=AEGIS');
-          ErrorAction.textContent = '推荐的应用';
+            ErrorAction.setAttribute('href', '?app=AEGIS');
+            ErrorAction.textContent = '推荐的应用';
         }
     }
 
