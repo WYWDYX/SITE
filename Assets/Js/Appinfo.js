@@ -415,8 +415,7 @@ function init() {
         const ErrorAction = document.querySelector('a.error-action');
         if (ErrorAction) {
           ErrorAction.setAttribute('href', '?app=AEGIS');
-          ErrorAction.textContent = '为您推荐';
-          ErrorAction.classList.add('error-ad');
+          ErrorAction.textContent = '为您推荐的应用';
         }
     }
 
