@@ -412,6 +412,12 @@ function init() {
     const appName = urlParams.get('app') || 'config';
     if (!urlParams.has('app')) {
         document.getElementById('error').style.display = '';
+        const ErrorAction = document.querySelector('a.error-action');
+        if (ErrorAction) {
+          ErrorAction.setAttribute('href', '?app=AEGIS');
+          ErrorAction.textContent = '为您推荐';
+          ErrorAction.classList.add('error-ad');
+        }
     }
 
     const jsonPath = `../Assets/Json/${appName}.json`;
