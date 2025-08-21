@@ -48,8 +48,8 @@
         "downloadUrl": "../Assets/Apk/AEGIS_5.0.0.apk"
     },
     "screenshots": {
-        "phoneSrc": "../Assets/Images/phoneScreenshot.jpg",
-        "tabletSrc": "../Assets/Images/tabletScreenshot.jpg",
+        "phoneSrc": "../Assets/Images/AppStore/AEGIS/phoneScreenshot.jpg",
+        "tabletSrc": "../Assets/Images/AppStore/AEGIS/tabletScreenshot.jpg",
         "alt": "应用截图"
     },
     "about": {
