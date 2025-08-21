@@ -1217,7 +1217,7 @@ function initMainSection() {
   }, 6000);
 }
 
-// 用 WAAPI 为 main-card 提供“高度丝滑过渡”
+// 用 WAAPI 为 main-card 提供"高度丝滑过渡"
 function animateCardSize(element, mutate) {
   if (!element || typeof mutate !== "function") return;
   const firstHeight = element.getBoundingClientRect().height;
@@ -1385,27 +1385,66 @@ function initEditorChoice() {
   });
 }
 
-// ===== 滚动进入动画 =====
+// ===== 滚动动画系统 =====
 function initScrollAnimations() {
-  const cards = $$(".app-card");
-  if (!cards.length) return;
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          io.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.15 }
-  );
-
-  cards.forEach((card, idx) => {
-    card.style.transitionDelay = (idx % 6) * 30 + "ms";
-    io.observe(card);
+  // 为不同类型的元素添加不同的动画类
+  const sectionTitles = $$('.section-title');
+  const appCards = $$('.app-card');
+  const categoryBtns = $$('.category-btn');
+  const appTags = $$('.app-tag');
+  const appIcons = $$('.app-icon, .new-app-icon, .editor-app-icon');
+  
+  // 添加初始隐藏类
+  sectionTitles.forEach(el => el.classList.add('scroll-hidden'));
+  appCards.forEach(el => el.classList.add('scroll-hidden'));
+  categoryBtns.forEach(el => el.classList.add('scroll-hidden'));
+  appTags.forEach((el, i) => {
+    el.classList.add('tag-hidden');
+    el.style.setProperty('--delay', `${i * 0.05}s`);
   });
+  appIcons.forEach((el, i) => {
+    el.classList.add('icon-hidden');
+    el.style.setProperty('--delay', `${i * 0.05}s`);
+  });
+  
+  // 创建 Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // 根据元素类型添加不同的动画类
+        if (entry.target.classList.contains('scroll-hidden')) {
+          entry.target.classList.add('scroll-show');
+        } else if (entry.target.classList.contains('tag-hidden')) {
+          entry.target.classList.add('tag-show');
+        } else if (entry.target.classList.contains('icon-hidden')) {
+          entry.target.classList.add('icon-show');
+        } else if (entry.target.classList.contains('app-card')) {
+          entry.target.classList.add('show');
+        }
+      } else {
+        // 离开视口时移除动画类，以便再次触发
+        if (entry.target.classList.contains('scroll-show')) {
+          entry.target.classList.remove('scroll-show');
+        } else if (entry.target.classList.contains('tag-show')) {
+          entry.target.classList.remove('tag-show');
+        } else if (entry.target.classList.contains('icon-show')) {
+          entry.target.classList.remove('icon-show');
+        } else if (entry.target.classList.contains('show')) {
+          entry.target.classList.remove('show');
+        }
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  });
+  
+  // 观察所有需要动画的元素
+  sectionTitles.forEach(el => observer.observe(el));
+  appCards.forEach(el => observer.observe(el));
+  categoryBtns.forEach(el => observer.observe(el));
+  appTags.forEach(el => observer.observe(el));
+  appIcons.forEach(el => observer.observe(el));
 }
 
 // ===== 分类筛选 =====
