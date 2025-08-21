@@ -15,10 +15,12 @@
 
 <body>
 
+    <!-- 页面加载动画 -->
     <div id="page-loader">
         <div class="loader"></div>
     </div>
 
+    <!-- 复制提示弹窗 -->
     <div id="copy-toast" class="copy-toast">链接已复制</div>
 
     <header>
