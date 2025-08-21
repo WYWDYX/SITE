@@ -185,7 +185,7 @@
     }
 
     /* 主页特定样式 */
-    .hero {
+    .main {
       position: relative;
       padding: 4rem 1rem;
       margin-bottom: 3rem;
@@ -194,9 +194,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 100vh;
     }
 
-    .hero-bg {
+    .main-bg {
       position: absolute;
       inset: 0;
       background-size: cover;
@@ -206,18 +207,18 @@
       z-index: 1;
     }
 
-    .hero-bg.active {
+    .main-bg.active {
       opacity: 1;
     }
 
-    .hero-bg::before {
+    .main-bg::before {
       content: "";
       position: absolute;
       inset: 0;
       background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), var(--color-bg));
     }
 
-    .hero-content {
+    .main-content {
       position: relative;
       z-index: 2;
       text-align: center;
@@ -227,7 +228,7 @@
       padding: 0 1rem;
     }
 
-    .hero h1 {
+    .main h1 {
       font-family: "IBM3270", sans-serif;
       font-size: 3.5rem;
       margin-bottom: 1rem;
@@ -240,12 +241,12 @@
       transition: all 0.8s ease;
     }
 
-    .hero h1.active {
+    .main h1.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .hero p {
+    .main p {
       font-size: 1.2rem;
       max-width: 600px;
       margin: 0 auto 2rem;
@@ -256,12 +257,12 @@
       text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
-    .hero p.active {
+    .main p.active {
       opacity: 0.9;
       transform: translateY(0);
     }
 
-    .hero-card {
+    .main-card {
       background: rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(10px);
       border: 2px solid rgba(255, 255, 255, 0.2);
@@ -277,12 +278,12 @@
       border-radius: 0; /* 保持原风格 */
     }
 
-    .hero-card.active {
+    .main-card.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .hero-app {
+    .main-app {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -290,7 +291,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .hero-app-icon {
+    .main-app-icon {
       width: 80px;
       height: 80px;
       border: 3px solid rgba(255, 255, 255, 0.3);
@@ -301,35 +302,35 @@
       transition: all 0.6s ease 0.6s;
     }
 
-    .hero-app-icon.active {
+    .main-app-icon.active {
       opacity: 1;
       transform: scale(1);
     }
 
-    .hero-app-info {
+    .main-app-info {
       opacity: 0;
       transform: translateX(-20px);
       transition: all 0.6s ease 0.8s;
     }
 
-    .hero-app-info.active {
+    .main-app-info.active {
       opacity: 1;
       transform: translateX(0);
     }
 
-    .hero-app-info h2 {
+    .main-app-info h2 {
       margin: 0 0 0.5rem;
       font-family: "IBM3270", sans-serif;
       font-size: 2rem;
     }
 
-    .hero-app-info p {
+    .main-app-info p {
       margin: 0;
       opacity: 0.9;
       transform: none;
     }
 
-    .hero-app-actions {
+    .main-app-actions {
       display: flex;
       gap: 1rem;
       justify-content: center;
@@ -338,19 +339,19 @@
       transition: all 0.6s ease 1s;
     }
 
-    .hero-app-actions.active {
+    .main-app-actions.active {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .hero-nav {
+    .main-nav {
       display: flex;
       justify-content: center;
       margin-top: 2rem;
       gap: 0.5rem;
     }
 
-    .hero-nav-btn {
+    .main-nav-btn {
       width: 12px;
       height: 12px;
       background: rgba(255, 255, 255, 0.5);
@@ -359,7 +360,7 @@
       transition: all 0.3s;
     }
 
-    .hero-nav-btn.active {
+    .main-nav-btn.active {
       background: var(--color-accent);
       transform: scale(1.2);
     }
@@ -821,7 +822,7 @@
 
     /* ===== 响应式设计 ===== */
     @media (max-width: 768px) {
-      .hero {
+      .main {
         align-items: flex-start;
         justify-content: center;
         padding-top: calc(60px + env(safe-area-inset-top) + 24px);
@@ -829,11 +830,11 @@
         min-height: 0;
       }
 
-      .hero h1 {
+      .main h1 {
         font-size: 2.2rem;
       }
 
-      .hero-app {
+      .main-app {
         flex-direction: column;
         text-align: center;
       }
@@ -852,7 +853,7 @@
         text-align: center;
       }
 
-      .hero-app-actions {
+      .main-app-actions {
         flex-direction: column;
       }
 
@@ -891,36 +892,35 @@
           >STORE</span
         ></a>
       <nav class="hidden md:flex">
-        <a href="#featured">精选</a>
-        <a href="#categories">分类</a>
+        <a href="#featured">新品</a>
+        <a href="#recommend">推荐</a>
         <a href="#apps">应用</a>
-        <a href="#games">游戏</a>
       </nav>
       <a href="#" class="btn-primary">登录</a>
     </div>
   </header>
 
-  <section class="hero" id="hero">
+  <section class="main" id="main">
     <!-- 背景层将由JavaScript动态生成 -->
-    <div class="hero-content">
+    <div class="main-content">
       <h1>探索无限可能</h1>
       <p>WYWDYX STORE 提供精选应用，为您的设备增添强大功能与卓越体验</p>
 
-      <div class="hero-card">
-        <div class="hero-app">
-          <img src="" alt="应用图标" class="hero-app-icon" />
-          <div class="hero-app-info">
+      <div class="main-card">
+        <div class="main-app">
+          <img src="" alt="应用图标" class="main-app-icon" />
+          <div class="main-app-info">
             <h2></h2>
             <p></p>
           </div>
         </div>
-        <div class="hero-app-actions">
+        <div class="main-app-actions">
           <a href="#" class="btn-primary" id="btn-primary-red">了解更多</a>
           <a href="#" class="btn-primary">立即下载</a>
         </div>
       </div>
 
-      <div class="hero-nav">
+      <div class="main-nav">
         <!-- 导航按钮将由JavaScript动态生成 -->
       </div>
     </div>
@@ -939,7 +939,7 @@
     <button class="carousel-btn next" aria-label="下一页">&#8250;</button>
   </div>
 
-  <h2 class="section-title">编辑推荐</h2>
+  <h2 class="section-title" id="recommend">应用推荐</h2>
   <div class="editor-choice">
     <!-- 编辑推荐内容将由JavaScript动态生成 -->
   </div>
@@ -953,8 +953,8 @@
     <button class="category-btn">搞笑</button>
   </div>
 
-  <h2 class="section-title">精选应用</h2>
-  <section id="apps">
+  <h2 class="section-title" id="apps">精选应用</h2>
+  <section>
     <div class="apps-grid">
       <!-- 应用卡片 1 -->
       <div class="app-card">
@@ -1149,10 +1149,10 @@ const editorChoiceData = [
 ];
 
 let currentSlide = 0;
-let heroInterval = null;
+let mainInterval = null;
 
 // ===== 工具：根据屏幕方向替换文件名 tablet ↔ phone =====
-function adaptHeroImage(url, isPortrait) {
+function adaptMainImage(url, isPortrait) {
   if (!url) return url;
 
   const parts = url.split("/");
@@ -1171,53 +1171,53 @@ function adaptHeroImage(url, isPortrait) {
 
 // ===== 主初始化 =====
 function initPageContent() {
-  initHeroSection();
+  initMainSection();
   initNewReleases();
   initEditorChoice();
   initScrollAnimations();
   initFilters();
   ensureAnchors();
 
-  // 监听屏幕方向变化，实时更新 Hero 背景
+  // 监听屏幕方向变化，实时更新 Main 背景
   window
     .matchMedia("(orientation: portrait)")
     .addEventListener("change", () => {
-      updateHeroSlide(currentSlide);
+      updateMainSlide(currentSlide);
     });
 }
 
-// ===== Hero 区域 =====
-function initHeroSection() {
-  const heroSection = $("#hero");
-  const heroNav = $(".hero-nav");
-  if (!heroSection || !heroNav) return;
+// ===== Main 区域 =====
+function initMainSection() {
+  const mainSection = $("#main");
+  const mainNav = $(".main-nav");
+  if (!mainSection || !mainNav) return;
 
   // 背景层 & 导航点
   slides.forEach((slide, index) => {
     const bgDiv = document.createElement("div");
-    bgDiv.className = "hero-bg";
+    bgDiv.className = "main-bg";
     if (index === 0) bgDiv.classList.add("active");
-    heroSection.appendChild(bgDiv);
+    mainSection.appendChild(bgDiv);
 
     const navBtn = document.createElement("button");
-    navBtn.className = "hero-nav-btn";
+    navBtn.className = "main-nav-btn";
     if (index === 0) navBtn.classList.add("active");
-    navBtn.addEventListener("click", () => updateHeroSlide(index, true));
-    heroNav.appendChild(navBtn);
+    navBtn.addEventListener("click", () => updateMainSlide(index, true));
+    mainNav.appendChild(navBtn);
   });
 
   // 初始激活
-  updateHeroSlide(0);
+  updateMainSlide(0);
 
   // 自动轮播
-  if (heroInterval) clearInterval(heroInterval);
-  heroInterval = setInterval(() => {
+  if (mainInterval) clearInterval(mainInterval);
+  mainInterval = setInterval(() => {
     const next = (currentSlide + 1) % slides.length;
-    updateHeroSlide(next);
+    updateMainSlide(next);
   }, 6000);
 }
 
-// 用 WAAPI 为 hero-card 提供“高度丝滑过渡”
+// 用 WAAPI 为 main-card 提供“高度丝滑过渡”
 function animateCardSize(element, mutate) {
   if (!element || typeof mutate !== "function") return;
   const firstHeight = element.getBoundingClientRect().height;
@@ -1238,59 +1238,59 @@ function animateCardSize(element, mutate) {
   };
 }
 
-function updateHeroSlide(index, userTriggered = false) {
+function updateMainSlide(index, userTriggered = false) {
   const slide = slides[index];
   if (!slide) return;
 
   const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-  const heroBgs = $$(".hero-bg");
-  const heroNavBtns = $$(".hero-nav-btn");
-  const heroTitle = $(".hero h1");
-  const heroDesc = $(".hero p");
-  const heroCard = $(".hero-card");
-  const heroIcon = $(".hero-app-icon");
-  const heroAppInfo = $(".hero-app-info");
-  const heroActions = $(".hero-app-actions");
-  const learnMoreBtn = $(".hero-app-actions a:first-child");
-  const downloadBtn = $(".hero-app-actions a:last-child");
+  const mainBgs = $$(".main-bg");
+  const mainNavBtns = $$(".main-nav-btn");
+  const mainTitle = $(".main h1");
+  const mainDesc = $(".main p");
+  const mainCard = $(".main-card");
+  const mainIcon = $(".main-app-icon");
+  const mainAppInfo = $(".main-app-info");
+  const mainActions = $(".main-app-actions");
+  const learnMoreBtn = $(".main-app-actions a:first-child");
+  const downloadBtn = $(".main-app-actions a:last-child");
 
   // 切换背景与导航点
-  heroBgs.forEach((bg) => bg.classList.remove("active"));
-  heroNavBtns.forEach((btn) => btn.classList.remove("active"));
-  if (heroBgs[index]) {
-    heroBgs[index].style.backgroundImage = `url(${adaptHeroImage(
+  mainBgs.forEach((bg) => bg.classList.remove("active"));
+  mainNavBtns.forEach((btn) => btn.classList.remove("active"));
+  if (mainBgs[index]) {
+    mainBgs[index].style.backgroundImage = `url(${adaptMainImage(
       slide.background,
       isPortrait
     )})`;
-    heroBgs[index].classList.add("active");
+    mainBgs[index].classList.add("active");
   }
-  if (heroNavBtns[index]) heroNavBtns[index].classList.add("active");
+  if (mainNavBtns[index]) mainNavBtns[index].classList.add("active");
 
   // 卡片尺寸平滑变化 + 内容更新
-  animateCardSize(heroCard, () => {
-    if (heroTitle) heroTitle.textContent = "探索无限可能";
-    if (heroDesc)
-      heroDesc.textContent =
+  animateCardSize(mainCard, () => {
+    if (mainTitle) mainTitle.textContent = "探索无限可能";
+    if (mainDesc)
+      mainDesc.textContent =
         "WYWDYX STORE 提供精选应用，为您的设备增添强大功能与卓越体验";
-    const h2 = $(".hero-app-info h2");
-    const p = $(".hero-app-info p");
+    const h2 = $(".main-app-info h2");
+    const p = $(".main-app-info p");
     if (h2) h2.textContent = slide.title;
     if (p) p.textContent = slide.description;
-    if (heroIcon) {
-      heroIcon.src = slide.icon;
-      heroIcon.alt = `${slide.title} 图标`;
+    if (mainIcon) {
+      mainIcon.src = slide.icon;
+      mainIcon.alt = `${slide.title} 图标`;
     }
     if (learnMoreBtn) learnMoreBtn.href = slide.detailLink;
     if (downloadBtn) downloadBtn.href = slide.downloadLink;
   });
 
   // 重置入场动画
-  [heroTitle, heroDesc, heroCard, heroIcon, heroAppInfo, heroActions].forEach(
+  [mainTitle, mainDesc, mainCard, mainIcon, mainAppInfo, mainActions].forEach(
     (el) => el && el.classList.remove("active")
   );
 
   setTimeout(() => {
-    [heroTitle, heroDesc, heroCard, heroIcon, heroAppInfo, heroActions].forEach(
+    [mainTitle, mainDesc, mainCard, mainIcon, mainAppInfo, mainActions].forEach(
       (el) => el && el.classList.add("active")
     );
   }, 60);
@@ -1298,11 +1298,11 @@ function updateHeroSlide(index, userTriggered = false) {
   currentSlide = index;
 
   // 手动切换重置自动轮播
-  if (userTriggered && heroInterval) {
-    clearInterval(heroInterval);
-    heroInterval = setInterval(() => {
+  if (userTriggered && mainInterval) {
+    clearInterval(mainInterval);
+    mainInterval = setInterval(() => {
       const next = (currentSlide + 1) % slides.length;
-      updateHeroSlide(next);
+      updateMainSlide(next);
     }, 6000);
   }
 }
