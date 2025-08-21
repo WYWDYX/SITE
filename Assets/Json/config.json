@@ -40,7 +40,7 @@
         }
     },
     "app": {
-        "name": "404－ URL参数不存在",
+        "name": "URL参数不存在",
         "icon": "../Assets/Images/Logo - Square.svg",
         "tags": [
             "错误"
