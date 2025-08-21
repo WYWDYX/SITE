@@ -22,13 +22,38 @@ const CSS_CLASSES = {
     ICON_SHOW: 'icon-show'
 };
 
+const errorMessages = {
+    404: {
+        title: "404",
+        subtitle: "应用不存在",
+        solution: "请<span>检查应用ID</span>是否正确，或<span>联系管理员</span>确认应用是否已上传。"
+    },
+    500: {
+        title: "500",
+        subtitle: "服务器内部错误",
+        solution: "请<span>稍后重试</span>或<span>联系技术支持</span>处理服务器问题。"
+    },
+    400: {
+        title: "400",
+        subtitle: "无效的应用ID",
+        solution: "请<span>稍后重试</span>或<span>联系技术支持</span>处理服务器问题。"
+    },
+    0: {
+        title: "0",
+        subtitle: "网络连接失败",
+        solution: "请<span>检查网络连接</span>是否正常，或<span>尝试刷新页面</span>重新加载。"
+    }
+};
+
 // 创建页面加载完成的Promise
 function createPageLoadedPromise() {
     return new Promise(resolve => {
         if (document.readyState === 'complete') {
             resolve();
         } else {
-            window.addEventListener('load', resolve, { once: true });
+            window.addEventListener('load', resolve, {
+                once: true
+            });
         }
     });
 }
@@ -37,35 +62,35 @@ function createPageLoadedPromise() {
 function applyCssVariables(cssVariables) {
     const style = document.createElement('style');
     style.id = 'dynamic-css-variables';
-    
+
     // 字符串构建
     const lightVars = Object.entries(cssVariables.light)
         .map(([variable, value]) => `${variable}: ${value};`)
         .join('');
-    
+
     const darkVars = Object.entries(cssVariables.dark)
         .map(([variable, value]) => `${variable}: ${value};`)
         .join('');
-    
+
     style.textContent = `
         :root { ${lightVars} }
         @media (prefers-color-scheme: dark) { :root { ${darkVars} } }
     `;
-    
+
     document.head.appendChild(style);
 }
 
 // 标签创建
 function updateTags(tags, container) {
     const fragment = document.createDocumentFragment();
-    
+
     tags.forEach(tag => {
         const tagElement = document.createElement('span');
         tagElement.className = 'tag';
         tagElement.textContent = tag;
         fragment.appendChild(tagElement);
     });
-    
+
     container.innerHTML = '';
     container.appendChild(fragment);
 }
@@ -73,15 +98,15 @@ function updateTags(tags, container) {
 // 功能特性更新
 function updateFeatures(features, featuresSection) {
     const featureCards = featuresSection.querySelectorAll('.card');
-    
+
     featureCards.forEach((card, index) => {
         if (!features[index]) return;
-        
+
         const feature = features[index];
         const icon = card.querySelector('.material-symbols-outlined');
         const title = card.querySelector('h3');
         const description = card.querySelector('p');
-        
+
         // 更新图标
         if (icon) {
             icon.textContent = feature.icon;
@@ -91,7 +116,7 @@ function updateFeatures(features, featuresSection) {
             newIcon.textContent = feature.icon;
             title.insertBefore(newIcon, title.firstChild);
         }
-        
+
         // 更新标题
         const titleText = title.childNodes[title.childNodes.length - 1];
         if (titleText && titleText.nodeType === Node.TEXT_NODE) {
@@ -99,7 +124,7 @@ function updateFeatures(features, featuresSection) {
         } else {
             title.appendChild(document.createTextNode(` ${feature.title}`));
         }
-        
+
         // 更新描述
         if (description) description.textContent = feature.description;
     });
@@ -108,16 +133,16 @@ function updateFeatures(features, featuresSection) {
 // 信息卡片更新
 function updateInfoCard(card, info, fields, prefixes = {}) {
     if (!card || !info) return;
-    
+
     // 更新标题和图标
     const icon = card.querySelector('h3 .material-symbols-outlined');
     const title = card.querySelector('h3').lastChild;
-    
+
     if (icon && title) {
         icon.textContent = info.icon;
         title.textContent = info.title;
     }
-    
+
     // 更新内容
     const paragraphs = card.querySelectorAll('p');
     fields.forEach((field, i) => {
@@ -131,20 +156,26 @@ function updateInfoCard(card, info, fields, prefixes = {}) {
 
 // 更新页面
 function updatePageContent(data) {
-    const { app, screenshots, about, features, info } = data;
-    
+    const {
+        app,
+        screenshots,
+        about,
+        features,
+        info
+    } = data;
+
     // 更新应用基本信息
     document.title = `${app.name} 应用详情页`;
     document.querySelector('link[rel="icon"]').href = app.icon;
     document.querySelector(SELECTORS.SECTION_TITLE_IMG).src = app.icon;
     document.querySelector(SELECTORS.SECTION_TITLE_H1).textContent = app.name;
-    
+
     // 更新标签
     const tagsContainer = document.querySelector(SELECTORS.TAGS_CONTAINER);
     if (tagsContainer && app.tags) {
         updateTags(app.tags, tagsContainer);
     }
-    
+
     // 更新描述
     const description = document.querySelector(SELECTORS.DESCRIPTION);
     const descriptionText = document.querySelector(SELECTORS.DESCRIPTION_TEXT);
@@ -152,44 +183,44 @@ function updatePageContent(data) {
         description.textContent = app.description;
         descriptionText.textContent = app['description-text'];
     }
-    
+
     // 更新下载链接
     document.querySelectorAll('a[href*=".apk"]').forEach(link => {
         link.href = app.downloadUrl;
     });
-    
+
     // 更新截图
     document.querySelectorAll('picture').forEach(picture => {
         const img = picture.querySelector('img');
         const source = picture.querySelector('source');
-        
+
         if (img) {
             img.src = screenshots.phoneSrc;
             img.alt = screenshots.alt;
         }
-        
+
         if (source) {
             source.srcset = screenshots.tabletSrc;
         }
     });
-    
+
     // 更新关于部分
     const aboutSection = document.querySelector(SELECTORS.ABOUT_SECTION);
     if (aboutSection && about) {
         aboutSection.querySelector('h2').textContent = about.title || '关于应用';
-        
+
         const aboutContent = aboutSection.querySelector('div');
         if (aboutContent && about.content) {
             aboutContent.innerHTML = about.content.map(p => `<p>${p}</p>`).join('');
         }
     }
-    
+
     // 更新功能特性
     const featuresSection = document.querySelector(SELECTORS.FEATURES_SECTION);
     if (featuresSection && features) {
         updateFeatures(features, featuresSection);
     }
-    
+
     // 更新应用信息
     const appInfoCard = document.querySelector(SELECTORS.APP_INFO_CARD);
     if (appInfoCard && info.appInfo) {
@@ -206,7 +237,7 @@ function updatePageContent(data) {
             developer: '开发：'
         });
     }
-    
+
     // 更新曲目信息
     const trackInfoCard = document.querySelector(SELECTORS.TRACK_INFO_CARD);
     if (trackInfoCard && info.trackInfo) {
@@ -227,21 +258,45 @@ function updatePageContent(data) {
 
 // 加载配置函数
 async function loadAppConfig(jsonUrl) {
-    try {
-        const response = await fetch(jsonUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
-        const data = await response.json();
-        
-        if (data.cssVariables) {
-            applyCssVariables(data.cssVariables);
-        }
-        
-        updatePageContent(data);
-    } catch (error) {
-        console.error('加载JSON配置失败:', error);
-        throw error;
+  try {
+    const response = await fetch(jsonUrl);
+    if (!response.ok) {
+      const error = new Error(`HTTP error! status: ${response.status}`);
+      error.status = response.status;
+      throw error;
     }
+    
+    const data = await response.json();
+    
+    if (data.cssVariables) {
+      applyCssVariables(data.cssVariables);
+    }
+    
+    updatePageContent(data);
+  } catch (error) {
+    console.error('加载JSON配置失败:', error);
+    
+    // 确定错误代码
+    let errorCode = error.status || 0;
+    if (error instanceof SyntaxError) errorCode = 400;
+    
+    // 获取错误信息（如果没有匹配的代码，使用默认错误）
+    const errorInfo = errorMessages[errorCode] || {
+      title: "ERR",
+      subtitle: "未知错误",
+      solution: "请<span>查看控制台日志</span>获取详细信息，或<span>联系技术支持</span>。"
+    };
+    
+    // 更新错误信息
+    document.getElementById('error-title').textContent = errorInfo.title;
+    document.getElementById('error-subtitle').textContent = errorInfo.subtitle;
+    document.getElementById('error-solution').innerHTML = errorInfo.solution;
+    
+    // 显示错误面板
+    document.getElementById('error').style.display = '';
+    
+    throw error;
+  }
 }
 
 // IntersectionObserver回调
@@ -259,8 +314,8 @@ function handleIntersection(entries, headerHeight) {
             }
         } else {
             entry.target.classList.remove(
-                CSS_CLASSES.SCROLL_SHOW, 
-                CSS_CLASSES.TAG_SHOW, 
+                CSS_CLASSES.SCROLL_SHOW,
+                CSS_CLASSES.TAG_SHOW,
                 CSS_CLASSES.ICON_SHOW
             );
         }
@@ -270,28 +325,27 @@ function handleIntersection(entries, headerHeight) {
 // 初始化滚动动画观察器
 function initScrollAnimation() {
     const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-    
+
     const observer = new IntersectionObserver(
-        (entries) => handleIntersection(entries, headerHeight),
-        {
+        (entries) => handleIntersection(entries, headerHeight), {
             threshold: 0.1,
             rootMargin: `-${headerHeight}px 0px 0px 0px`
         }
     );
-    
+
     // 监听section
     document.querySelectorAll('.section').forEach(sec => {
         sec.classList.add(CSS_CLASSES.SCROLL_HIDDEN);
         observer.observe(sec);
     });
-    
+
     // 监听tag + 随机延迟
     document.querySelectorAll('.tag').forEach((tag, i) => {
         tag.classList.add(CSS_CLASSES.TAG_HIDDEN);
         tag.style.setProperty('--delay', `${i * 0.05}s`);
         observer.observe(tag);
     });
-    
+
     // 监听icon + 随机延迟
     document.querySelectorAll('.material-symbols-outlined').forEach((icon, i) => {
         icon.classList.add(CSS_CLASSES.ICON_HIDDEN);
@@ -303,7 +357,7 @@ function initScrollAnimation() {
 // 复制URL功能
 async function copyUrlWithoutHash() {
     const urlWithoutHash = window.location.href.split('#')[0];
-    
+
     try {
         await navigator.clipboard.writeText(urlWithoutHash);
         showCopyToast('链接已复制');
@@ -319,10 +373,10 @@ function copyToClipboardFallback(text) {
     textarea.value = text;
     textarea.style.position = 'fixed';
     textarea.style.opacity = '0';
-    
+
     document.body.appendChild(textarea);
     textarea.select();
-    
+
     try {
         const successful = document.execCommand('copy');
         showCopyToast(successful ? '链接已复制' : '复制失败，请手动复制链接', !successful);
@@ -356,12 +410,16 @@ function init() {
     // 获取URL参数
     const urlParams = new URLSearchParams(window.location.search);
     const appName = urlParams.get('app') || 'config';
+    if (!urlParams.has('app')) {
+        document.getElementById('error').style.display = '';
+    }
+
     const jsonPath = `../Assets/Json/${appName}.json`;
-    
+
     // 创建Promise
     const pageLoaded = createPageLoadedPromise();
     const contentLoaded = loadAppConfig(jsonPath);
-    
+
     // 等待两者完成
     Promise.all([pageLoaded, contentLoaded])
         .then(() => {
@@ -373,7 +431,7 @@ function init() {
             const loader = document.querySelector(SELECTORS.LOADER);
             if (loader) loader.classList.add(CSS_CLASSES.HIDDEN);
         });
-    
+
     // 初始化滚动动画
     initScrollAnimation();
 }
