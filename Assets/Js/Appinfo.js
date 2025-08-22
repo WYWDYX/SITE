@@ -439,7 +439,7 @@ function showCopyToast(message, isError = false) {
 function init() {
     // 获取URL参数
     const urlParams = new URLSearchParams(window.location.search);
-    const appName = urlParams.get('app') || 'config';
+    const appName = urlParams.get('app') || 'error/URL';
     if (!urlParams.has('app')) {
         document.getElementById('error').style.display = '';
         const ErrorAction = document.querySelector('a.error-action');
@@ -449,7 +449,7 @@ function init() {
         }
     }
 
-    const jsonPath = `../Assets/Json/${appName}.json`;
+    const jsonPath = `../Assets/Json/AppStore/${appName}.json`;
 
     // 创建Promise
     const pageLoaded = createPageLoadedPromise();

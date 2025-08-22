@@ -495,8 +495,7 @@
         
         .app-actions {
           display: flex;
-          justify-content: space-between;
-          align-items: center;
+          justify-content: flex-end;
         }
         
         .app-details-btn {
@@ -513,22 +512,6 @@
         .app-details-btn:hover {
           background: var(--color-border);
           color: var(--color-bg);
-        }
-        
-        .app-download-btn {
-          background: var(--color-accent);
-          color: #fff;
-          border: 2px solid var(--color-border);
-          padding: 0.5rem 1rem;
-          font-family: "Noto Sans SC", sans-serif;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-        
-        .app-download-btn:hover {
-          background: #fff;
-          color: var(--color-accent);
         }
         
         .new-releases-wrap {
@@ -597,35 +580,6 @@
           font-size: 0.85rem;
           opacity: 0.7;
           margin: 0 0 0.5rem;
-        }
-        
-        .new-app-download {
-          background: var(--color-accent);
-          color: #fff;
-          border: none;
-          padding: 0.4rem 0.8rem;
-          font-size: 0.9rem;
-          cursor: pointer;
-        }
-        
-        .carousel-btn {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 40px;
-          height: 40px;
-          border: 2px solid var(--color-border);
-          background: var(--color-card-bg);
-          cursor: pointer;
-          font-weight: 700;
-        }
-        
-        .carousel-btn.prev {
-          left: 0.5rem;
-        }
-        
-        .carousel-btn.next {
-          right: 0.5rem;
         }
         
         .editor-choice {
@@ -888,6 +842,14 @@
           font-family: "Orbitron";
           src: url("../../Assets/Font/Orbitron.ttf") format("truetype");
         }
+
+        /* 数据加载错误提示 */
+        .data-error {
+          text-align: center;
+          padding: 2rem;
+          color: var(--color-accent);
+          font-weight: bold;
+        }
     </style>
 </head>
 
@@ -925,7 +887,6 @@
                 </div>
                 <div class="main-app-actions">
                     <a href="#" class="btn-primary" id="btn-primary-red">了解更多</a>
-                    <a href="#" class="btn-primary">立即下载</a>
                 </div>
             </div>
 
@@ -956,116 +917,13 @@
     <!-- 将筛选标签移动到精选应用上面 -->
     <div class="categories" id="categories">
         <button class="category-btn active">全部</button>
-        <button class="category-btn">音乐</button>
-        <button class="category-btn">展示</button>
-        <button class="category-btn">P3R</button>
-        <button class="category-btn">搞笑</button>
+        <!-- 分类标签将由JavaScript动态生成 -->
     </div>
 
     <h2 class="section-title" id="apps">精选应用</h2>
     <section>
         <div class="apps-grid">
-            <!-- 应用卡片 1 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square_Red.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">AEGIS</h3>
-                <p class="app-description">
-                    用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。
-                </p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">P3R</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
-
-            <!-- 应用卡片 2 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">JGD</h3>
-                <p class="app-description">用于展示歌曲江国督の私密的专用的专用 Android 应用。</p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">搞笑</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
-
-            <!-- 应用卡片 3 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square_Red.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">AEGIS</h3>
-                <p class="app-description">
-                    用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。
-                </p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">P3R</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
-
-            <!-- 应用卡片 4 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">JGD</h3>
-                <p class="app-description">用于展示歌曲江国督の私密的专用的专用 Android 应用。</p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">搞笑</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
-
-            <!-- 应用卡片 5 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square_Red.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">AEGIS</h3>
-                <p class="app-description">
-                    用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。
-                </p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">P3R</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
-
-            <!-- 应用卡片 6 -->
-            <div class="app-card">
-                <img src="../Assets/Images/Logo - Square.svg" alt="应用图标" class="app-icon" />
-                <h3 class="app-title">JGD</h3>
-                <p class="app-description">用于展示歌曲江国督の私密的专用的专用 Android 应用。</p>
-                <div class="app-tags">
-                    <span class="app-tag">音乐</span>
-                    <span class="app-tag">展示</span>
-                    <span class="app-tag">搞笑</span>
-                </div>
-                <div class="app-actions">
-                    <button class="app-details-btn">详情</button>
-                    <button class="app-download-btn">下载</button>
-                </div>
-            </div>
+            <!-- 应用卡片将由JavaScript动态生成 -->
         </div>
     </section>
 
@@ -1073,89 +931,66 @@
         <p>© 2025 <span style="color: var(--color-glow-text); text-shadow: 0 0 5px var(--color-glow-light), 0 0 10px var(--color-glow-light)">wywdyx</span></p>
     </footer>
 
+    <div id="error" role="alert" aria-live="assertive" style="display:none;">
+        <div id="error-panel">
+            <div id="error-title-container">
+                <p id="error-title" class="glitch" data-text="URL">数据</p>
+                <p id="error-subtitle">加载失败</p>
+            </div>
+            <p id="error-solution">无法加载<span>应用数据</span>，请<span>检查网络连接</span>后<span>刷新页面</span>重试或<span>联系技术支持</span>处理。</p>
+            <a class="error-action" onclick="location.reload()">刷新页面</a>
+        </div>
+    </div>
+
+    <style>
+        #error{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;overflow:hidden;backdrop-filter:blur(60px)}#error-panel{display:flex;flex-direction:column;align-items:center;border:2px solid var(--color-accent);padding:clamp(24px,5vw,56px);text-align:center;font-family:'Courier New',monospace;background:var(--color-bg);transition:transform 0.1s,box-shadow 0.1s;overflow:visible;box-shadow:0 0 5px var(--color-glow-light),0 0 10px var(--color-glow-light)}#error-title-container{display:flex;flex-direction:row;align-items:center;margin-bottom:1em}#error-title{margin:0 0 0.2em;font-family:'IBM3270',monospace;font-weight:900;text-transform:uppercase;font-size:10em;letter-spacing:0.15em;display:inline-block;color:var(--color-text);overflow:visible;text-shadow:none;animation:titleGlitch 4s infinite;transform-origin:center;-webkit-user-select:none;user-select:none;position:relative}@keyframes titleGlitch{0%,90%,93%,96%,100%{text-shadow:none;transform:translate(0,0) skew(0,0);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}91%{text-shadow:12px 12px 0 #ff2d2d,-12px -12px 0 #00f,12px -12px 0 #0f0,-12px 12px 0 #ff2d2d;transform:translate(10px,-5px) skew(10deg,-5deg);clip-path:polygon(0 20%,100% 0,80% 100%,0 80%)}94%{text-shadow:-8px -8px 0 #ff2d2d,8px 8px 0 #00f,-8px 8px 0 #0f0,8px -8px 0 #ff2d2d;transform:translate(-8px,8px) skew(-8deg,8deg);clip-path:polygon(20% 0,100% 20%,100% 100%,0 100%)}97%{text-shadow:15px 5px 0 #ff2d2d,-15px -5px 0 #00f,15px -5px 0 #0f0,-15px 5px 0 #ff2d2d;transform:translate(5px,-10px) skew(5deg,-10deg);clip-path:polygon(0 0,60% 0,40% 100%,0 100%)}}#error-title::before,#error-title::after{content:"";position:absolute;left:0;right:0;height:0.3em;background:var(--color-accent);opacity:0.9;box-shadow:0 0 8px #ff2d2d}#error-title::before{top:-20%;animation:scan 1.8s linear infinite}#error-title::after{top:-40%;animation:scan 2.2s linear infinite;height:2px;opacity:0.7}@keyframes scan{0%{top:-20%}100%{top:120%}}#error-title::after{content:"010101010101";position:absolute;top:50%;left:0;right:0;font-family:'IBM3270',monospace;font-size:12px;color:#ff2d2d;opacity:0;animation:digitalNoise 8s infinite;transform:translateY(-50%);letter-spacing:2px;text-align:center;pointer-events:none}@keyframes digitalNoise{0%,95%,100%{opacity:0}96%,99%{opacity:0.7}}#error-subtitle{font-size:clamp(18px,2.8vw,26px);font-weight:700;letter-spacing:0.15em;margin-bottom:0.8em;color:var(--color-text);text-transform:uppercase;border-bottom:3px solid var(--color-accent);padding-bottom:8px;display:inline-block;position:relative;font-family:'IBM3270',monospace}#error-subtitle::after{content:"";position:absolute;bottom:-6px;left:0;width:30%;height:3px;background:var(--color-border)}#error-solution{max-width:60ch;margin:0 auto 2em;font-size:clamp(14px,2.2vw,18px);line-height:1.6;color:#777;font-weight:200;border:1px solid var(--color-accent);padding:16px;position:relative;font-family:'Courier New',monospace}#error-solution span{font-weight:700;padding:0 2px;position:relative;display:inline-block;animation:wordGlitch 8s infinite;font-family:'IBM3270',monospace}@keyframes wordGlitch{0%,96%,100%{transform:translate(0,0);color:var(--color-text)}97%,99%{transform:translate(4px,-2px);color:#00f}98%{transform:translate(-3px,3px);color:#0f0}}.error-action{appearance:none;background:#FFF;border:1px solid var(--color-border);color:var(--color-accent);padding:16px 32px;font-size:16px;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.1s ease;box-shadow:6px 6px 0 0 var(--color-accent);font-family:'IBM3270',monospace}.error-action:hover{background:var(--color-accent);color:#FFF;transform:translate(3px,3px);box-shadow:3px 3px 0 0 #000}.error-action:active{transform:translate(6px,6px);box-shadow:0 0 0 0 #000}@media (max-width:768px) and (orientation:portrait){#error-panel{padding:clamp(16px,4vw,32px);width:85%;max-width:320px}#error-title-container{flex-direction:column;margin-bottom:0.8em}#error-title{font-size:8em;margin-bottom:0em}#error-subtitle{font-size:clamp(16px,2.5vw,22px);margin-bottom:0.6em}#error-solution{max-width:100%;margin:0 auto 1.5em;font-size:clamp(13px,1.8vw,16px);padding:12px}.error-action{padding:12px 24px;font-size:14px}}
+    </style>
+
     <script>
         // ===== 工具函数 =====
         const $ = (sel, root = document) => root.querySelector(sel);
         const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
         
+        // ===== 应用数据 =====
+        let appsData = [];
+        
         // ===== 页面加载后初始化 =====
         window.addEventListener("load", () => {
-          const loader = $("#page-loader");
-          if (loader) {
-            setTimeout(() => loader.classList.add("hidden"), 300);
-          }
-          initPageContent();
+          loadAppsData();
         });
         
-        // ===== 数据：轮播 / 新品 / 编辑推荐 =====
-        const slides = [
-          {
-            title: "AEGIS",
-            description:
-              "用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。",
-            background: "../Assets/Images/AppStore/AEGIS/tabletScreenshot.jpg",
-            icon: "../Assets/Images/Logo - Square_Red.svg",
-            downloadLink: "#download-AEGIS",
-            detailLink: "Appinfo.html?app=AEGIS",
-          },
-          {
-            title: "JGD",
-            description: "用于展示歌曲江国督の私密的专用 Android 应用。",
-            background: "../Assets/Images/AppStore/JGD/tabletScreenshot.jpg",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-JGD",
-            detailLink: "Appinfo.html?app=JGD",
-          },
-        ];
+        // ===== 加载应用数据 =====
+        async function loadAppsData() {
+          try {
+            const response = await fetch('../Assets/Json/AppStore.json');
+            if (!response.ok) {
+              throw new Error('网络响应不正常');
+            }
+            const data = await response.json();
+            appsData = data.apps;
+            
+            // 初始化页面内容
+            const loader = $("#page-loader");
+            if (loader) {
+              setTimeout(() => loader.classList.add("hidden"), 300);
+            }
+            initPageContent();
+          } catch (error) {
+            console.error('加载应用数据失败:', error);
+            showDataError();
+          }
+        }
         
-        const newReleasesData = [
-          {
-            title: "AEGIS",
-            category: "应用 · 展示 · P3R",
-            icon: "../Assets/Images/Logo - Square_Red.svg",
-            downloadLink: "#download-AEGIS",
-          },
-          {
-            title: "JGD",
-            category: "音乐 · 展示 · 搞笑",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-JGD",
-          },
-          {
-            title: "TikTok",
-            category: "娱乐 · 视频",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-tiktok",
-          },
-          {
-            title: "Spotify",
-            category: "音乐 · 娱乐",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-spotify",
-          },
-          {
-            title: "Zoom",
-            category: "工具 · 商务",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-zoom",
-          },
-        ];
-        
-        const editorChoiceData = [
-          {
-            title: "AEGIS",
-            description:
-              "用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。",
-            icon: "../Assets/Images/Logo - Square_Red.svg",
-            downloadLink: "#download-lightroom",
-          },
-          {
-            title: "JGD",
-            description: "用于展示歌曲江国督の私密的专用 Android 应用。",
-            icon: "../Assets/Images/Logo - Square.svg",
-            downloadLink: "#download-spotify",
-          },
-        ];
+        // ===== 显示数据加载错误 =====
+        function showDataError() {
+          const loader = $("#page-loader");
+          if (loader) loader.classList.add("hidden");
+          
+          const mainContent = $(".main-content");
+          if (mainContent) {
+            document.getElementById('error').style.display = '';
+          }
+        }
         
         let currentSlide = 0;
         let mainInterval = null;
@@ -1180,9 +1015,18 @@
         
         // ===== 主初始化 =====
         function initPageContent() {
+          if (!appsData || appsData.length === 0) {
+            showDataError();
+            return;
+          }
+          
+          // 从JSON数据中提取所有标签用于分类筛选
+          initCategories();
+          
           initMainSection();
           initNewReleases();
           initEditorChoice();
+          initAppsGrid();
           initScrollAnimations();
           initFilters();
           ensureAnchors();
@@ -1195,14 +1039,38 @@
             });
         }
         
+        // ===== 初始化分类标签 =====
+        function initCategories() {
+          const categoriesContainer = $("#categories");
+          if (!categoriesContainer) return;
+          
+          // 收集所有标签
+          const allTags = new Set();
+          appsData.forEach(app => {
+            app.tags.forEach(tag => allTags.add(tag));
+          });
+          
+          // 添加分类按钮
+          Array.from(allTags).sort().forEach(tag => {
+            const button = document.createElement("button");
+            button.className = "category-btn";
+            button.textContent = tag;
+            categoriesContainer.appendChild(button);
+          });
+        }
+        
         // ===== Main 区域 =====
         function initMainSection() {
           const mainSection = $("#main");
           const mainNav = $(".main-nav");
           if (!mainSection || !mainNav) return;
+          
+          // 获取所有特色应用
+          const featuredApps = appsData.filter(app => app.featured);
+          if (featuredApps.length === 0) return;
         
           // 背景层 & 导航点
-          slides.forEach((slide, index) => {
+          featuredApps.forEach((app, index) => {
             const bgDiv = document.createElement("div");
             bgDiv.className = "main-bg";
             if (index === 0) bgDiv.classList.add("active");
@@ -1221,7 +1089,7 @@
           // 自动轮播
           if (mainInterval) clearInterval(mainInterval);
           mainInterval = setInterval(() => {
-            const next = (currentSlide + 1) % slides.length;
+            const next = (currentSlide + 1) % featuredApps.length;
             updateMainSlide(next);
           }, 6000);
         }
@@ -1248,8 +1116,9 @@
         }
         
         function updateMainSlide(index, userTriggered = false) {
-          const slide = slides[index];
-          if (!slide) return;
+          const featuredApps = appsData.filter(app => app.featured);
+          const app = featuredApps[index];
+          if (!app) return;
         
           const isPortrait = window.matchMedia("(orientation: portrait)").matches;
           const mainBgs = $$(".main-bg");
@@ -1261,14 +1130,13 @@
           const mainAppInfo = $(".main-app-info");
           const mainActions = $(".main-app-actions");
           const learnMoreBtn = $(".main-app-actions a:first-child");
-          const downloadBtn = $(".main-app-actions a:last-child");
         
           // 切换背景与导航点
           mainBgs.forEach((bg) => bg.classList.remove("active"));
           mainNavBtns.forEach((btn) => btn.classList.remove("active"));
           if (mainBgs[index]) {
             mainBgs[index].style.backgroundImage = `url(${adaptMainImage(
-              slide.background,
+              app.background,
               isPortrait
             )})`;
             mainBgs[index].classList.add("active");
@@ -1283,14 +1151,13 @@
                 "WYWDYX STORE 提供精选应用，为您的设备增添强大功能与卓越体验";
             const h2 = $(".main-app-info h2");
             const p = $(".main-app-info p");
-            if (h2) h2.textContent = slide.title;
-            if (p) p.textContent = slide.description;
+            if (h2) h2.textContent = app.name;
+            if (p) p.textContent = app.description;
             if (mainIcon) {
-              mainIcon.src = slide.icon;
-              mainIcon.alt = `${slide.title} 图标`;
+              mainIcon.src = app.icon;
+              mainIcon.alt = `${app.name} 图标`;
             }
-            if (learnMoreBtn) learnMoreBtn.href = slide.detailLink;
-            if (downloadBtn) downloadBtn.href = slide.downloadLink;
+            if (learnMoreBtn) learnMoreBtn.href = `Appinfo.html?app=${app.id}`;
           });
         
           // 重置入场动画
@@ -1310,7 +1177,7 @@
           if (userTriggered && mainInterval) {
             clearInterval(mainInterval);
             mainInterval = setInterval(() => {
-              const next = (currentSlide + 1) % slides.length;
+              const next = (currentSlide + 1) % featuredApps.length;
               updateMainSlide(next);
             }, 6000);
           }
@@ -1322,16 +1189,21 @@
           const prevBtn = $(".carousel-btn.prev");
           const nextBtn = $(".carousel-btn.next");
           if (!newReleases || !prevBtn || !nextBtn) return;
+          
+          // 根据日期排序获取最新的5个应用
+          const newApps = [...appsData]
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 5);
         
-          newReleasesData.forEach((app, index) => {
+          newApps.forEach((app, index) => {
             const appEl = document.createElement("div");
             appEl.className = "new-app";
             appEl.innerHTML = `
-              <img src="${app.icon}" alt="${app.title} 图标" class="new-app-icon" />
+              <img src="${app.icon}" alt="${app.name} 图标" class="new-app-icon" />
               <div class="new-app-info">
-                <h3 class="new-app-title">${app.title}</h3>
-                <p class="new-app-category">${app.category}</p>
-                <button class="new-app-download">下载</button>
+                <h3 class="new-app-title">${app.name}</h3>
+                <p class="new-app-category">${app.tags.join(" · ")}</p>
+                <button class="app-details-btn" onclick="location.href='Appinfo.html?app=${app.id}'">详情</button>
               </div>`;
             newReleases.appendChild(appEl);
         
@@ -1377,20 +1249,45 @@
         function initEditorChoice() {
           const editorChoice = $(".editor-choice");
           if (!editorChoice) return;
+          
+          // 获取所有编辑推荐应用
+          const editorApps = appsData.filter(app => app.editorChoice);
         
-          editorChoiceData.forEach((app, index) => {
+          editorApps.forEach((app, index) => {
             const appEl = document.createElement("div");
             appEl.className = "editor-card";
             appEl.innerHTML = `
-              <img src="${app.icon}" alt="${app.title} 图标" class="editor-app-icon" />
+              <img src="${app.icon}" alt="${app.name} 图标" class="editor-app-icon" />
               <div class="editor-app-info">
-                <h3>${app.title}</h3>
+                <h3>${app.name}</h3>
                 <p>${app.description}</p>
-                <button class="app-download-btn">下载</button>
+                <button class="app-details-btn" onclick="location.href='Appinfo.html?app=${app.id}'">详情</button>
               </div>`;
             editorChoice.appendChild(appEl);
         
             setTimeout(() => appEl.classList.add("active"), index * 160);
+          });
+        }
+        
+        // ===== 初始化应用网格 =====
+        function initAppsGrid() {
+          const appsGrid = $(".apps-grid");
+          if (!appsGrid) return;
+          
+          appsData.forEach(app => {
+            const appCard = document.createElement("div");
+            appCard.className = "app-card";
+            appCard.innerHTML = `
+              <img src="${app.icon}" alt="${app.name} 图标" class="app-icon" />
+              <h3 class="app-title">${app.name}</h3>
+              <p class="app-description">${app.description}</p>
+              <div class="app-tags">
+                ${app.tags.map(tag => `<span class="app-tag">${tag}</span>`).join('')}
+              </div>
+              <div class="app-actions">
+                <button class="app-details-btn" onclick="location.href='Appinfo.html?app=${app.id}'">详情</button>
+              </div>`;
+            appsGrid.appendChild(appCard);
           });
         }
         
@@ -1402,7 +1299,7 @@
           const appTags = $$('.app-tag');                 // 用 keyframes：tag-show / tag-hide
           const appIcons = $$('.app-icon, .new-app-icon, .editor-app-icon'); // 用 keyframes：icon-show / icon-hide
         
-          // ---- 初始状态：只给“需要 keyframes”的元素加 hidden 类；app-card 不加 ---
+          // ---- 初始状态：只给"需要 keyframes"的元素加 hidden 类；app-card 不加 ---
           sectionTitles.forEach(el => el.classList.add('scroll-hidden'));
           categoryBtns.forEach(el => el.classList.add('scroll-hidden'));
           // 注意：不要再给 appCards 加 scroll-hidden，否则会与 .show 冲突，导致只首次动画。
@@ -1415,7 +1312,7 @@
             el.style.setProperty('--delay', `${i * 0.05}s`);
           });
         
-          // ---- 工具：强制重排以重启 CSS Animation（关键！解决“只生效一次”） ----
+          // ---- 工具：强制重排以重启 CSS Animation（关键！解决"只生效一次"） ----
           const play = (el, addCls, removeCls) => {
             el.classList.remove(addCls, removeCls);
             // 强制重排刷新样式计算，保证后续添加类能重新触发动画
@@ -1424,7 +1321,7 @@
             el.classList.add(addCls);
           };
         
-          // ---- 计算 header 高度，延后触发时机，避免“过早执行” ----
+          // ---- 计算 header 高度，延后触发时机，避免"过早执行" ----
           const headerHeight = document.querySelector('header')?.offsetHeight || 60;
         
           const observer = new IntersectionObserver((entries) => {
@@ -1435,7 +1332,7 @@
                 // 进入视口 —— 出现动画
                 if (el.classList.contains('app-card')) {
                   // app-card 用 transition，从 base -> .show
-                  el.classList.add('show');        // 移除时会自动反向过渡到 base（即“消失动画”）
+                  el.classList.add('show');        // 移除时会自动反向过渡到 base（即"消失动画"）
                 }
                 if (el.classList.contains('scroll-hidden')) {
                   play(el, 'scroll-show', 'scroll-hide');

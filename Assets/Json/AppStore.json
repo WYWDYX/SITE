@@ -1,0 +1,70 @@
+{
+  "apps": [
+    {
+      "id": "AEGIS",
+      "name": "AEGIS",
+      "description": "用于展示歌曲Memories of You -Living with Determination Arrangement的专用 Android 应用。",
+      "icon": "../Assets/Images/Logo - Square_Red.svg",
+      "background": "../Assets/Images/AppStore/AEGIS/tabletScreenshot.jpg",
+      "tags": ["音乐", "展示", "P3R"],
+      "date": "2023-10-01",
+      "featured": true,
+      "editorChoice": true
+    },
+    {
+      "id": "JGD",
+      "name": "JGD",
+      "description": "用于展示歌曲江国督の私密的专用的专用 Android 应用。",
+      "icon": "../Assets/Images/Logo - Square.svg",
+      "background": "../Assets/Images/AppStore/JGD/tabletScreenshot.jpg",
+      "tags": ["音乐", "展示", "搞笑"],
+      "date": "2023-09-15",
+      "featured": true,
+      "editorChoice": true
+    },
+    {
+      "id": "APP3",
+      "name": "音乐播放器",
+      "description": "一个功能强大的音乐播放器应用，支持多种音频格式和播放列表管理。",
+      "icon": "../Assets/Images/Logo - Square.svg",
+      "background": "../Assets/Images/AppStore/APP3/tabletScreenshot.jpg",
+      "tags": ["音乐", "工具"],
+      "date": "2023-10-05",
+      "featured": false,
+      "editorChoice": false
+    },
+    {
+      "id": "APP4",
+      "name": "图片编辑器",
+      "description": "专业的图片编辑工具，提供丰富的滤镜和编辑功能。",
+      "icon": "../Assets/Images/Logo - Square_Red.svg",
+      "background": "../Assets/Images/AppStore/APP4/tabletScreenshot.jpg",
+      "tags": ["工具", "创意"],
+      "date": "2023-09-20",
+      "featured": false,
+      "editorChoice": true
+    },
+    {
+      "id": "APP5",
+      "name": "健身助手",
+      "description": "跟踪您的健身进度，提供个性化训练计划和健康建议。",
+      "icon": "../Assets/Images/Logo - Square.svg",
+      "background": "../Assets/Images/AppStore/APP5/tabletScreenshot.jpg",
+      "tags": ["健康", "工具"],
+      "date": "2023-10-10",
+      "featured": false,
+      "editorChoice": false
+    },
+    {
+      "id": "APP6",
+      "name": "天气预报",
+      "description": "提供准确的天气预报和实时天气信息，帮助您规划每一天。",
+      "icon": "../Assets/Images/Logo - Square_Red.svg",
+      "background": "../Assets/Images/AppStore/APP6/tabletScreenshot.jpg",
+      "tags": ["工具", "生活"],
+      "date": "2023-09-25",
+      "featured": false,
+      "editorChoice": true
+    }
+  ]
+}
