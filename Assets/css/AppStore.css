@@ -923,6 +923,11 @@ footer {
     .search-box {
         width: 95%;
     }
+    
+    .search-results {
+        width: 95%;
+        margin: auto;
+    }
 
     .apps-grid {
         grid-template-columns: 1fr;
