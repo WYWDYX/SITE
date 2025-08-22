@@ -913,6 +913,16 @@ footer {
         flex-direction: column;
         text-align: center;
     }
+    
+    .search-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .search-box {
+        width: 95%;
+    }
 
     .apps-grid {
         grid-template-columns: 1fr;
