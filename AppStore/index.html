@@ -91,6 +91,10 @@
           color: var(--color-text);
         }
         
+        p {
+          font-weight: 100;
+        }
+        
         /* 让锚点在有 sticky 头部时不会被遮挡 */
         :is(section, h2, .anchor-target) {
           scroll-margin-top: 88px;
@@ -191,11 +195,10 @@
           padding: 4rem 1rem;
           margin-bottom: 3rem;
           overflow: hidden;
-          min-height: 520px;
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 100vh;
+          height: calc(100vh - 60px); /* 减去header高度 */
         }
         
         .main-bg {
@@ -388,6 +391,68 @@
           box-shadow: 0 0 0 2px var(--color-accent);
         }
         
+        /* 搜索下拉列表样式 */
+        .search-results {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: var(--color-card-bg);
+          border: 3px solid var(--color-border);
+          border-top: none;
+          max-height: 300px;
+          overflow-y: auto;
+          z-index: 10;
+          display: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-results.active {
+          display: block;
+        }
+        
+        .search-result-item {
+          display: flex;
+          align-items: center;
+          padding: 1rem;
+          border-bottom: 1px solid var(--color-border);
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        
+        .search-result-item:hover {
+          background-color: var(--color-accent);
+          color: #fff;
+        }
+        
+        .search-result-icon {
+          width: 40px;
+          height: 40px;
+          border: 2px solid var(--color-border);
+          margin-right: 1rem;
+          object-fit: cover;
+        }
+        
+        .search-result-info {
+          flex: 1;
+        }
+        
+        .search-result-name {
+          font-weight: bold;
+          margin: 0 0 0.25rem;
+        }
+        
+        .search-result-desc {
+          font-size: 0.85rem;
+          opacity: 0.8;
+          margin: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+        
         .categories {
           display: flex;
           flex-wrap: wrap;
@@ -519,6 +584,40 @@
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 3.5rem; /* 给左右按钮留空间 */
+        }
+        
+        /* 新品上线左右按钮样式 */
+        .carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: var(--color-btn-bg);
+          color: var(--color-btn-text);
+          border: 2px solid var(--color-border);
+          width: 40px;
+          height: 40px;
+          font-size: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 5;
+          transition: all 0.2s;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-btn:hover {
+          background: var(--color-btn-hover-bg);
+          color: var(--color-btn-hover-text);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .carousel-btn.prev {
+          left: 0;
+        }
+        
+        .carousel-btn.next {
+          right: 0;
         }
         
         .new-releases {
@@ -775,6 +874,22 @@
             box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
           }
         
+          .carousel-btn {
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+          }
+          
+          .carousel-btn:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+          }
+          
+          .search-results {
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.15);
+          }
+          
+          .search-result-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          
           footer {
             box-shadow: 0 -10px 25px rgba(255, 255, 255, 0.15);
           }
@@ -793,6 +908,7 @@
             padding-top: calc(60px + env(safe-area-inset-top) + 24px);
             padding-bottom: 2rem;
             min-height: 0;
+            height: calc(100vh - 60px); /* 减去header高度 */
           }
         
           .main h1 {
@@ -816,6 +932,7 @@
           .editor-card {
             flex-direction: column;
             text-align: center;
+            align-items: center;
           }
         
           .main-app-actions {
@@ -824,6 +941,12 @@
         
           .new-releases-wrap {
             padding: 0 2.5rem;
+          }
+          
+          .carousel-btn {
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
           }
         }
         
@@ -842,7 +965,7 @@
           font-family: "Orbitron";
           src: url("../../Assets/Font/Orbitron.ttf") format("truetype");
         }
-
+        
         /* 数据加载错误提示 */
         .data-error {
           text-align: center;
@@ -875,7 +998,7 @@
         <!-- 背景层将由JavaScript动态生成 -->
         <div class="main-content">
             <h1>探索无限可能</h1>
-            <p>WYWDYX STORE 提供精选应用，为您的设备增添强大功能与卓越体验</p>
+            <p>WYWDYX STORE</p>
 
             <div class="main-card">
                 <div class="main-app">
@@ -898,6 +1021,9 @@
 
     <div class="search-container">
         <input type="text" class="search-box" placeholder="搜索应用、游戏、内容..." />
+        <div class="search-results" id="search-results">
+            <!-- 搜索结果将由JavaScript动态生成 -->
+        </div>
     </div>
 
     <h2 class="section-title anchor-target" id="featured">新品上线</h2>
@@ -914,13 +1040,13 @@
         <!-- 编辑推荐内容将由JavaScript动态生成 -->
     </div>
 
-    <!-- 将筛选标签移动到精选应用上面 -->
+    <h2 class="section-title" id="apps">应用仓库</h2>
+    <!-- 将筛选标签移动到应用仓库里面 -->
     <div class="categories" id="categories">
         <button class="category-btn active">全部</button>
         <!-- 分类标签将由JavaScript动态生成 -->
     </div>
 
-    <h2 class="section-title" id="apps">精选应用</h2>
     <section>
         <div class="apps-grid">
             <!-- 应用卡片将由JavaScript动态生成 -->
@@ -943,7 +1069,7 @@
     </div>
 
     <style>
-        #error{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;overflow:hidden;backdrop-filter:blur(60px)}#error-panel{display:flex;flex-direction:column;align-items:center;border:2px solid var(--color-accent);padding:clamp(24px,5vw,56px);text-align:center;font-family:'Courier New',monospace;background:var(--color-bg);transition:transform 0.1s,box-shadow 0.1s;overflow:visible;box-shadow:0 0 5px var(--color-glow-light),0 0 10px var(--color-glow-light)}#error-title-container{display:flex;flex-direction:row;align-items:center;margin-bottom:1em}#error-title{margin:0 0 0.2em;font-family:'IBM3270',monospace;font-weight:900;text-transform:uppercase;font-size:10em;letter-spacing:0.15em;display:inline-block;color:var(--color-text);overflow:visible;text-shadow:none;animation:titleGlitch 4s infinite;transform-origin:center;-webkit-user-select:none;user-select:none;position:relative}@keyframes titleGlitch{0%,90%,93%,96%,100%{text-shadow:none;transform:translate(0,0) skew(0,0);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}91%{text-shadow:12px 12px 0 #ff2d2d,-12px -12px 0 #00f,12px -12px 0 #0f0,-12px 12px 0 #ff2d2d;transform:translate(10px,-5px) skew(10deg,-5deg);clip-path:polygon(0 20%,100% 0,80% 100%,0 80%)}94%{text-shadow:-8px -8px 0 #ff2d2d,8px 8px 0 #00f,-8px 8px 0 #0f0,8px -8px 0 #ff2d2d;transform:translate(-8px,8px) skew(-8deg,8deg);clip-path:polygon(20% 0,100% 20%,100% 100%,0 100%)}97%{text-shadow:15px 5px 0 #ff2d2d,-15px -5px 0 #00f,15px -5px 0 #0f0,-15px 5px 0 #ff2d2d;transform:translate(5px,-10px) skew(5deg,-10deg);clip-path:polygon(0 0,60% 0,40% 100%,0 100%)}}#error-title::before,#error-title::after{content:"";position:absolute;left:0;right:0;height:0.3em;background:var(--color-accent);opacity:0.9;box-shadow:0 0 8px #ff2d2d}#error-title::before{top:-20%;animation:scan 1.8s linear infinite}#error-title::after{top:-40%;animation:scan 2.2s linear infinite;height:2px;opacity:0.7}@keyframes scan{0%{top:-20%}100%{top:120%}}#error-title::after{content:"010101010101";position:absolute;top:50%;left:0;right:0;font-family:'IBM3270',monospace;font-size:12px;color:#ff2d2d;opacity:0;animation:digitalNoise 8s infinite;transform:translateY(-50%);letter-spacing:2px;text-align:center;pointer-events:none}@keyframes digitalNoise{0%,95%,100%{opacity:0}96%,99%{opacity:0.7}}#error-subtitle{font-size:clamp(18px,2.8vw,26px);font-weight:700;letter-spacing:0.15em;margin-bottom:0.8em;color:var(--color-text);text-transform:uppercase;border-bottom:3px solid var(--color-accent);padding-bottom:8px;display:inline-block;position:relative;font-family:'IBM3270',monospace}#error-subtitle::after{content:"";position:absolute;bottom:-6px;left:0;width:30%;height:3px;background:var(--color-border)}#error-solution{max-width:60ch;margin:0 auto 2em;font-size:clamp(14px,2.2vw,18px);line-height:1.6;color:#777;font-weight:200;border:1px solid var(--color-accent);padding:16px;position:relative;font-family:'Courier New',monospace}#error-solution span{font-weight:700;padding:0 2px;position:relative;display:inline-block;animation:wordGlitch 8s infinite;font-family:'IBM3270',monospace}@keyframes wordGlitch{0%,96%,100%{transform:translate(0,0);color:var(--color-text)}97%,99%{transform:translate(4px,-2px);color:#00f}98%{transform:translate(-3px,3px);color:#0f0}}.error-action{appearance:none;background:#FFF;border:1px solid var(--color-border);color:var(--color-accent);padding:16px 32px;font-size:16px;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.1s ease;box-shadow:6px 6px 0 0 var(--color-accent);font-family:'IBM3270',monospace}.error-action:hover{background:var(--color-accent);color:#FFF;transform:translate(3px,3px);box-shadow:3px 3px 0 0 #000}.error-action:active{transform:translate(6px,6px);box-shadow:0 0 0 0 #000}@media (max-width:768px) and (orientation:portrait){#error-panel{padding:clamp(16px,4vw,32px);width:85%;max-width:320px}#error-title-container{flex-direction:column;margin-bottom:0.8em}#error-title{font-size:8em;margin-bottom:0em}#error-subtitle{font-size:clamp(16px,2.5vw,22px);margin-bottom:0.6em}#error-solution{max-width:100%;margin:0 auto 1.5em;font-size:clamp(13px,1.8vw,16px);padding:12px}.error-action{padding:12px 24px;font-size:14px}}
+        #error{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;overflow:hidden;backdrop-filter:blur(60px)}#error-panel{display:flex;flex-direction:column;align-items:center;border:2px solid var(--color-accent);padding:clamp(24px,5vw,56px);text-align:center;font-family:'Courier New',monospace;background:var(--color-bg);transition:transform 0.1s,box-shadow 0.1s;overflow:visible;box-shadow:0 0 5px var(--color-glow-light),0 0 10px var(--color-glow-light)}#error-title-container{display:flex;flex-direction:row;align-items:center;margin-bottom:1em}#error-title{margin:0 0 0.2em;font-family:'IBM3270',monospace;font-weight:900;text-transform:uppercase;font-size:10em;letter-spacing:0.15em;display:inline-block;color:var(--color-text);overflow:visible;text-shadow:none;animation:titleGlitch 4s infinite;transform-origin:center;-webkit-user-select:none;user-select:none;position:relative}@keyframes titleGlitch{0%,90%,93%,96%,100%{text-shadow:none;transform:translate(0,0) skew(0,0);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}91%{text-shadow:12px 12px 0 #ff2d2d,-12px -12px 0 #00f,12px -12px 0 #0f0,-12px 12px 0 #ff2d2d;transform:translate(10px,-5px) skew(10deg,-5deg);clip-path:polygon(0 20%,100% 0,80% 100%,0 80%)}94%{text-shadow:-8px -8px 0 #ff2d2d,8px 8px 0 #00f,-8px 8px 0 #0f0,8px -8px 0 #ff2d2d;transform:translate(-8px,8px) skew(-8deg,8deg);clip-path:polygon(20% 0,100% 20%,100% 100%,0 100%)}97%{text-shadow:15px 5px 0 #ff2d2d,-15px -5px 0 #00f,15px -5px 0 #0f0,-15px 5px 0 #ff2d2d;transform:translate(5px,-10px) skew(5deg,-10deg);clip-path:polygon(0 0,60% 0,40% 100%,0 100%)}}#error-title::before,#error-title::after{content:"";position:absolute;left:0;right:0;height:0.3em;background:var(--color-accent);opacity:0.9;box-shadow:0 0 8px #ff2d2d}#error-title::before{top:-20%;animation:scan 1.8s linear infinite}#error-title::after{top:-40%;animation:scan 2.2s linear infinite;height:2px;opacity:0.7}@keyframes scan{0%{top:-20%}100%{top:120%}}#error-title::after{content:"010101010101";position:absolute;top:50%;left:0;right:0;font-family:'IBM3270',monospace;font-size:12px;color:#ff2d2d;opacity:0;animation:digitalNoise 8s infinite;transform:translateY(-50%);letter-spacing:2px;text-align:center;pointer-events:none}@keyframes digitalNoise{0%,95%,100%{opacity:0}96%,99%{opacity:0.7}}#error-subtitle{font-size:clamp(18px,2.8vw,26px);font-weight:700;letter-spacing:0.15em;margin-bottom:0.8em;color:var(--color-text);text-transform:uppercase;border-bottom:3px solid var(--color-accent);padding-bottom:8px;display:inline-block;position:relative;font-family:'IBM3270',monospace}#error-subtitle::after{content:"";position:absolute;bottom:-6px;left:0;width:30%;height:3px;background:var(--color-border)}#error-solution{max-width:60ch;margin:0 auto 2em;font-size:clamp(14px,2.2vw,18px);line-height:1.6;color:#777;font-weight:200;border:1px solid var(--color-accent);padding:16px;position:relative;font-family:'Courier New',monospace}#error-solution span{font-weight:700;padding:0 2px;position:relative;display:inline-block;animation:wordGlitch 8s infinite;font-family:'IBM3270',monospace}@keyframes wordGlitch{0%,96%,100%{transform:translate(0,0);color:var(--color-text)}97%,99%{transform:translate(4px,-2px);color:#00f}98%{transform:translate(-3px,3px);color:#0f0}}.error-action{appearance:none;background:#FFF;border:1px solid var(--color-border);color:var(--color-accent);padding:16px 32px;font-size:16px;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.1s ease;box-shadow:6px 6px 0 0 var(--color-accent);font-family:'IBM3270',monospace}.error-action:hover{background:var(--color-accent);color:#FFF;transform:translate(3px,3px);box-shadow:3px 3px 0 0 #000}.error-action:active{transform:translate(6px,6px);box-shadow:0 0 0 0 #000}@media (max-width:768px) and (orientation:portrait){#error-panel{padding:clamp(16px,4vw,32px);width:85%;max-width:320px;#error-title-container{flex-direction:column;margin-bottom:0.8em}#error-title{font-size:8em;margin-bottom:0em}#error-subtitle{font-size:clamp(16px,2.5vw,22px);margin-bottom:0.6em}#error-solution{max-width:100%;margin:0 auto 1.5em;font-size:clamp(13px,1.8vw,16px);padding:12px}.error-action{padding:12px 24px;font-size:14px}}
     </style>
 
     <script>
@@ -1029,6 +1155,7 @@
           initAppsGrid();
           initScrollAnimations();
           initFilters();
+          initSearch();
           ensureAnchors();
         
           // 监听屏幕方向变化，实时更新 Main 背景
@@ -1148,7 +1275,7 @@
             if (mainTitle) mainTitle.textContent = "探索无限可能";
             if (mainDesc)
               mainDesc.textContent =
-                "WYWDYX STORE 提供精选应用，为您的设备增添强大功能与卓越体验";
+                "WYWDYX STORE";
             const h2 = $(".main-app-info h2");
             const p = $(".main-app-info p");
             if (h2) h2.textContent = app.name;
@@ -1288,6 +1415,72 @@
                 <button class="app-details-btn" onclick="location.href='Appinfo.html?app=${app.id}'">详情</button>
               </div>`;
             appsGrid.appendChild(appCard);
+          });
+        }
+        
+        // ===== 搜索功能 =====
+        function initSearch() {
+          const searchBox = $(".search-box");
+          const searchResults = $("#search-results");
+          
+          if (!searchBox || !searchResults) return;
+          
+          searchBox.addEventListener("input", (e) => {
+            const query = e.target.value.trim().toLowerCase();
+            
+            if (query.length === 0) {
+              searchResults.classList.remove("active");
+              return;
+            }
+            
+            // 过滤匹配的应用
+            const filteredApps = appsData.filter(app => 
+              app.name.toLowerCase().includes(query) || 
+              app.description.toLowerCase().includes(query) ||
+              app.tags.some(tag => tag.toLowerCase().includes(query))
+            );
+            
+            // 更新搜索结果
+            updateSearchResults(filteredApps, searchResults);
+            searchResults.classList.add("active");
+          });
+          
+          // 点击页面其他地方关闭搜索结果
+          document.addEventListener("click", (e) => {
+            if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
+              searchResults.classList.remove("active");
+            }
+          });
+          
+          // 防止点击搜索结果时关闭
+          searchResults.addEventListener("click", (e) => {
+            e.stopPropagation();
+          });
+        }
+        
+        function updateSearchResults(apps, container) {
+          container.innerHTML = "";
+          
+          if (apps.length === 0) {
+            container.innerHTML = `<div class="search-result-item" style="justify-content: center;">未找到匹配的应用</div>`;
+            return;
+          }
+          
+          apps.slice(0, 5).forEach(app => {
+            const item = document.createElement("div");
+            item.className = "search-result-item";
+            item.innerHTML = `
+              <img src="${app.icon}" alt="${app.name} 图标" class="search-result-icon" />
+              <div class="search-result-info">
+                <div class="search-result-name">${app.name}</div>
+                <div class="search-result-desc">${app.description}</div>
+              </div>`;
+            
+            item.addEventListener("click", () => {
+              window.location.href = `Appinfo.html?app=${app.id}`;
+            });
+            
+            container.appendChild(item);
           });
         }
         
