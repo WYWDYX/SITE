@@ -26,7 +26,7 @@ def generate_app_json():
         },
         "about": {
             "title": input("请输入关于部分的标题 (about.title): ").strip(),
-            "content": input("请输入关于部分的内容(用|分隔段落) (about.content): ").strip().split('|')
+            "content": input("请输入关于部分的内容(用|分隔段落，第2个段落将被用于主页的简短介绍) (about.content): ").strip().split('|')
         }
     }
     
