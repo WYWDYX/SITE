@@ -85,8 +85,8 @@
             "title": "应用信息",
             "icon": "apk_document",
             "name": "JGD",
-            "version": "5.0.0",
-            "size": "10.16M",
+            "version": "5.0.1",
+            "size": "5.17M",
             "compatibility": "移动端/平板端",
             "developer": "WYWDYX"
         },
@@ -94,10 +94,10 @@
             "title": "曲目详细信息",
             "icon": "disc_full",
             "name": "江国督の私密",
-            "format": "AAC-LC (MP4A)",
+            "format": "FLAC",
             "sampleRate": "44.1 kHz",
             "channel": "立体声",
-            "bitRate": "255 kbps"
+            "bitRate": "867 kbps"
         }
     }
 }
