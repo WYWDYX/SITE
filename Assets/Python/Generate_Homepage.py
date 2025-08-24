@@ -46,7 +46,7 @@ def generate_homepage_json():
             
             # 获取文件修改日期
             file_mtime = os.path.getmtime(file_path)
-            date = datetime.fromtimestamp(file_mtime).strftime("%Y-%m-%d")
+            date = datetime.fromtimestamp(file_mtime).isoformat(timespec='milliseconds')
             
             # 初始设置featured和editorChoice为false
             app_info = {
