@@ -1,8 +1,6 @@
 <svg width="1000" height="1000" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
   <rect x="0" y="0" width="256" height="256" fill="#FFD700" />
-
   <path d="M 50,200 L 50,50 L 170,50 L 170,85 L 85,85 L 85,115 L 170,115 L 170,150 L 85,150 L 85,200 L 50,200 Z" fill="#FFFFFF" />
-  
   <rect x="170" y="50" width="35" height="35" fill="#FFD700" />
   <rect x="170" y="85" width="35" height="30" fill="#FFFFFF" />
   <rect x="120" y="85" width="35" height="30" fill="#FFFFFF" />
