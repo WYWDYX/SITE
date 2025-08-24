@@ -82,6 +82,16 @@ p {
     font-weight: 100;
 }
 
+img {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+button {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 /* 让锚点在有 sticky 头部时不会被遮挡 */
 :is(section, h2, .anchor-target) {
     scroll-margin-top: 88px;
@@ -373,6 +383,8 @@ header nav a:hover::after {
     font-family: "Noto Sans SC", sans-serif;
     font-size: 1rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .search-box:focus {
@@ -537,6 +549,8 @@ header nav a:hover::after {
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .app-tag {
