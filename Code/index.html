@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             box-sizing: border-box;
             font-family: 'JetBrainsMono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         :root {
             --header-height: 60px;
         }
@@ -22,10 +23,14 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        li {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         button {
             -webkit-tap-highlight-color: transparent;
         }
-
+        
         body {
             background-color: #0d1117;
             color: #c9d1d9;
@@ -33,12 +38,12 @@
             height: 100vh;
             overflow: hidden;
         }
-
+        
         .container {
             display: flex;
             height: 100vh;
         }
-
+        
         /* 文件导航样式 */
         .file-navigator {
             width: 300px;
@@ -49,7 +54,7 @@
             height: 100%;
             transition: transform 0.3s ease;
         }
-
+        
         .nav-header {
             padding: 16px;
             border-bottom: 1px solid #30363d;
@@ -57,24 +62,29 @@
             height: var(--header-height);
             backdrop-filter: blur(10px);
         }
-
+        
         .folder-name {
             font-weight: 600;
             color: #f0f6fc;
             font-size: 16px;
             white-space: nowrap;
+            overflow: scroll;
         }
-
+        
+        .folder-name::-webkit-scrollbar {
+            display: none;
+        }
+        
         .file-list-container {
             overflow-y: auto;
             flex: 1;
             padding: 8px;
         }
-
+        
         .file-list {
             list-style: none;
         }
-
+        
         .file-item {
             padding: 8px 12px;
             border-radius: 6px;
@@ -84,22 +94,30 @@
             align-items: center;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-
+        
         .file-item:hover {
             background-color: #1c2128;
             transform: translateX(4px);
         }
-
+        
         .file-item.active {
             background-color: #1c6beb;
             color: white;
         }
-
+        
         .file-icon {
             margin-right: 8px;
             font-size: 14px;
         }
-
+        
+        .file-item span {
+            overflow: scroll;
+        }
+        
+        .file-item span::-webkit-scrollbar {
+            display: none;
+        }
+        
         /* 版权信息 */
         .navigator-footer {
             padding: 12px;
@@ -111,11 +129,11 @@
             flex-shrink: 0;
             transition: color 0.3s ease;
         }
-
+        
         .navigator-footer:hover {
             color: #f0f6fc;
         }
-
+        
         /* 代码显示区域样式 */
         .code-display {
             flex: 1;
@@ -125,7 +143,7 @@
             height: 100%;
             overflow: hidden;
         }
-
+        
         .code-header {
             padding: 16px;
             border-bottom: 1px solid #30363d;
@@ -137,10 +155,17 @@
             backdrop-filter: blur(10px);
             white-space: nowrap;
         }
-
+        
         .current-file {
             font-weight: 600;
             font-size: 16px;
+            white-space: nowrap;
+            overflow: auto;
+            flex: 1;
+        }
+        
+        .current-file::-webkit-scrollbar {
+            display: none;
         }
         
         .error {
@@ -148,17 +173,18 @@
             text-align: center;
             color: #f85149;
         }
-
+        
         .error i {
             font-size: 48px;
             margin-bottom: 16px;
         }
-
+        
         .editor-actions {
             display: flex;
             gap: 8px;
+            flex-shrink: 0;
         }
-
+        
         .editor-btn {
             background-color: #238636;
             color: white;
@@ -171,39 +197,39 @@
             gap: 4px;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-
+        
         .editor-btn:hover {
             background-color: #2ea043;
             transform: scale(1.05);
         }
-
+        
         .editor-btn.edit-mode {
             background-color: #1c6beb;
         }
-
+        
         .editor-btn.edit-mode:hover {
             background-color: #2266d9;
         }
-
+        
         .editor-btn.view-mode {
             background-color: #8b949e;
         }
-
+        
         .editor-btn.view-mode:hover {
             background-color: #6e7681;
         }
-
+        
         .code-content {
             flex: 1;
             overflow: hidden;
             height: calc(100vh - var(--header-height));
         }
-
+        
         #monaco-editor {
             width: 100%;
             height: 100%;
         }
-
+        
         /* 移动端样式 */
         .mobile-nav-toggle {
             display: none;
@@ -223,7 +249,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease;
         }
-
+        
         .mobile-nav-toggle:active {
             background-color: #2266FF;
             transform: scale(1.05);
@@ -249,7 +275,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
+        
         .toast {
             position: fixed;
             bottom: 20px;
@@ -264,25 +290,12 @@
             transition: opacity 0.3s, transform 0.3s;
             z-index: 1000;
         }
-
+        
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
-
-        .mode-indicator {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 10px;
-            background-color: #1c6beb;
-        }
-
-        .mode-indicator.view {
-            background-color: #8b949e;
-        }
-
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .file-navigator {
@@ -295,46 +308,42 @@
                 width: 80%;
                 max-width: 300px;
             }
-
+        
             .file-navigator.active {
                 transform: translateX(0);
             }
-
+        
             .mobile-nav-toggle {
                 display: flex;
             }
-            
-            .mode-indicator {
-                margin-left: 0;
-            }
-
+        
             .editor-actions {
                 gap: 4px;
             }
-
+        
             .editor-btn {
                 padding: 4px 8px;
                 font-size: 12px;
             }
         }
-
+        
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
-
+        
         ::-webkit-scrollbar-track {
             background: #161b22;
             border-radius: 5px;
         }
-
+        
         ::-webkit-scrollbar-thumb {
             background: #30363d;
             border-radius: 5px;
             transition: background 0.3s ease;
         }
-
+        
         ::-webkit-scrollbar-thumb:hover {
             background: #8b949e;
         }
@@ -345,6 +354,7 @@
         }
     </style>
 </head>
+
 <body>
     <button class="mobile-nav-toggle" id="navToggle">
         <i class="fas fa-bars"></i>
@@ -364,12 +374,11 @@
         <div class="code-display">
             <div class="code-header">
                 <div class="current-file" id="currentFile">
-                    <span id="currentFileName">选择文件查看代码</span>
-                    <span class="mode-indicator view" id="modeIndicator">只读</span>
+                    选择文件查看代码
                 </div>
                 <div class="editor-actions">
                     <button class="editor-btn edit-mode" id="toggleModeButton">
-                        <i class="fas fa-edit"></i> 切换模式
+                        <i class="fas fa-edit"></i> 编辑
                     </button>
                     <button class="editor-btn" id="copyButton">
                         <i class="far fa-copy"></i> 复制
@@ -394,17 +403,16 @@
             const fileNavigator = document.getElementById('fileNavigator');
             const fileList = document.getElementById('fileList');
             const folderName = document.getElementById('folderName');
-            const currentFileName = document.getElementById('currentFileName');
+            const currentFile = document.getElementById('currentFile');
             const codeContent = document.getElementById('codeContent');
             const copyButton = document.getElementById('copyButton');
             const toggleModeButton = document.getElementById('toggleModeButton');
-            const modeIndicator = document.getElementById('modeIndicator');
             const navToggle = document.getElementById('navToggle');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const toast = document.getElementById('toast');
             let editor = null;
             let isEditMode = false;
-
+        
             // 解析URL参数
             const urlParams = new URLSearchParams(window.location.search);
             const fileParam = urlParams.get('F');
@@ -462,7 +470,7 @@
                 
                 li.innerHTML = `
                     <i class="file-icon ${iconClass}"></i>
-                    ${file}
+                    <span>${file}</span>
                 `;
                 
                 li.addEventListener('click', () => {
@@ -576,20 +584,14 @@
                     editor.updateOptions({ readOnly: !isEditMode });
                     
                     if (isEditMode) {
-                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 切换模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 查看';
                         toggleModeButton.classList.remove('edit-mode');
                         toggleModeButton.classList.add('view-mode');
-                        modeIndicator.textContent = '编辑';
-                        modeIndicator.classList.remove('view');
-                        modeIndicator.classList.add('edit');
                         showToast('已切换到编辑模式');
                     } else {
-                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 切换模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 编辑';
                         toggleModeButton.classList.remove('view-mode');
                         toggleModeButton.classList.add('edit-mode');
-                        modeIndicator.textContent = '只读';
-                        modeIndicator.classList.remove('edit');
-                        modeIndicator.classList.add('view');
                         showToast('已切换到查看模式');
                     }
                 }
@@ -604,7 +606,7 @@
                 }
                 
                 loadingIndicator.style.display = 'flex';
-                currentFileName.textContent = file;
+                currentFile.textContent = file;
                 
                 // 构建文件路径
                 const filePath = `../Assets/Code/${folder}/${file}`;
@@ -701,4 +703,5 @@
         });
     </script>
 </body>
+
 </html>
