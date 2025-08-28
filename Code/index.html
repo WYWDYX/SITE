@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>代码展示</title>
+    <link rel="icon" type="image/svg" href="../Assets/Images/Logo - Square.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,11 +14,11 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         :root {
             --header-height: 60px;
         }
-        
+
         body {
             background-color: #0d1117;
             color: #c9d1d9;
@@ -25,12 +26,12 @@
             height: 100vh;
             overflow: hidden;
         }
-        
+
         .container {
             display: flex;
             height: 100vh;
         }
-        
+
         /* 文件导航样式 */
         .file-navigator {
             width: 300px;
@@ -39,30 +40,36 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            transition: transform 0.3s ease; /* 侧边栏过渡 */
         }
-        
+
         .nav-header {
             padding: 16px;
             border-bottom: 1px solid #30363d;
             flex-shrink: 0;
         }
-        
+
         .folder-name {
             font-weight: 600;
             color: #f0f6fc;
             font-size: 16px;
+            transition: color 0.3s ease;
         }
-        
+
+        .folder-name:hover {
+            color: #58a6ff;
+        }
+
         .file-list-container {
             overflow-y: auto;
             flex: 1;
             padding: 8px;
         }
-        
+
         .file-list {
             list-style: none;
         }
-        
+
         .file-item {
             padding: 8px 12px;
             border-radius: 6px;
@@ -70,23 +77,39 @@
             cursor: pointer;
             display: flex;
             align-items: center;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s ease, transform 0.2s ease;
         }
-        
+
         .file-item:hover {
             background-color: #1c2128;
+            transform: translateX(4px);
         }
-        
+
         .file-item.active {
             background-color: #1c6beb;
             color: white;
         }
-        
+
         .file-icon {
             margin-right: 8px;
             font-size: 14px;
         }
-        
+
+        /* 版权信息 */
+        .navigator-footer {
+            padding: 12px;
+            border-top: 1px solid #30363d;
+            font-size: 12px;
+            color: #8b949e;
+            text-align: center;
+            flex-shrink: 0;
+            transition: color 0.3s ease;
+        }
+
+        .navigator-footer:hover {
+            color: #f0f6fc;
+        }
+
         /* 代码显示区域样式 */
         .code-display {
             flex: 1;
@@ -96,7 +119,7 @@
             height: 100%;
             overflow: hidden;
         }
-        
+
         .code-header {
             padding: 16px;
             border-bottom: 1px solid #30363d;
@@ -106,12 +129,17 @@
             flex-shrink: 0;
             height: var(--header-height);
         }
-        
+
         .current-file {
             font-weight: 600;
             font-size: 16px;
+            transition: color 0.3s ease;
         }
-        
+
+        .current-file:hover {
+            color: #58a6ff;
+        }
+
         .copy-btn {
             background-color: #238636;
             color: white;
@@ -122,40 +150,36 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s ease, transform 0.2s ease;
         }
-        
+
         .copy-btn:hover {
             background-color: #2ea043;
+            transform: scale(1.05);
         }
-        
+
         .code-content {
             flex: 1;
             overflow: auto;
             padding: 0;
             height: calc(100vh - var(--header-height));
         }
-        
+
         .code-wrapper {
             padding: 16px;
+            animation: fadeIn 0.4s ease; /* 代码淡入效果 */
         }
-        
-        pre {
-            margin: 0;
-            background-color: #0d1117 !important;
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
         }
-        
-        code {
-            font-family: 'Fira Code', monospace;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        
+
         /* 移动端样式 */
         .mobile-nav-toggle {
             display: none;
             position: fixed;
-            top: 16px;
+            bottom: 16px;
             left: 16px;
             z-index: 100;
             background-color: #1c6beb;
@@ -168,32 +192,13 @@
             justify-content: center;
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
         }
-        
-        /* 加载状态 */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            font-size: 18px;
-            color: #7d8590;
+
+        .mobile-nav-toggle:hover {
+            transform: rotate(90deg);
         }
-        
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
+
         /* 响应式设计 */
         @media (max-width: 768px) {
             .file-navigator {
@@ -206,68 +211,36 @@
                 width: 80%;
                 max-width: 300px;
             }
-            
+
             .file-navigator.active {
                 transform: translateX(0);
             }
-            
+
             .mobile-nav-toggle {
                 display: flex;
             }
-            
+
             .code-header {
                 padding-left: 60px;
             }
-            
-            .code-content {
-                height: calc(100vh - var(--header-height));
-            }
         }
-        
-        /* 错误状态 */
-        .error {
-            padding: 20px;
-            text-align: center;
-            color: #f85149;
-        }
-        
-        .error-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        
-        /* 空状态 */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: #7d8590;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        
+
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
-        
+
         ::-webkit-scrollbar-track {
             background: #161b22;
         }
-        
+
         ::-webkit-scrollbar-thumb {
             background: #30363d;
             border-radius: 5px;
+            transition: background 0.3s ease;
         }
-        
+
         ::-webkit-scrollbar-thumb:hover {
             background: #8b949e;
         }
@@ -277,18 +250,18 @@
     <button class="mobile-nav-toggle" id="navToggle">
         <i class="fas fa-bars"></i>
     </button>
-    
+
     <div class="container">
         <div class="file-navigator" id="fileNavigator">
             <div class="nav-header">
                 <div class="folder-name" id="folderName">加载中...</div>
             </div>
             <div class="file-list-container">
-                <ul class="file-list" id="fileList">
-                </ul>
+                <ul class="file-list" id="fileList"></ul>
             </div>
+            <div class="navigator-footer">© 2025 wywdyx</div>
         </div>
-        
+
         <div class="code-display">
             <div class="code-header">
                 <div class="current-file" id="currentFile">选择文件查看代码</div>
