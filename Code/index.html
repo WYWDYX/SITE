@@ -144,6 +144,13 @@
         
         .error {
             padding: 65px;
+            text-align: center;
+            color: #f85149;
+        }
+
+        .error i {
+            font-size: 48px;
+            margin-bottom: 16px;
         }
 
         .copy-btn {
@@ -257,6 +264,27 @@
             font-family: 'JetBrainsMono';
             src: url('../Assets/Font/JetBrainsMono-Medium.woff2') format('woff2');
         }
+        
+        .loading {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #1c6beb;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -322,6 +350,18 @@
             
             const folder = fileParam.substring(0, separatorIndex);
             const files = fileParam.substring(separatorIndex + 1).split(',');
+            
+            if (containsPathTraversal(folder)) {
+                showError('安全警告', '文件夹名称包含非法字符');
+                return;
+            }
+            
+            for (const file of files) {
+                if (containsPathTraversal(file)) {
+                    showError('安全警告', '文件名包含非法字符');
+                    return;
+                }
+            }
             
             // 设置文件夹名称
             folderName.textContent = folder;
@@ -406,8 +446,19 @@
                 }
             });
             
+            // 检查路径遍历的函数
+            function containsPathTraversal(path) {
+                return path.includes('../') || path.includes('..\\');
+            }
+            
             // 加载文件内容函数
             function loadFileContent(folder, file) {
+                // 再次安全检查
+                if (containsPathTraversal(folder) || containsPathTraversal(file)) {
+                    showError('安全警告', '文件路径包含非法字符，可能存在目录遍历攻击');
+                    return;
+                }
+                
                 loadingIndicator.style.display = 'flex';
                 currentFile.textContent = file;
                 
@@ -465,20 +516,21 @@
             function showError(title, message) {
                 codeContent.innerHTML = `
                     <div class="error">
-                        <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <i class="fas fa-exclamation-triangle"></i>
                         <h3>${title}</h3>
-                        <div>${message}</div>
+                        <p>${message}</p>
                     </div>
                 `;
+                loadingIndicator.style.display = 'none';
             }
             
             // 显示空状态函数
             function showEmptyState(title, message) {
                 codeContent.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon"><i class="fas fa-folder-open"></i></div>
+                    <div class="error">
+                        <i class="fas fa-folder-open"></i>
                         <h3>${title}</h3>
-                        <div>${message}</div>
+                        <p>${message}</p>
                     </div>
                 `;
                 loadingIndicator.style.display = 'none';
