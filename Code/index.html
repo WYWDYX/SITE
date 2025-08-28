@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代码展示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --header-height: 60px;
+        }
+        
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.5;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* 文件导航样式 */
+        .file-navigator {
+            width: 300px;
+            background-color: #161b22;
+            border-right: 1px solid #30363d;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .nav-header {
+            padding: 16px;
+            border-bottom: 1px solid #30363d;
+            flex-shrink: 0;
+        }
+        
+        .folder-name {
+            font-weight: 600;
+            color: #f0f6fc;
+            font-size: 16px;
+        }
+        
+        .file-list-container {
+            overflow-y: auto;
+            flex: 1;
+            padding: 8px;
+        }
+        
+        .file-list {
+            list-style: none;
+        }
+        
+        .file-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        
+        .file-item:hover {
+            background-color: #1c2128;
+        }
+        
+        .file-item.active {
+            background-color: #1c6beb;
+            color: white;
+        }
+        
+        .file-icon {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        /* 代码显示区域样式 */
+        .code-display {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #0d1117;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            padding: 16px;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            height: var(--header-height);
+        }
+        
+        .current-file {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .copy-btn {
+            background-color: #238636;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: background-color 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background-color: #2ea043;
+        }
+        
+        .code-content {
+            flex: 1;
+            overflow: auto;
+            padding: 0;
+            height: calc(100vh - var(--header-height));
+        }
+        
+        .code-wrapper {
+            padding: 16px;
+        }
+        
+        pre {
+            margin: 0;
+            background-color: #0d1117 !important;
+        }
+        
+        code {
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* 移动端样式 */
+        .mobile-nav-toggle {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 100;
+            background-color: #1c6beb;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 加载状态 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 18px;
+            color: #7d8590;
+        }
+        
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .file-navigator {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 90;
+                transform: translateX(-100%);
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .file-navigator.active {
+                transform: translateX(0);
+            }
+            
+            .mobile-nav-toggle {
+                display: flex;
+            }
+            
+            .code-header {
+                padding-left: 60px;
+            }
+            
+            .code-content {
+                height: calc(100vh - var(--header-height));
+            }
+        }
+        
+        /* 错误状态 */
+        .error {
+            padding: 20px;
+            text-align: center;
+            color: #f85149;
+        }
+        
+        .error-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #7d8590;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #161b22;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b949e;
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-nav-toggle" id="navToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="container">
+        <div class="file-navigator" id="fileNavigator">
+            <div class="nav-header">
+                <div class="folder-name" id="folderName">加载中...</div>
+            </div>
+            <div class="file-list-container">
+                <ul class="file-list" id="fileList">
+                </ul>
+            </div>
+        </div>
+        
+        <div class="code-display">
+            <div class="code-header">
+                <div class="current-file" id="currentFile">选择文件查看代码</div>
+                <button class="copy-btn" id="copyButton">
+                    <i class="far fa-copy"></i> 复制代码
+                </button>
+            </div>
+            <div class="code-content" id="codeContent">
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <span>加载中...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const fileNavigator = document.getElementById('fileNavigator');
+            const fileList = document.getElementById('fileList');
+            const folderName = document.getElementById('folderName');
+            const currentFile = document.getElementById('currentFile');
+            const codeContent = document.getElementById('codeContent');
+            const copyButton = document.getElementById('copyButton');
+            const navToggle = document.getElementById('navToggle');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            
+            // 解析URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileParam = urlParams.get('F');
+            
+            // 如果没有提供文件参数，显示错误
+            if (!fileParam) {
+                showEmptyState('请在URL参数中提供文件列表', '例如：?F=文件夹名称-文件1,文件2,文件3');
+                return;
+            }
+            
+            // 解析文件和文件夹名称
+            const separatorIndex = fileParam.indexOf('-');
+            if (separatorIndex === -1) {
+                showError('参数格式不正确', '请使用格式：文件夹名称-文件1,文件2,文件3');
+                return;
+            }
+            
+            const folder = fileParam.substring(0, separatorIndex);
+            const files = fileParam.substring(separatorIndex + 1).split(',');
+            
+            // 设置文件夹名称
+            folderName.textContent = folder;
+            
+            // 生成文件列表
+            files.forEach((file, index) => {
+                const li = document.createElement('li');
+                li.className = 'file-item';
+                if (index === 0) li.classList.add('active');
+                
+                // 根据文件扩展名设置图标
+                const extension = file.split('.').pop().toLowerCase();
+                let iconClass = 'far fa-file';
+                
+                if (['java', 'js', 'py', 'c', 'cpp', 'html', 'css', 'php', 'rb', 'go', 'rs', 'ts'].includes(extension)) {
+                    iconClass = 'far fa-file-code';
+                } else if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'ico'].includes(extension)) {
+                    iconClass = 'far fa-file-image';
+                } else if (['md', 'txt'].includes(extension)) {
+                    iconClass = 'far fa-file-alt';
+                } else if (['zip', 'rar', 'tar', 'gz'].includes(extension)) {
+                    iconClass = 'far fa-file-archive';
+                }
+                
+                li.innerHTML = `
+                    <i class="file-icon ${iconClass}"></i>
+                    ${file}
+                `;
+                
+                li.addEventListener('click', () => {
+                    // 移除所有active类
+                    document.querySelectorAll('.file-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 添加active类到当前项目
+                    li.classList.add('active');
+                    
+                    // 加载文件内容
+                    loadFileContent(folder, file);
+                });
+                
+                fileList.appendChild(li);
+            });
+            
+            // 加载第一个文件
+            if (files.length > 0) {
+                loadFileContent(folder, files[0]);
+            } else {
+                showEmptyState('没有找到文件', '请在URL参数中提供文件列表');
+            }
+            
+            // 复制按钮事件
+            copyButton.addEventListener('click', () => {
+                const codeElement = codeContent.querySelector('code');
+                if (codeElement) {
+                    navigator.clipboard.writeText(codeElement.textContent)
+                        .then(() => {
+                            copyButton.innerHTML = '<i class="fas fa-check"></i> 已复制';
+                            setTimeout(() => {
+                                copyButton.innerHTML = '<i class="far fa-copy"></i> 复制代码';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('复制失败:', err);
+                        });
+                }
+            });
+            
+            // 移动端导航切换
+            navToggle.addEventListener('click', () => {
+                fileNavigator.classList.toggle('active');
+            });
+            
+            // 点击代码区域外的部分关闭移动端导航
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && 
+                    !fileNavigator.contains(e.target) && 
+                    e.target !== navToggle &&
+                    !navToggle.contains(e.target)) {
+                    fileNavigator.classList.remove('active');
+                }
+            });
+            
+            // 加载文件内容函数
+            function loadFileContent(folder, file) {
+                loadingIndicator.style.display = 'flex';
+                currentFile.textContent = file;
+                
+                // 构建文件路径
+                const filePath = `../Assets/Code/${folder}/${file}`;
+                
+                // 使用fetch API从服务器获取文件内容
+                fetch(filePath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`文件加载失败: ${response.status} ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        // 显示代码
+                        codeContent.innerHTML = `
+                            <div class="code-wrapper">
+                                <pre><code class="language-${getLanguageClass(file)}">${escapeHtml(data)}</code></pre>
+                            </div>
+                        `;
+                        
+                        // 高亮代码
+                        hljs.highlightAll();
+                        
+                        loadingIndicator.style.display = 'none';
+                        
+                        // 修复滚动问题：确保代码区域可以完全滚动
+                        setTimeout(fixScrollIssue, 100);
+                    })
+                    .catch(error => {
+                        showError('加载文件失败', error.message);
+                        loadingIndicator.style.display = 'none';
+                    });
+            }
+            
+            // 修复滚动问题的函数
+            function fixScrollIssue() {
+                const codeWrapper = document.querySelector('.code-wrapper');
+                const codeElement = document.querySelector('code');
+                
+                if (codeWrapper && codeElement) {
+                    // 确保代码区域高度正确
+                    codeWrapper.style.minHeight = '100%';
+                    codeElement.style.display = 'block';
+                    
+                    // 检查是否需要滚动
+                    if (codeContent.scrollHeight > codeContent.clientHeight) {
+                        codeContent.scrollTop = 0;
+                    }
+                }
+            }
+            
+            // 显示错误函数
+            function showError(title, message) {
+                codeContent.innerHTML = `
+                    <div class="error">
+                        <div class="error-icon"><i class="fas fa-exclamation-circle"></i></div>
+                        <h3>${title}</h3>
+                        <div>${message}</div>
+                    </div>
+                `;
+            }
+            
+            // 显示空状态函数
+            function showEmptyState(title, message) {
+                codeContent.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fas fa-folder-open"></i></div>
+                        <h3>${title}</h3>
+                        <div>${message}</div>
+                    </div>
+                `;
+                loadingIndicator.style.display = 'none';
+            }
+            
+            // 根据文件扩展名获取语言类
+            function getLanguageClass(filename) {
+                const extension = filename.split('.').pop().toLowerCase();
+                const languageMap = {
+                    'java': 'java',
+                    'js': 'javascript',
+                    'py': 'python',
+                    'c': 'c',
+                    'cpp': 'cpp',
+                    'html': 'html',
+                    'css': 'css',
+                    'php': 'php',
+                    'rb': 'ruby',
+                    'go': 'go',
+                    'rs': 'rust',
+                    'xml': 'xml',
+                    'json': 'json',
+                    'md': 'markdown',
+                    'ts': 'typescript'
+                };
+                
+                return languageMap[extension] || 'plaintext';
+            }
+            
+            // HTML转义函数
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            // 窗口大小变化时重新计算布局
+            window.addEventListener('resize', function() {
+                setTimeout(fixScrollIssue, 100);
+            });
+        });
+    </script>
+</body>
+</html>
