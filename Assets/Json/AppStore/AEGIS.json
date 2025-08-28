@@ -90,10 +90,10 @@
             "title": "曲目详细信息",
             "icon": "disc_full",
             "name": "Memories of You -Living with Determination Arrangement",
-            "format": "AAC-LC (MP4A)",
-            "sampleRate": "44.1 kHz",
-            "channel": "立体声",
-            "bitRate": "255 kbps"
+            "format": "编码格式：AAC-LC (MP4A)",
+            "sampleRate": "采样率：44.1 kHz",
+            "channel": "声道：立体声",
+            "bitRate": "码率：255 kbps"
         }
     }
 }

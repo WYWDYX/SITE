@@ -94,10 +94,10 @@
             "title": "曲目详细信息",
             "icon": "disc_full",
             "name": "江国督の私密",
-            "format": "FLAC",
-            "sampleRate": "44.1 kHz",
-            "channel": "立体声",
-            "bitRate": "867 kbps"
+            "format": "编码格式：FLAC",
+            "sampleRate": "采样率：44.1 kHz",
+            "channel": "声道：立体声",
+            "bitRate": "码率：867 kbps"
         }
     }
 }

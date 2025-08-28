@@ -250,12 +250,7 @@ function updatePageContent(data) {
             'sampleRate',
             'channel',
             'bitRate'
-        ], {
-            format: '编码格式：',
-            sampleRate: '采样率：',
-            channel: '声道：',
-            bitRate: '码率：'
-        });
+        ]);
     }
 }
 
