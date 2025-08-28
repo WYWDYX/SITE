@@ -98,7 +98,7 @@
             "format": "- 你可以直接通过哔哩哔哩分享到本应用",
             "sampleRate": "- 也可以复制链接到本应用",
             "channel": "- 会自动复制解析结果",
-            "bitRate": "源码地址："
+            "bitRate": "源码地址：<a href=\"../Code/?F=Bili短链解析-B23Resolver.java,BiliApi.java,MainActivity.java,MbPlayerUrl.java\" style=\"color: #00F;\">Bili短链解析</a>"
         }
     }
 }

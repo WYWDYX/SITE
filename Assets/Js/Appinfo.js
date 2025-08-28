@@ -152,7 +152,7 @@ function updateInfoCard(card, info, fields, prefixes = {}) {
         if (paragraphs[i] && info[field]) {
             // 前缀处理
             const prefix = prefixes[field] || '';
-            paragraphs[i].textContent = prefix + info[field];
+            paragraphs[i].innerHTML = prefix + info[field];
         }
     });
 }
