@@ -1,0 +1,104 @@
+{
+    "cssVariables": {
+        "light": {
+            "--color-bg": "#FFF",
+            "--color-text": "#222",
+            "--color-border": "#000",
+            "--color-accent": "#FF6699",
+            "--color-header-bg": "#FFF",
+            "--color-card-bg": "#FFF",
+            "--color-footer-bg": "#FFF",
+            "--color-tag-bg": "#000",
+            "--color-tag-text": "#FFF",
+            "--color-btn-bg": "#000",
+            "--color-btn-text": "#FFF",
+            "--color-btn-hover-bg": "#FFF",
+            "--color-btn-hover-text": "#000",
+            "--color-selection-fg": "#FFF",
+            "--color-selection-bg": "#FF6699",
+            "--color-glow-text": "#FF6699",
+            "--color-glow-light": "#FF90C5"
+        },
+        "dark": {
+            "--color-bg": "#0F1115",
+            "--color-text": "#FFF",
+            "--color-border": "#FFF",
+            "--color-accent": "#FF6699",
+            "--color-header-bg": "#0F1115",
+            "--color-card-bg": "#111318",
+            "--color-footer-bg": "#0F1115",
+            "--color-tag-bg": "#FFF",
+            "--color-tag-text": "#111318",
+            "--color-btn-bg": "#FFF",
+            "--color-btn-text": "#111318",
+            "--color-btn-hover-bg": "transparent",
+            "--color-btn-hover-text": "#FFF",
+            "--color-selection-fg": "#111318",
+            "--color-selection-bg": "#FF6699",
+            "--color-glow-text": "#FF6699",
+            "--color-glow-light": "#4A95E5"
+        }
+    },
+    "app": {
+        "name": "Bili短链解析",
+        "icon": "../Assets/Images/AppStore/Bili短链解析/Logo - Square.svg",
+        "tags": [
+            "工具",
+            "解析",
+            "视频"
+        ],
+        "description": "beenhere",
+        "description-text": "开源免费 · 隐私友好 · 无数据采集",
+        "downloadUrl": "../Assets/Apk/Bili短链解析/Bili短链解析_1.0.0.apk"
+    },
+    "screenshots": {
+        "phoneSrc": "../Assets/Images/AppStore/Bili短链解析/phoneScreenshot.jpg",
+        "tabletSrc": "../Assets/Images/AppStore/Bili短链解析/tabletScreenshot.jpg",
+        "alt": "应用截图"
+    },
+    "about": {
+        "title": "关于应用",
+        "content": [
+            "关键词：Bili短链解析、哔哩哔哩、URL解析",
+            "用于转换b23.tv短链和哔哩哔哩视频链接到HTML5播放器链接的专用 Android 应用。",
+            "此应用的目的在于帮助人们在移动端更好的分享视频，原因在于哔哩哔哩的移动端网页太臃肿了。"
+        ]
+    },
+    "features": [
+        {
+            "icon": "analytics",
+            "title": "解析专精",
+            "description": "专为歌曲Bili短链解析打造，自动获取剪切板中的Bili短链，接受哔哩哔哩APP的直接分享。"
+        },
+        {
+            "icon": "design_services",
+            "title": "简约设计",
+            "description": "简约的布局设计兼容系统黑暗模式，以哔哩哔哩粉[#FF6699]为主题色"
+        },
+        {
+            "icon": "folder_check_2",
+            "title": "轻量应用",
+            "description": "大小仅5.15M，轻量化设计，存储友好。"
+        }
+    ],
+    "info": {
+        "appInfo": {
+            "title": "应用信息",
+            "icon": "apk_document",
+            "name": "Bili短链解析",
+            "version": "1.0.0",
+            "size": "5.15M",
+            "compatibility": "移动端/平板端",
+            "developer": "WYWDYX"
+        },
+        "trackInfo": {
+            "title": "帮助",
+            "icon": "help",
+            "name": "有关使用：",
+            "format": "- 你可以直接通过哔哩哔哩分享到本应用",
+            "sampleRate": "- 也可以复制链接到本应用",
+            "channel": "- 会自动复制解析结果",
+            "bitRate": "源码地址："
+        }
+    }
+}

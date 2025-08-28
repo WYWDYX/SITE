@@ -11,7 +11,7 @@
                 "展示",
                 "P3R"
             ],
-            "date": "2025-08-24T19:34:47.475",
+            "date": "2025-08-28T13:45:12.210",
             "featured": true,
             "editorChoice": true
         },
@@ -26,8 +26,23 @@
                 "展示",
                 "搞笑"
             ],
-            "date": "2025-08-24T19:34:34.891",
+            "date": "2025-08-28T13:45:54.886",
             "featured": true,
+            "editorChoice": true
+        },
+        {
+            "id": "Bili短链解析",
+            "name": "Bili短链解析",
+            "description": "用于转换b23.tv短链和哔哩哔哩视频链接到HTML5播放器链接的专用 Android 应用。",
+            "icon": "../Assets/Images/AppStore/Bili短链解析/Logo - Square.svg",
+            "background": "../Assets/Images/AppStore/Bili短链解析/tabletScreenshot.jpg",
+            "tags": [
+                "工具",
+                "解析",
+                "视频"
+            ],
+            "date": "2025-08-28T14:50:54.354",
+            "featured": false,
             "editorChoice": true
         }
     ]
