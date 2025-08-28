@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代码展示</title>
+    <title>代码编辑器</title>
     <link rel="icon" type="image/svg" href="../Assets/Images/Logo - Square.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -48,7 +47,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            transition: transform 0.3s ease; /* 侧边栏过渡 */
+            transition: transform 0.3s ease;
         }
 
         .nav-header {
@@ -153,7 +152,12 @@
             margin-bottom: 16px;
         }
 
-        .copy-btn {
+        .editor-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .editor-btn {
             background-color: #238636;
             color: white;
             border: none;
@@ -166,26 +170,36 @@
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
-        .copy-btn:hover {
+        .editor-btn:hover {
             background-color: #2ea043;
             transform: scale(1.05);
         }
 
+        .editor-btn.edit-mode {
+            background-color: #1c6beb;
+        }
+
+        .editor-btn.edit-mode:hover {
+            background-color: #2266d9;
+        }
+
+        .editor-btn.view-mode {
+            background-color: #8b949e;
+        }
+
+        .editor-btn.view-mode:hover {
+            background-color: #6e7681;
+        }
+
         .code-content {
             flex: 1;
-            overflow: auto;
-            padding: 0;
+            overflow: hidden;
             height: calc(100vh - var(--header-height));
         }
 
-        .code-wrapper {
-            padding: 16px;
-            animation: fadeIn 0.4s ease; /* 代码淡入效果 */
-        }
-
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(10px);}
-            to {opacity: 1; transform: translateY(0);}
+        #monaco-editor {
+            width: 100%;
+            height: 100%;
         }
 
         /* 移动端样式 */
@@ -237,6 +251,15 @@
             .code-header {
                 padding-left: 60px;
             }
+
+            .editor-actions {
+                gap: 4px;
+            }
+
+            .editor-btn {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
         }
 
         /* 滚动条样式 */
@@ -266,7 +289,7 @@
         }
         
         .loading {
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
             height: 100%;
@@ -284,6 +307,39 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #238636;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mode-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+            background-color: #1c6beb;
+        }
+
+        .mode-indicator.view {
+            background-color: #8b949e;
         }
     </style>
 </head>
@@ -305,32 +361,48 @@
 
         <div class="code-display">
             <div class="code-header">
-                <div class="current-file" id="currentFile">选择文件查看代码</div>
-                <button class="copy-btn" id="copyButton">
-                    <i class="far fa-copy"></i> 复制代码
-                </button>
+                <div class="current-file" id="currentFile">
+                    <span id="currentFileName">选择文件查看代码</span>
+                    <span class="mode-indicator view" id="modeIndicator">查看模式</span>
+                </div>
+                <div class="editor-actions">
+                    <button class="editor-btn edit-mode" id="toggleModeButton">
+                        <i class="fas fa-edit"></i> 切换到编辑模式
+                    </button>
+                    <button class="editor-btn" id="copyButton">
+                        <i class="far fa-copy"></i> 复制
+                    </button>
+                </div>
             </div>
             <div class="code-content" id="codeContent">
                 <div class="loading" id="loadingIndicator">
                     <div class="spinner"></div>
                 </div>
+                <div id="monaco-editor"></div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <div class="toast" id="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // 获取DOM元素
             const fileNavigator = document.getElementById('fileNavigator');
             const fileList = document.getElementById('fileList');
             const folderName = document.getElementById('folderName');
-            const currentFile = document.getElementById('currentFile');
+            const currentFileName = document.getElementById('currentFileName');
             const codeContent = document.getElementById('codeContent');
             const copyButton = document.getElementById('copyButton');
+            const toggleModeButton = document.getElementById('toggleModeButton');
+            const modeIndicator = document.getElementById('modeIndicator');
             const navToggle = document.getElementById('navToggle');
             const loadingIndicator = document.getElementById('loadingIndicator');
-            
+            const toast = document.getElementById('toast');
+            let editor = null;
+            let isEditMode = false;
+
             // 解析URL参数
             const urlParams = new URLSearchParams(window.location.search);
             const fileParam = urlParams.get('F');
@@ -407,28 +479,37 @@
                 fileList.appendChild(li);
             });
             
-            // 加载第一个文件
-            if (files.length > 0) {
-                loadFileContent(folder, files[0]);
-            } else {
-                showEmptyState('没有找到文件', '请在URL参数中提供文件列表');
-            }
+            // 初始化Monaco Editor
+            initMonacoEditor().then(() => {
+                // 加载第一个文件
+                if (files.length > 0) {
+                    loadFileContent(folder, files[0]);
+                } else {
+                    showEmptyState('没有找到文件', '请在URL参数中提供文件列表');
+                }
+            }).catch(error => {
+                console.error('Monaco Editor初始化失败:', error);
+                showError('编辑器加载失败', '无法加载代码编辑器，请刷新页面重试');
+            });
             
             // 复制按钮事件
             copyButton.addEventListener('click', () => {
-                const codeElement = codeContent.querySelector('code');
-                if (codeElement) {
-                    navigator.clipboard.writeText(codeElement.textContent)
+                if (editor) {
+                    const code = editor.getValue();
+                    navigator.clipboard.writeText(code)
                         .then(() => {
-                            copyButton.innerHTML = '<i class="fas fa-check"></i> 已复制';
-                            setTimeout(() => {
-                                copyButton.innerHTML = '<i class="far fa-copy"></i> 复制代码';
-                            }, 2000);
+                            showToast('代码已复制到剪贴板');
                         })
                         .catch(err => {
                             console.error('复制失败:', err);
+                            showToast('复制失败', true);
                         });
                 }
+            });
+            
+            // 模式切换按钮事件
+            toggleModeButton.addEventListener('click', () => {
+                toggleEditMode();
             });
             
             // 移动端导航切换
@@ -451,6 +532,67 @@
                 return path.includes('../') || path.includes('..\\');
             }
             
+            // 初始化Monaco Editor
+            function initMonacoEditor() {
+                return new Promise((resolve, reject) => {
+                    // 配置Monaco Editor
+                    require.config({ 
+                        paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' }
+                    });
+                    
+                    require(['vs/editor/editor.main'], function() {
+                        // 创建编辑器实例
+                        editor = monaco.editor.create(document.getElementById('monaco-editor'), {
+                            value: '// 选择文件开始编辑代码\n',
+                            language: 'plaintext',
+                            theme: 'vs-dark',
+                            automaticLayout: true,
+                            minimap: { enabled: true },
+                            scrollBeyondLastLine: false,
+                            fontSize: 14,
+                            lineHeight: 1.5,
+                            fontFamily: 'JetBrainsMono, Consolas, "Courier New", monospace',
+                            wordWrap: 'on',
+                            smoothScrolling: true,
+                            formatOnPaste: true,
+                            formatOnType: true,
+                            suggestOnTriggerCharacters: true,
+                            quickSuggestions: true,
+                            readOnly: true // 初始为只读模式
+                        });
+                        
+                        resolve();
+                    }, reject);
+                });
+            }
+            
+            // 切换编辑模式
+            function toggleEditMode() {
+                isEditMode = !isEditMode;
+                
+                if (editor) {
+                    editor.updateOptions({ readOnly: !isEditMode });
+                    
+                    if (isEditMode) {
+                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 切换到查看模式';
+                        toggleModeButton.classList.remove('edit-mode');
+                        toggleModeButton.classList.add('view-mode');
+                        modeIndicator.textContent = '编辑模式';
+                        modeIndicator.classList.remove('view');
+                        modeIndicator.classList.add('edit');
+                        showToast('已切换到编辑模式');
+                    } else {
+                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 切换到编辑模式';
+                        toggleModeButton.classList.remove('view-mode');
+                        toggleModeButton.classList.add('edit-mode');
+                        modeIndicator.textContent = '查看模式';
+                        modeIndicator.classList.remove('edit');
+                        modeIndicator.classList.add('view');
+                        showToast('已切换到查看模式');
+                    }
+                }
+            }
+            
             // 加载文件内容函数
             function loadFileContent(folder, file) {
                 // 再次安全检查
@@ -460,7 +602,7 @@
                 }
                 
                 loadingIndicator.style.display = 'flex';
-                currentFile.textContent = file;
+                currentFileName.textContent = file;
                 
                 // 构建文件路径
                 const filePath = `../Assets/Code/${folder}/${file}`;
@@ -474,42 +616,19 @@
                         return response.text();
                     })
                     .then(data => {
-                        // 显示代码
-                        codeContent.innerHTML = `
-                            <div class="code-wrapper">
-                                <pre><code class="language-${getLanguageClass(file)}">${escapeHtml(data)}</code></pre>
-                            </div>
-                        `;
-                        
-                        // 高亮代码
-                        hljs.highlightAll();
+                        // 设置编辑器内容
+                        if (editor) {
+                            const language = getMonacoLanguage(file);
+                            editor.setValue(data);
+                            monaco.editor.setModelLanguage(editor.getModel(), language);
+                        }
                         
                         loadingIndicator.style.display = 'none';
-                        
-                        // 修复滚动问题：确保代码区域可以完全滚动
-                        setTimeout(fixScrollIssue, 100);
                     })
                     .catch(error => {
                         showError('加载文件失败', error.message);
                         loadingIndicator.style.display = 'none';
                     });
-            }
-            
-            // 修复滚动问题的函数
-            function fixScrollIssue() {
-                const codeWrapper = document.querySelector('.code-wrapper');
-                const codeElement = document.querySelector('code');
-                
-                if (codeWrapper && codeElement) {
-                    // 确保代码区域高度正确
-                    codeWrapper.style.minHeight = '100%';
-                    codeElement.style.display = 'block';
-                    
-                    // 检查是否需要滚动
-                    if (codeContent.scrollHeight > codeContent.clientHeight) {
-                        codeContent.scrollTop = 0;
-                    }
-                }
             }
             
             // 显示错误函数
@@ -536,8 +655,8 @@
                 loadingIndicator.style.display = 'none';
             }
             
-            // 根据文件扩展名获取语言类
-            function getLanguageClass(filename) {
+            // 根据文件扩展名获取Monaco语言ID
+            function getMonacoLanguage(filename) {
                 const extension = filename.split('.').pop().toLowerCase();
                 const languageMap = {
                     'java': 'java',
@@ -545,6 +664,8 @@
                     'py': 'python',
                     'c': 'c',
                     'cpp': 'cpp',
+                    'h': 'c',
+                    'hpp': 'cpp',
                     'html': 'html',
                     'css': 'css',
                     'php': 'php',
@@ -554,26 +675,27 @@
                     'xml': 'xml',
                     'json': 'json',
                     'md': 'markdown',
-                    'ts': 'typescript'
+                    'ts': 'typescript',
+                    'sql': 'sql',
+                    'sh': 'shell',
+                    'bat': 'bat',
+                    'yml': 'yaml',
+                    'yaml': 'yaml'
                 };
                 
                 return languageMap[extension] || 'plaintext';
             }
             
-            // HTML转义函数
-            function escapeHtml(unsafe) {
-                return unsafe
-                    .replace(/&/g, "&amp;")
-                    .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;")
-                    .replace(/"/g, "&quot;")
-                    .replace(/'/g, "&#039;");
+            // 显示Toast提示
+            function showToast(message, isError = false) {
+                toast.textContent = message;
+                toast.style.backgroundColor = isError ? '#f85149' : '#238636';
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
             }
-            
-            // 窗口大小变化时重新计算布局
-            window.addEventListener('resize', function() {
-                setTimeout(fixScrollIssue, 100);
-            });
         });
     </script>
 </body>
