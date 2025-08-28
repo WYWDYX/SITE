@@ -43,7 +43,7 @@
         /* 文件导航样式 */
         .file-navigator {
             width: 300px;
-            background-color: #161b22;
+            backdrop-filter: blur(10px);
             border-right: 1px solid #30363d;
             display: flex;
             flex-direction: column;
@@ -56,6 +56,7 @@
             border-bottom: 1px solid #30363d;
             flex-shrink: 0;
             height: var(--header-height);
+            backdrop-filter: blur(10px);
         }
 
         .folder-name {
@@ -104,6 +105,7 @@
             padding: 12px;
             border-top: 1px solid #30363d;
             font-size: 12px;
+            backdrop-filter: blur(10px);
             color: #8b949e;
             text-align: center;
             flex-shrink: 0;
@@ -132,11 +134,16 @@
             align-items: center;
             flex-shrink: 0;
             height: var(--header-height);
+            backdrop-filter: blur(10px);
         }
 
         .current-file {
             font-weight: 600;
             font-size: 16px;
+        }
+        
+        .error {
+            padding: 65px;
         }
 
         .copy-btn {
