@@ -226,67 +226,6 @@
             background-color: #2266FF;
             transform: scale(1.05);
         }
-
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .file-navigator {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100%;
-                z-index: 90;
-                transform: translateX(-100%);
-                width: 80%;
-                max-width: 300px;
-            }
-
-            .file-navigator.active {
-                transform: translateX(0);
-            }
-
-            .mobile-nav-toggle {
-                display: flex;
-            }
-
-            .code-header {
-                padding-left: 60px;
-            }
-
-            .editor-actions {
-                gap: 4px;
-            }
-
-            .editor-btn {
-                padding: 4px 8px;
-                font-size: 12px;
-            }
-        }
-
-        /* 滚动条样式 */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #161b22;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #30363d;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #8b949e;
-        }
-        
-        @font-face {
-            font-family: 'JetBrainsMono';
-            src: url('../Assets/Font/JetBrainsMono-Medium.woff2') format('woff2');
-        }
         
         .loading {
             display: flex;
@@ -341,6 +280,67 @@
         .mode-indicator.view {
             background-color: #8b949e;
         }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .file-navigator {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100%;
+                z-index: 90;
+                transform: translateX(-100%);
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .file-navigator.active {
+                transform: translateX(0);
+            }
+
+            .mobile-nav-toggle {
+                display: flex;
+            }
+            
+            .mode-indicator {
+                margin-left: 0;
+            }
+
+            .editor-actions {
+                gap: 4px;
+            }
+
+            .editor-btn {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #161b22;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b949e;
+        }
+        
+        @font-face {
+            font-family: 'JetBrainsMono';
+            src: url('../Assets/Font/JetBrainsMono-Medium.woff2') format('woff2');
+        }
     </style>
 </head>
 <body>
@@ -363,11 +363,11 @@
             <div class="code-header">
                 <div class="current-file" id="currentFile">
                     <span id="currentFileName">选择文件查看代码</span>
-                    <span class="mode-indicator view" id="modeIndicator">查看模式</span>
+                    <span class="mode-indicator view" id="modeIndicator">只读</span>
                 </div>
                 <div class="editor-actions">
                     <button class="editor-btn edit-mode" id="toggleModeButton">
-                        <i class="fas fa-edit"></i> 切换到编辑模式
+                        <i class="fas fa-edit"></i> 切换模式
                     </button>
                     <button class="editor-btn" id="copyButton">
                         <i class="far fa-copy"></i> 复制
@@ -574,18 +574,18 @@
                     editor.updateOptions({ readOnly: !isEditMode });
                     
                     if (isEditMode) {
-                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 切换到查看模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 切换模式';
                         toggleModeButton.classList.remove('edit-mode');
                         toggleModeButton.classList.add('view-mode');
-                        modeIndicator.textContent = '编辑模式';
+                        modeIndicator.textContent = '编辑';
                         modeIndicator.classList.remove('view');
                         modeIndicator.classList.add('edit');
                         showToast('已切换到编辑模式');
                     } else {
-                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 切换到编辑模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 切换模式';
                         toggleModeButton.classList.remove('view-mode');
                         toggleModeButton.classList.add('edit-mode');
-                        modeIndicator.textContent = '查看模式';
+                        modeIndicator.textContent = '只读';
                         modeIndicator.classList.remove('edit');
                         modeIndicator.classList.add('view');
                         showToast('已切换到查看模式');
