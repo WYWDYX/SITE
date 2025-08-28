@@ -62,11 +62,6 @@
             font-weight: 600;
             color: #f0f6fc;
             font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .folder-name:hover {
-            color: #58a6ff;
         }
 
         .file-list-container {
@@ -142,11 +137,6 @@
         .current-file {
             font-weight: 600;
             font-size: 16px;
-            transition: color 0.3s ease;
-        }
-
-        .current-file:hover {
-            color: #58a6ff;
         }
 
         .copy-btn {
@@ -205,7 +195,8 @@
         }
 
         .mobile-nav-toggle:active {
-            transform: rotate(90deg);
+            background-color: #2266FF;
+            transform: scale(1.05);
         }
 
         /* 响应式设计 */
@@ -281,7 +272,6 @@
             <div class="code-content" id="codeContent">
                 <div class="loading" id="loadingIndicator">
                     <div class="spinner"></div>
-                    <span>加载中...</span>
                 </div>
             </div>
         </div>
