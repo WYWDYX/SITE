@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
             box-sizing: border-box;
             font-family: 'JetBrainsMono', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         :root {
             --header-height: 60px;
             --status-bar-height: 22px;
@@ -31,7 +32,7 @@
             --text-color: #c9d1d9;
             --border-color: #30363d;
         }
-
+        
         :root[data-theme="light"] {
             --bg-color: #ffffff;
             --sidebar-bg: #f3f3f3;
@@ -47,10 +48,14 @@
             -webkit-tap-highlight-color: transparent;
         }
         
+        li {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         button {
             -webkit-tap-highlight-color: transparent;
         }
-
+        
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -58,22 +63,22 @@
             height: 100vh;
             overflow: hidden;
         }
-
+        
         .container {
             display: flex;
             height: 100vh;
         }
-
+        
         /* 活动栏样式 */
         .activity-bar {
             width: var(--activity-bar-width);
-            background-color: var(--activity-bar-bg);
+            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
             align-items: center;
             border-right: 1px solid var(--border-color);
         }
-
+        
         .activity-item {
             width: 100%;
             padding: 12px 0;
@@ -83,12 +88,16 @@
             transition: all 0.2s ease;
             position: relative;
         }
-
+        
+        #explorer {
+            display: none;
+        }
+        
         .activity-item.active {
             color: white;
             background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         .activity-item.active::before {
             content: '';
             position: absolute;
@@ -98,26 +107,26 @@
             width: 2px;
             background-color: var(--primary-color);
         }
-
+        
         .activity-item:hover {
             color: white;
         }
-
+        
         .activity-item i {
             font-size: 20px;
         }
-
+        
         /* 文件导航样式 */
         .file-navigator {
             width: var(--sidebar-width);
-            background-color: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
             border-right: 1px solid var(--border-color);
             display: flex;
             flex-direction: column;
             height: 100%;
             transition: transform 0.3s ease;
         }
-
+        
         .nav-header {
             padding: 16px;
             border-bottom: 1px solid var(--border-color);
@@ -127,18 +136,24 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .folder-name {
             font-weight: 600;
             color: var(--text-color);
             font-size: 16px;
+            white-space: nowrap;
+            overflow: scroll;
         }
-
+        
+        .folder-name::-webkit-scrollbar {
+            display: none;
+        }
+        
         .nav-actions {
             display: flex;
             gap: 10px;
         }
-
+        
         .nav-action-btn {
             background: none;
             border: none;
@@ -147,21 +162,25 @@
             font-size: 14px;
             transition: color 0.2s ease;
         }
-
+        
         .nav-action-btn:hover {
             color: var(--text-color);
         }
-
+        
+        #newFileBtn {
+            margin-left: 10px;
+        }
+        
         .file-list-container {
             overflow-y: auto;
             flex: 1;
             padding: 8px;
         }
-
+        
         .file-list {
             list-style: none;
         }
-
+        
         .file-item {
             padding: 8px 12px;
             border-radius: 6px;
@@ -172,24 +191,32 @@
             transition: background-color 0.2s ease, transform 0.2s ease;
             user-select: none;
         }
-
+        
         .file-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
             transform: translateX(4px);
         }
-
+        
         .file-item.active {
             background-color: var(--primary-color);
             color: white;
         }
-
+        
         .file-icon {
             margin-right: 8px;
             font-size: 14px;
             width: 16px;
             text-align: center;
         }
-
+        
+        .file-item span {
+            overflow: scroll;
+        }
+        
+        .file-item span::-webkit-scrollbar {
+            display: none;
+        }
+        
         /* 版权信息 */
         .navigator-footer {
             padding: 12px;
@@ -200,11 +227,11 @@
             flex-shrink: 0;
             transition: color 0.3s ease;
         }
-
+        
         .navigator-footer:hover {
             color: var(--text-color);
         }
-
+        
         /* 主内容区域 */
         .main-content {
             flex: 1;
@@ -214,7 +241,7 @@
             height: 100%;
             overflow: hidden;
         }
-
+        
         /* 标签栏样式 */
         .tabs-container {
             display: flex;
@@ -224,7 +251,7 @@
             flex-shrink: 0;
             height: var(--tab-height);
         }
-
+        
         .tab {
             padding: 10px 16px;
             cursor: pointer;
@@ -237,36 +264,36 @@
             transition: background-color 0.2s ease;
             position: relative;
         }
-
+        
         .tab.active {
             background-color: var(--tab-active-bg);
         }
-
+        
         .tab-title {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-right: 8px;
         }
-
+        
         .tab-close {
             margin-left: auto;
             padding: 2px;
             border-radius: 2px;
             transition: background-color 0.2s ease;
         }
-
+        
         .tab-close:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         .tab-dirty::before {
             content: '●';
             color: #f85149;
             margin-right: 4px;
             font-size: 12px;
         }
-
+        
         /* 代码显示区域样式 */
         .code-header {
             padding: 16px;
@@ -277,10 +304,17 @@
             flex-shrink: 0;
             height: var(--header-height);
         }
-
+        
         .current-file {
             font-weight: 600;
             font-size: 16px;
+            white-space: nowrap;
+            overflow: auto;
+            flex: 1;
+        }
+        
+        .current-file::-webkit-scrollbar {
+            display: none;
         }
         
         .error {
@@ -288,17 +322,18 @@
             text-align: center;
             color: #f85149;
         }
-
+        
         .error i {
             font-size: 48px;
             margin-bottom: 16px;
         }
-
+        
         .editor-actions {
             display: flex;
             gap: 8px;
+            flex-shrink: 0;
         }
-
+        
         .editor-btn {
             background-color: var(--secondary-color);
             color: white;
@@ -311,40 +346,40 @@
             gap: 4px;
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
-
+        
         .editor-btn:hover {
             background-color: #2ea043;
             transform: scale(1.05);
         }
-
+        
         .editor-btn.edit-mode {
             background-color: var(--primary-color);
         }
-
+        
         .editor-btn.edit-mode:hover {
             background-color: #2266d9;
         }
-
+        
         .editor-btn.view-mode {
             background-color: #8b949e;
         }
-
+        
         .editor-btn.view-mode:hover {
             background-color: #6e7681;
         }
-
+        
         .code-content {
             flex: 1;
             overflow: hidden;
-            height: calc(100vh - var(--header-height) - var(--tab-height));
+            height: calc(100vh - var(--header-height) - var(--tab-height) - 20px);
             position: relative;
         }
-
+        
         #monaco-editor {
             width: 100%;
             height: 100%;
         }
-
+        
         /* 状态栏样式 */
         .status-bar {
             height: var(--status-bar-height);
@@ -357,24 +392,24 @@
             color: white;
             flex-shrink: 0;
         }
-
+        
         .status-left, .status-right {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
+        
         .status-item {
             cursor: pointer;
             padding: 2px 6px;
             border-radius: 3px;
             transition: background-color 0.2s ease;
         }
-
+        
         .status-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         /* 搜索面板样式 */
         .search-panel {
             position: fixed;
@@ -382,7 +417,7 @@
             right: 0;
             width: 300px;
             height: 100%;
-            background-color: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
             border-left: 1px solid var(--border-color);
             transform: translateX(100%);
             transition: transform 0.3s ease;
@@ -390,21 +425,21 @@
             display: flex;
             flex-direction: column;
         }
-
+        
         .search-panel.active {
             transform: translateX(0);
         }
-
+        
         .search-header {
             padding: 10px;
             border-bottom: 1px solid var(--border-color);
         }
-
+        
         .search-input-container {
             position: relative;
             margin-bottom: 10px;
         }
-
+        
         .search-input {
             width: 100%;
             padding: 6px 30px 6px 10px;
@@ -413,7 +448,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
         }
-
+        
         .search-input-icon {
             position: absolute;
             right: 10px;
@@ -421,7 +456,7 @@
             transform: translateY(-50%);
             color: #8b949e;
         }
-
+        
         .replace-input {
             width: 100%;
             padding: 6px 10px;
@@ -431,30 +466,30 @@
             color: var(--text-color);
             margin-bottom: 10px;
         }
-
+        
         .search-options {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-bottom: 10px;
         }
-
+        
         .search-option {
             display: flex;
             align-items: center;
             font-size: 12px;
             cursor: pointer;
         }
-
+        
         .search-option input {
             margin-right: 4px;
         }
-
+        
         .search-actions {
             display: flex;
             gap: 5px;
         }
-
+        
         .search-btn {
             padding: 4px 8px;
             border: 1px solid var(--border-color);
@@ -464,18 +499,18 @@
             cursor: pointer;
             font-size: 12px;
         }
-
+        
         .search-btn.primary {
             background-color: var(--primary-color);
             color: white;
         }
-
+        
         .search-results {
             flex: 1;
             overflow-y: auto;
             padding: 10px;
         }
-
+        
         .search-result-item {
             padding: 8px;
             border-radius: 4px;
@@ -483,115 +518,89 @@
             cursor: pointer;
             font-size: 12px;
         }
-
+        
         .search-result-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-
-        /* 移动端样式 */
-        .mobile-nav-toggle {
-            display: none;
-            position: fixed;
-            bottom: 16px;
-            left: 16px;
-            z-index: 100;
-            background-color: var(--primary-color);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease;
-        }
-
-        .mobile-nav-toggle:active {
-            background-color: #2266FF;
-            transform: scale(1.05);
-        }
-
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
             .file-navigator {
                 position: fixed;
                 top: 0;
                 left: 0;
-                height: 100%;
+                height: calc(100% - var(--activity-bar-width));
                 z-index: 90;
                 transform: translateX(-100%);
                 width: 80%;
                 max-width: 300px;
             }
-
+        
             .file-navigator.active {
                 transform: translateX(0);
             }
-
+        
             .activity-bar {
                 position: fixed;
                 left: 0;
                 bottom: 0;
-                height: auto;
+                height: var(--activity-bar-width);
                 width: 100%;
                 flex-direction: row;
                 z-index: 80;
                 border-right: none;
                 border-top: 1px solid var(--border-color);
             }
-
+        
             .activity-item {
                 padding: 12px;
             }
-
+            
+            #explorer {
+                display: block;
+            }
+        
             .activity-item.active::before {
                 width: 100%;
                 height: 2px;
                 top: auto;
                 bottom: 0;
             }
-
-            .mobile-nav-toggle {
-                display: flex;
-            }
-
-            .code-header {
-                padding-left: 60px;
-            }
-
+        
             .editor-actions {
                 gap: 4px;
             }
-
+        
             .editor-btn {
                 padding: 4px 8px;
                 font-size: 12px;
             }
-
+            
+            .code-content {
+                height: calc(100vh - var(--header-height) - var(--activity-bar-width) - var(--tab-height) - 20px);
+            }
+        
             .search-panel {
-                width: 100%;
+                width: 80%;
+                height: calc(100% - var(--activity-bar-width));
             }
         }
-
+        
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
         }
-
+        
         ::-webkit-scrollbar-track {
             background: #161b22;
-            border-radius: 5px;
         }
-
+        
         ::-webkit-scrollbar-thumb {
             background: #30363d;
-            border-radius: 5px;
             transition: background 0.3s ease;
         }
-
+        
         ::-webkit-scrollbar-thumb:hover {
             background: #8b949e;
         }
@@ -621,7 +630,7 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
+        
         .toast {
             position: fixed;
             bottom: 20px;
@@ -636,29 +645,16 @@
             transition: opacity 0.3s, transform 0.3s;
             z-index: 1000;
         }
-
+        
         .toast.show {
             opacity: 1;
             transform: translateY(0);
         }
-
+        
         .toast.error {
             background-color: #f85149;
         }
-
-        .mode-indicator {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 10px;
-            background-color: var(--primary-color);
-        }
-
-        .mode-indicator.view {
-            background-color: #8b949e;
-        }
-
+        
         /* 主题切换按钮 */
         .theme-toggle {
             background: none;
@@ -668,11 +664,11 @@
             font-size: 16px;
             transition: color 0.2s ease;
         }
-
+        
         .theme-toggle:hover {
             color: var(--text-color);
         }
-
+        
         /* 右键菜单 */
         .context-menu {
             position: fixed;
@@ -685,24 +681,24 @@
             min-width: 150px;
             display: none;
         }
-
+        
         .context-menu-item {
             padding: 8px 12px;
             cursor: pointer;
             font-size: 13px;
             transition: background-color 0.2s ease;
         }
-
+        
         .context-menu-item:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-
+        
         .context-menu-item i {
             margin-right: 8px;
             width: 16px;
             text-align: center;
         }
-
+        
         /* 命令面板 */
         .command-palette {
             position: fixed;
@@ -718,7 +714,7 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             display: none;
         }
-
+        
         .command-input {
             width: 100%;
             padding: 12px 15px;
@@ -728,48 +724,48 @@
             font-size: 16px;
             border-bottom: 1px solid var(--border-color);
         }
-
+        
         .command-input:focus {
             outline: none;
         }
-
+        
         .command-list {
             max-height: 300px;
             overflow-y: auto;
         }
-
+        
         .command-item {
             padding: 10px 15px;
             cursor: pointer;
             display: flex;
             align-items: center;
         }
-
+        
         .command-item.active {
             background-color: var(--primary-color);
             color: white;
         }
-
+        
         .command-item i {
             margin-right: 10px;
             width: 16px;
             text-align: center;
         }
-
+        
         .command-title {
             font-weight: 500;
         }
-
+        
         .command-desc {
             font-size: 12px;
             color: #8b949e;
             margin-left: auto;
         }
-
+        
         .command-item.active .command-desc {
             color: rgba(255, 255, 255, 0.7);
         }
-
+        
         .overlay {
             position: fixed;
             top: 0;
@@ -782,27 +778,21 @@
         }
     </style>
 </head>
-<body>
-    <button class="mobile-nav-toggle" id="navToggle">
-        <i class="fas fa-bars"></i>
-    </button>
 
+<body>
     <div class="overlay" id="overlay"></div>
 
     <div class="container">
         <!-- 活动栏 -->
         <div class="activity-bar">
-            <div class="activity-item active" data-view="explorer" title="资源管理器">
+            <div class="activity-item" data-view="explorer" id="explorer" title="资源管理器">
                 <i class="fas fa-folder-open"></i>
+            </div>
+            <div class="activity-item active" data-view="code" title="代码编辑器">
+                <i class="fa-solid fa-code"></i>
             </div>
             <div class="activity-item" data-view="search" title="搜索">
                 <i class="fas fa-search"></i>
-            </div>
-            <div class="activity-item" data-view="source-control" title="源代码管理">
-                <i class="fas fa-code-branch"></i>
-            </div>
-            <div class="activity-item" data-view="extensions" title="扩展">
-                <i class="fas fa-puzzle-piece"></i>
             </div>
         </div>
 
@@ -837,15 +827,14 @@
             <div class="code-display">
                 <div class="code-header">
                     <div class="current-file" id="currentFile">
-                        <span id="currentFileName">选择文件查看代码</span>
-                        <span class="mode-indicator view" id="modeIndicator">查看模式</span>
+                        选择文件查看代码
                     </div>
                     <div class="editor-actions">
                         <button class="editor-btn" id="findButton" title="查找">
                             <i class="fas fa-search"></i> 查找
                         </button>
                         <button class="editor-btn edit-mode" id="toggleModeButton">
-                            <i class="fas fa-edit"></i> 切换到编辑模式
+                            <i class="fas fa-edit"></i> 编辑
                         </button>
                         <button class="editor-btn" id="saveButton" title="保存 (Ctrl+S)" style="display: none;">
                             <i class="fas fa-save"></i> 保存
@@ -972,14 +961,13 @@
             const fileNavigator = document.getElementById('fileNavigator');
             const fileList = document.getElementById('fileList');
             const folderName = document.getElementById('folderName');
-            const currentFileName = document.getElementById('currentFileName');
+            const currentFile = document.getElementById('currentFile');
             const codeContent = document.getElementById('codeContent');
             const copyButton = document.getElementById('copyButton');
             const toggleModeButton = document.getElementById('toggleModeButton');
             const saveButton = document.getElementById('saveButton');
             const findButton = document.getElementById('findButton');
-            const modeIndicator = document.getElementById('modeIndicator');
-            const navToggle = document.getElementById('navToggle');
+            const explorer = document.getElementById('explorer');
             const loadingIndicator = document.getElementById('loadingIndicator');
             const toast = document.getElementById('toast');
             const themeToggle = document.getElementById('themeToggle');
@@ -1005,7 +993,7 @@
             const commandInput = document.getElementById('commandInput');
             const commandList = document.getElementById('commandList');
             const overlay = document.getElementById('overlay');
-
+        
             let editor = null;
             let isEditMode = false;
             let currentTheme = 'dark';
@@ -1014,7 +1002,7 @@
             let activeTabId = null;
             let tabs = {};
             let virtualFileSystem = {};
-
+        
             // 初始化虚拟文件系统
             function initVirtualFileSystem() {
                 const savedFS = localStorage.getItem('editor_virtual_fs');
@@ -1044,19 +1032,19 @@
                     saveVirtualFileSystem();
                 }
             }
-
+        
             // 保存虚拟文件系统到localStorage
             function saveVirtualFileSystem() {
                 localStorage.setItem('editor_virtual_fs', JSON.stringify(virtualFileSystem));
             }
-
+        
             // 解析URL参数
             const urlParams = new URLSearchParams(window.location.search);
             const fileParam = urlParams.get('F');
             
             // 初始化虚拟文件系统
             initVirtualFileSystem();
-
+        
             // 如果没有提供文件参数，使用虚拟文件系统
             if (!fileParam) {
                 loadVirtualFileSystem();
@@ -1125,12 +1113,12 @@
             toggleModeButton.addEventListener('click', () => {
                 toggleEditMode();
             });
-
+        
             // 保存按钮事件
             saveButton.addEventListener('click', () => {
                 saveCurrentFile();
             });
-
+        
             // 查找按钮事件
             findButton.addEventListener('click', () => {
                 searchPanel.classList.toggle('active');
@@ -1138,12 +1126,12 @@
                     searchInput.focus();
                 }
             });
-
+        
             // 主题切换按钮事件
             themeToggle.addEventListener('click', () => {
                 toggleTheme();
             });
-
+        
             // 活动栏项目点击事件
             activityItems.forEach(item => {
                 item.addEventListener('click', () => {
@@ -1162,33 +1150,33 @@
                     }
                 });
             });
-
+        
             // 移动端导航切换
-            navToggle.addEventListener('click', () => {
+            explorer.addEventListener('click', () => {
                 fileNavigator.classList.toggle('active');
             });
-
+        
             // 切换侧边栏按钮事件
             toggleSidebarBtn.addEventListener('click', () => {
                 fileNavigator.classList.toggle('hidden');
                 document.querySelector('.activity-bar').classList.toggle('hidden');
             });
-
+        
             // 点击代码区域外的部分关闭移动端导航
             document.addEventListener('click', (e) => {
                 if (window.innerWidth <= 768 && 
                     !fileNavigator.contains(e.target) && 
-                    e.target !== navToggle &&
-                    !navToggle.contains(e.target)) {
+                    e.target !== explorer &&
+                    !explorer.contains(e.target)) {
                     fileNavigator.classList.remove('active');
                 }
-
+        
                 // 关闭右键菜单
                 if (!contextMenu.contains(e.target)) {
                     contextMenu.style.display = 'none';
                 }
             });
-
+        
             // 键盘快捷键
             document.addEventListener('keydown', (e) => {
                 // Ctrl+S - 保存
@@ -1198,33 +1186,33 @@
                         saveCurrentFile();
                     }
                 }
-
+        
                 // Ctrl+F - 查找
                 if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
                     e.preventDefault();
                     searchPanel.classList.add('active');
                     searchInput.focus();
                 }
-
+        
                 // Ctrl+N - 新建文件
                 if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
                     e.preventDefault();
                     createNewFile();
                 }
-
+        
                 // Ctrl+B - 切换侧边栏
                 if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
                     e.preventDefault();
                     fileNavigator.classList.toggle('hidden');
                     document.querySelector('.activity-bar').classList.toggle('hidden');
                 }
-
+        
                 // Ctrl+Shift+P - 命令面板
                 if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'P') {
                     e.preventDefault();
                     showCommandPalette();
                 }
-
+        
                 // ESC - 关闭搜索面板和命令面板
                 if (e.key === 'Escape') {
                     if (searchPanel.classList.contains('active')) {
@@ -1235,7 +1223,7 @@
                     }
                 }
             });
-
+        
             // 文件列表右键菜单
             fileList.addEventListener('contextmenu', (e) => {
                 e.preventDefault();
@@ -1246,7 +1234,7 @@
                     contextMenu.style.left = `${e.pageX}px`;
                 }
             });
-
+        
             // 上下文菜单项点击事件
             const contextMenuItems = document.querySelectorAll('.context-menu-item');
             contextMenuItems.forEach(item => {
@@ -1256,28 +1244,28 @@
                     contextMenu.style.display = 'none';
                 });
             });
-
+        
             // 新建文件按钮事件
             newFileBtn.addEventListener('click', createNewFile);
-
+        
             // 新建文件夹按钮事件
             newFolderBtn.addEventListener('click', createNewFolder);
-
+        
             // 刷新按钮事件
             refreshBtn.addEventListener('click', refreshFileList);
-
+        
             // 搜索按钮事件
             searchBtn.addEventListener('click', performSearch);
-
+        
             // 替换按钮事件
             replaceBtn.addEventListener('click', performReplace);
-
+        
             // 全部替换按钮事件
             replaceAllBtn.addEventListener('click', performReplaceAll);
-
+        
             // 命令面板输入事件
             commandInput.addEventListener('input', filterCommands);
-
+        
             // 命令面板项点击事件
             const commandItems = document.querySelectorAll('.command-item');
             commandItems.forEach(item => {
@@ -1287,7 +1275,7 @@
                     hideCommandPalette();
                 });
             });
-
+        
             // 检查路径遍历的函数
             function containsPathTraversal(path) {
                 return path.includes('../') || path.includes('..\\');
@@ -1332,12 +1320,12 @@
                             folding: true,
                             showFoldingControls: 'mouseover'
                         });
-
+        
                         // 监听光标位置变化
                         editor.onDidChangeCursorPosition((e) => {
                             cursorPosition.textContent = `第${e.position.lineNumber}行, 第${e.position.column}列`;
                         });
-
+        
                         // 监听内容变化
                         editor.onDidChangeModelContent((e) => {
                             if (activeTabId) {
@@ -1362,26 +1350,21 @@
                     editor.updateOptions({ readOnly: !isEditMode });
                     
                     if (isEditMode) {
-                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 切换到查看模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-eye"></i> 只读';
                         toggleModeButton.classList.remove('edit-mode');
                         toggleModeButton.classList.add('view-mode');
-                        modeIndicator.textContent = '编辑模式';
-                        modeIndicator.classList.remove('view');
                         saveButton.style.display = 'flex';
                         showToast('已切换到编辑模式');
                     } else {
-                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 切换到编辑模式';
+                        toggleModeButton.innerHTML = '<i class="fas fa-edit"></i> 编辑';
                         toggleModeButton.classList.remove('view-mode');
                         toggleModeButton.classList.add('edit-mode');
-                        modeIndicator.textContent = '查看模式';
-                        modeIndicator.classList.remove('edit');
-                        modeIndicator.classList.add('view');
                         saveButton.style.display = 'none';
                         showToast('已切换到查看模式');
                     }
                 }
             }
-
+        
             // 切换主题
             function toggleTheme() {
                 currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -1399,7 +1382,7 @@
                 // 保存主题偏好
                 localStorage.setItem('editor_theme', currentTheme);
             }
-
+        
             // 加载虚拟文件系统
             function loadVirtualFileSystem() {
                 folderName.textContent = '虚拟文件系统';
@@ -1430,7 +1413,7 @@
                     showError('编辑器加载失败', '无法加载代码编辑器，请刷新页面重试');
                 });
             }
-
+        
             // 渲染文件列表
             function renderFileList(files) {
                 fileList.innerHTML = '';
@@ -1460,7 +1443,7 @@
                     
                     li.innerHTML = `
                         <i class="file-icon ${iconClass}"></i>
-                        ${fileName}
+                        <span>${fileName}</span>
                     `;
                     
                     li.addEventListener('click', () => {
@@ -1494,7 +1477,7 @@
                 }
                 
                 loadingIndicator.style.display = 'flex';
-                currentFileName.textContent = file;
+                currentFile.textContent = file;
                 
                 const tabId = `${folder}-${file}`;
                 
@@ -1558,7 +1541,7 @@
                         loadingIndicator.style.display = 'none';
                     });
             }
-
+        
             // 创建标签页
             function createTab(tabId, folder, file, content) {
                 const tab = document.createElement('div');
@@ -1599,7 +1582,7 @@
                 // 切换到新标签页
                 switchToTab(tabId);
             }
-
+        
             // 切换到指定标签页
             function switchToTab(tabId) {
                 // 更新标签页状态
@@ -1617,12 +1600,12 @@
                     language.textContent = getLanguageName(language);
                     
                     // 更新当前文件显示
-                    currentFileName.textContent = tab.file;
+                    currentFile.textContent = tab.file;
                 }
                 
                 activeTabId = tabId;
             }
-
+        
             // 更新标签页标题
             function updateTabTitle(tabId) {
                 const tab = tabs[tabId];
@@ -1637,7 +1620,7 @@
                     }
                 }
             }
-
+        
             // 关闭标签页
             function closeTab(tabId) {
                 const tab = tabs[tabId];
@@ -1664,12 +1647,12 @@
                     } else {
                         // 没有打开的标签页，清空编辑器
                         editor.setValue('');
-                        currentFileName.textContent = '选择文件查看代码';
+                        currentFile.textContent = '选择文件查看代码';
                         activeTabId = null;
                     }
                 }
             }
-
+        
             // 保存当前文件
             function saveCurrentFile() {
                 if (!activeTabId || !editor) return;
@@ -1692,7 +1675,7 @@
                     showToast('文件已保存');
                 }
             }
-
+        
             // 显示错误函数
             function showError(title, message) {
                 codeContent.innerHTML = `
@@ -1747,7 +1730,7 @@
                 
                 return languageMap[extension] || 'plaintext';
             }
-
+        
             // 获取语言名称
             function getLanguageName(languageId) {
                 const languageNames = {
@@ -1786,7 +1769,7 @@
                     toast.classList.remove('show');
                 }, 3000);
             }
-
+        
             // 处理右键菜单操作
             function handleContextMenuAction(action) {
                 switch (action) {
@@ -1804,7 +1787,7 @@
                         break;
                 }
             }
-
+        
             // 创建新文件
             function createNewFile() {
                 const fileName = prompt('请输入新文件名:', 'newfile.txt');
@@ -1834,7 +1817,7 @@
                     showToast(`已创建文件: ${fileName}`);
                 }
             }
-
+        
             // 创建新文件夹
             function createNewFolder() {
                 const folderName = prompt('请输入新文件夹名称:', 'newfolder');
@@ -1853,7 +1836,7 @@
                     refreshFileList();
                 }
             }
-
+        
             // 重命名文件
             function renameFile() {
                 // 获取当前选中的文件
@@ -1881,7 +1864,7 @@
                     }
                 }
             }
-
+        
             // 删除文件
             function deleteFile() {
                 // 获取当前选中的文件
@@ -1906,7 +1889,7 @@
                     }
                 }
             }
-
+        
             // 刷新文件列表
             function refreshFileList() {
                 if (fileParam) {
@@ -1921,7 +1904,7 @@
                 
                 showToast('文件列表已刷新');
             }
-
+        
             // 执行搜索
             function performSearch() {
                 const searchText = searchInput.value;
@@ -1969,7 +1952,7 @@
                     }
                 }
             }
-
+        
             // 执行替换
             function performReplace() {
                 const searchText = searchInput.value;
@@ -2009,7 +1992,7 @@
                     performSearch();
                 }
             }
-
+        
             // 执行全部替换
             function performReplaceAll() {
                 const searchText = searchInput.value;
@@ -2044,7 +2027,7 @@
                     showToast(`已替换 ${matches.length} 处匹配项`);
                 }
             }
-
+        
             // 显示命令面板
             function showCommandPalette() {
                 commandPalette.style.display = 'block';
@@ -2064,13 +2047,13 @@
                     commandItems[0].classList.add('active');
                 }
             }
-
+        
             // 隐藏命令面板
             function hideCommandPalette() {
                 commandPalette.style.display = 'none';
                 overlay.style.display = 'none';
             }
-
+        
             // 过滤命令
             function filterCommands() {
                 const filterText = commandInput.value.toLowerCase();
@@ -2105,7 +2088,7 @@
                     }
                 }
             }
-
+        
             // 执行命令
             function executeCommand(command) {
                 switch (command) {
@@ -2128,7 +2111,7 @@
                         break;
                 }
             }
-
+        
             // 加载保存的主题偏好
             const savedTheme = localStorage.getItem('editor_theme');
             if (savedTheme) {
@@ -2139,4 +2122,5 @@
         });
     </script>
 </body>
+
 </html>
