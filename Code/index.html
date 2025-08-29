@@ -1592,6 +1592,7 @@
                 // 更新编辑器内容
                 const tab = tabs[tabId];
                 if (editor && tab) {
+                    isProgrammaticChange = true;
                     editor.setValue(tab.content);
                     const language = getMonacoLanguage(tab.file);
                     monaco.editor.setModelLanguage(editor.getModel(), language);
@@ -1599,6 +1600,7 @@
                     
                     // 更新当前文件显示
                     currentFile.textContent = tab.file;
+                    isProgrammaticChange = false;
                 }
                 
                 activeTabId = tabId;
