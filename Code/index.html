@@ -923,16 +923,6 @@
                 <span class="command-title">切换主题</span>
                 <span class="command-desc"></span>
             </div>
-            <div class="command-item" data-command="view.toggleSidebar">
-                <i class="fas fa-bars"></i>
-                <span class="command-title">切换侧边栏</span>
-                <span class="command-desc">Ctrl+B</span>
-            </div>
-            <div class="command-item" data-command="search.find">
-                <i class="fas fa-search"></i>
-                <span class="command-title">查找</span>
-                <span class="command-desc">Ctrl+F</span>
-            </div>
         </div>
     </div>
 
@@ -1107,13 +1097,12 @@
                 toggleTheme();
             });
             
+            // activityItem移动端和桌面端适配
             function setActiveItem() {
-              // 如果已经存在 active，就不执行
               if (activityItemsJsAdd) return;
               
               activityItems.forEach(item => item.classList.remove('active'));
             
-              // 否则根据窗口大小设置默认
               if (window.innerWidth <= 768) {
                 document.querySelector('.activity-item[data-view="code"]')?.classList.add('active');
                 fileNavigator.classList.remove('active');
@@ -1203,6 +1192,7 @@
                 if (e.key === 'Escape') {
                     if (searchPanel.classList.contains('active')) {
                         searchPanel.classList.remove('active');
+                        document.querySelector('.activity-item[data-view="code"]')?.classList.add('active');
                     }
                     if (commandPalette.style.display === 'block') {
                         hideCommandPalette();
@@ -1464,7 +1454,7 @@
             function openFile(folder, file, isVirtual = false) {
                 // 再次安全检查
                 if (containsPathTraversal(folder) || containsPathTraversal(file)) {
-                    showError('安全警告', '文件路径包含非法字符，可能存在目录遍历攻击');
+                    showError('安全警告', '文件路径包含非法字符');
                     return;
                 }
                 
